@@ -2,7 +2,7 @@
 
 Dockerfiles for running the entire OpenTOSCA stack.
 
-The fastest way to get started is using `docker-compose`:
+The fastest way to get started is using [docker-compose](https://docs.docker.com/compose/):
 
     git clone https://github.com/jojow/opentosca-dockerfiles.git
     cd opentosca-dockerfiles
