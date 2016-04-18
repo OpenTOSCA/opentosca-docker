@@ -1,0 +1,44 @@
+version: '2'
+services:
+  tomcat:
+    build: ./tomcat
+    ports:
+    - "8080:8080"
+    - "8778:8778"
+    volumes:
+    - "/opt/tomcat/webapps"
+    network_mode: 'host' # required because OpenTOSCA has many localhost endpoints hard-coded
+  bps:
+    build: ./bps
+    ports:
+    - "9443:9443"
+    - "9763:9763"
+    environment:
+      BPS_HOSTNAME: docker # localhost
+    network_mode: 'host' # required because OpenTOSCA has many localhost endpoints hard-coded
+  engine:
+    build: ./engine
+    ports:
+    - "1337:1337"
+    depends_on:
+    - tomcat
+    - bps
+    network_mode: 'host' # required because OpenTOSCA has many localhost endpoints hard-coded
+  admin-ui:
+    build: ./admin-ui
+    volumes_from:
+    - tomcat
+    depends_on:
+    - tomcat
+  root-ui:
+    build: ./root-ui
+    volumes_from:
+    - tomcat
+    depends_on:
+    - tomcat
+  vinothek:
+    build: ./vinothek
+    volumes_from:
+    - tomcat
+    depends_on:
+    - tomcat
