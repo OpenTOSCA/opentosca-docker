@@ -2,6 +2,9 @@ FROM ubuntu:14.04
 
 MAINTAINER Johannes Wettinger, http://github.com/jojow
 
+ENV CONTAINER_HOST localhost
+ENV CONTAINER_PORT 1337
+
 ENV MAVEN_VERSION 3.3.9
 ENV MAVEN_URL http://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz
 
@@ -23,6 +26,9 @@ RUN wget ${MAVEN_URL} && \
 WORKDIR /opt
 RUN git clone https://github.com/OpenTOSCA/vinothek
 WORKDIR /opt/vinothek
+RUN sed -i "s/containerHost = split\[0\]/containerHost = \"$CONTAINER_HOST\"/g" src/main/java/org/opentosca/ui/vinothek/VinothekContainerClient.java
+RUN sed -i "s/containerHost = containerTmp/containerHost = \"$CONTAINER_HOST\"/g" src/main/java/org/opentosca/ui/vinothek/VinothekContainerClient.java
+RUN sed -i "s/containerPort = Integer.parseInt(split\[1\])/containerPort = $CONTAINER_PORT/g" src/main/java/org/opentosca/ui/vinothek/VinothekContainerClient.java
 RUN mvn clean package
 
 CMD cp /opt/vinothek/target/vinothek.war /opt/tomcat/webapps

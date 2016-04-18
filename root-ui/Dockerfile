@@ -2,8 +2,6 @@ FROM ubuntu:14.04
 
 MAINTAINER Johannes Wettinger, http://github.com/jojow
 
-ENV CONTAINER_HOST=localhost
-
 ENV MAVEN_VERSION 3.3.9
 ENV MAVEN_URL http://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz
 
@@ -25,7 +23,6 @@ RUN wget ${MAVEN_URL} && \
 WORKDIR /opt
 RUN git clone https://github.com/OpenTOSCA/ui-root
 WORKDIR /opt/ui-root
-RUN sed -i "s/:\/\/<%= host %>:/:\/\/$CONTAINER_HOST:/g" src/main/webapp/index.jsp
 RUN mvn clean package
 
-CMD cp /opt/ui-root/target/ROOT.war /opt/tomcat/webapps
+CMD rm -rf /opt/tomcat/webapps/ROOT* && cp /opt/ui-root/target/ROOT.war /opt/tomcat/webapps
