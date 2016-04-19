@@ -24,16 +24,17 @@ RUN wget ${MAVEN_URL} && \
 
 # Install container
 WORKDIR /opt
-RUN git clone --recursive https://github.com/OpenTOSCA/container -b ${CONTAINER_BRANCH}
+RUN git clone --recursive https://github.com/OpenTOSCA/container.git -b ${CONTAINER_BRANCH}
 WORKDIR /opt/container
 RUN git checkout ${CONTAINER_REV} && git reset --hard
 RUN mvn clean package
 #RUN mvn clean install
 RUN chmod +x /opt/container/org.opentosca.container.product/target/products/org.opentosca.container.product/linux/gtk/x86_64/OpenTOSCA
+RUN ln -s /opt/container/org.opentosca.container.product/target/products/org.opentosca.container.product/linux/gtk/x86_64/OpenTOSCA /usr/local/bin/opentosca-container
 
 EXPOSE 1337
 
-CMD [ "/opt/container/org.opentosca.container.product/target/products/org.opentosca.container.product/linux/gtk/x86_64/OpenTOSCA" ]
+CMD [ "/usr/local/bin/opentosca-container" ]
 
 #
 # docker build -t opentosca/container-engine .

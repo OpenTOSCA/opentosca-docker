@@ -6,8 +6,8 @@ ENV BPS_URL http://www.iaas.uni-stuttgart.de/OpenTOSCA/third-party/wso2bps-2.1.2
 ENV BPSRESTEXT_URL https://github.com/OpenTOSCA/OpenTOSCA.github.io/raw/master/third-party/bpel4restlight1.1.jar 
 ENV BPS_HOME /opt/bps
 ENV BPS_HOSTNAME localhost
-
 ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64/
+
 ENV DOCKERIZE_VERSION 0.2.0
 
 ENV DEBIAN_FRONTEND noninteractive

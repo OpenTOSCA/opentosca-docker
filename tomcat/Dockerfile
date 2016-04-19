@@ -4,7 +4,8 @@ MAINTAINER Johannes Wettinger, http://github.com/jojow
 
 ENV TOMCAT_VERSION 7.0.30
 ENV TOMCAT_URL http://archive.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
-ENV CATALINA_HOME /opt/tomcat
+ENV TOMCAT_HOME /opt/tomcat
+ENV CATALINA_HOME ${TOMCAT_HOME}
 ENV TOMCAT_USERNAME tcManager
 ENV TOMCAT_PASSWORD 4Syq5MQeedIDzzP6BG7b
 

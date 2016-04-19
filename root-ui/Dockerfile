@@ -21,7 +21,7 @@ RUN wget ${MAVEN_URL} && \
 
 # Install root-ui
 WORKDIR /opt
-RUN git clone https://github.com/OpenTOSCA/ui-root
+RUN git clone https://github.com/OpenTOSCA/ui-root.git
 WORKDIR /opt/ui-root
 RUN mvn clean package
 

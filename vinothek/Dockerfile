@@ -24,7 +24,7 @@ RUN wget ${MAVEN_URL} && \
 
 # Install vinothek
 WORKDIR /opt
-RUN git clone https://github.com/OpenTOSCA/vinothek
+RUN git clone https://github.com/OpenTOSCA/vinothek.git
 WORKDIR /opt/vinothek
 RUN sed -i "s/containerHost = split\[0\]/containerHost = \"$CONTAINER_HOST\"/g" src/main/java/org/opentosca/ui/vinothek/VinothekContainerClient.java
 RUN sed -i "s/containerHost = containerTmp/containerHost = \"$CONTAINER_HOST\"/g" src/main/java/org/opentosca/ui/vinothek/VinothekContainerClient.java

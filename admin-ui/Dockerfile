@@ -23,7 +23,7 @@ RUN wget ${MAVEN_URL} && \
 
 # Install admin-ui
 WORKDIR /opt
-RUN git clone https://github.com/OpenTOSCA/ui-admin
+RUN git clone https://github.com/OpenTOSCA/ui-admin.git
 WORKDIR /opt/ui-admin
 RUN sed -i "s/\"http:\/\/\" + host + \":1337\/containerapi\"/\"http:\/\/$CONTAINER_HOST:1337\/containerapi\"/g" src/main/java/org/opentosca/ui/admin/action/client/ContainerClient.java
 RUN mvn clean package

@@ -30,6 +30,7 @@ services:
     - tomcat
     depends_on:
     - tomcat
+    - engine
   root-ui:
     build: ./root-ui
     volumes_from:
@@ -42,3 +43,4 @@ services:
     - tomcat
     depends_on:
     - tomcat
+    - engine
