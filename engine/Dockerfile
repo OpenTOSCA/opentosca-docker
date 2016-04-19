@@ -35,8 +35,3 @@ RUN ln -s /opt/container/org.opentosca.container.product/target/products/org.ope
 EXPOSE 1337
 
 CMD [ "/usr/local/bin/opentosca-container" ]
-
-#
-# docker build -t opentosca/container-engine .
-# docker run -d -p 1337:1337 opentosca/container-engine
-#

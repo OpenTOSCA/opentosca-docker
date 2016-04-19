@@ -35,8 +35,3 @@ EXPOSE 8080 8778
 
 #CMD [ "/opt/tomcat/bin/catalina.sh", "run" ]
 CMD dockerize -template /opt/tomcat-users.xml.tpl:$CATALINA_HOME/conf/tomcat-users.xml $CATALINA_HOME/bin/catalina.sh run
-
-#
-# docker build -t opentosca/container-tomcat .
-# docker run -d -p 8080:8080 -p 8778:8778 opentosca/container-tomcat
-#

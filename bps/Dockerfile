@@ -35,8 +35,3 @@ EXPOSE 9443 9763
 
 #CMD [ "/opt/bps/bin/wso2server.sh" ]
 CMD dockerize -template /opt/carbon.xml.tpl:$BPS_HOME/repository/conf/carbon.xml $BPS_HOME/bin/wso2server.sh
-
-#
-# docker build -t opentosca/container-bps .
-# docker run -d -p 9443:9443 -p 9763:9763 opentosca/container-bps
-#
