@@ -8,6 +8,8 @@ ENV CONTAINER_PORT 1337
 ENV MAVEN_VERSION 3.3.9
 ENV MAVEN_URL http://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz
 
+ENV TOMCAT_HOME /opt/tomcat
+
 ENV HOME /root
 WORKDIR ${HOME}
 
@@ -31,4 +33,4 @@ RUN sed -i "s/containerHost = containerTmp/containerHost = \"$CONTAINER_HOST\"/g
 RUN sed -i "s/containerPort = Integer.parseInt(split\[1\])/containerPort = $CONTAINER_PORT/g" src/main/java/org/opentosca/ui/vinothek/VinothekContainerClient.java
 RUN mvn clean package
 
-CMD cp /opt/vinothek/target/vinothek.war /opt/tomcat/webapps
+CMD cp /opt/vinothek/target/vinothek.war $TOMCAT_HOME/webapps

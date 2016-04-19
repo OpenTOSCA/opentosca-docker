@@ -14,7 +14,7 @@ services:
     - "9443:9443"
     - "9763:9763"
     environment:
-      BPS_HOSTNAME: docker # localhost
+      BPS_HOSTNAME: docker # default: localhost
     network_mode: 'host' # required because OpenTOSCA has many localhost endpoints hard-coded
   engine:
     build: ./engine
@@ -44,3 +44,9 @@ services:
     depends_on:
     - tomcat
     - engine
+  winery:
+    build: ./winery
+    volumes_from:
+    - tomcat
+    depends_on:
+    - tomcat

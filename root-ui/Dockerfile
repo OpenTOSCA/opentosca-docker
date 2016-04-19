@@ -5,6 +5,8 @@ MAINTAINER Johannes Wettinger, http://github.com/jojow
 ENV MAVEN_VERSION 3.3.9
 ENV MAVEN_URL http://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz
 
+ENV TOMCAT_HOME /opt/tomcat
+
 ENV HOME /root
 WORKDIR ${HOME}
 
@@ -25,4 +27,4 @@ RUN git clone https://github.com/OpenTOSCA/ui-root.git
 WORKDIR /opt/ui-root
 RUN mvn clean package
 
-CMD rm -rf /opt/tomcat/webapps/ROOT* && cp /opt/ui-root/target/ROOT.war /opt/tomcat/webapps
+CMD rm -rf $TOMCAT_HOME/webapps/ROOT* && cp /opt/ui-root/target/ROOT.war $TOMCAT_HOME/webapps

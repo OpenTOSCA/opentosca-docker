@@ -7,6 +7,8 @@ ENV CONTAINER_HOST localhost
 ENV MAVEN_VERSION 3.3.9
 ENV MAVEN_URL http://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz
 
+ENV TOMCAT_HOME /opt/tomcat
+
 ENV HOME /root
 WORKDIR ${HOME}
 
@@ -28,4 +30,4 @@ WORKDIR /opt/ui-admin
 RUN sed -i "s/\"http:\/\/\" + host + \":1337\/containerapi\"/\"http:\/\/$CONTAINER_HOST:1337\/containerapi\"/g" src/main/java/org/opentosca/ui/admin/action/client/ContainerClient.java
 RUN mvn clean package
 
-CMD cp /opt/ui-admin/target/admin.war /opt/tomcat/webapps
+CMD cp /opt/ui-admin/target/admin.war $TOMCAT_HOME/webapps
