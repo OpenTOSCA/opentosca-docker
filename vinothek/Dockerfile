@@ -2,8 +2,9 @@ FROM ubuntu:14.04
 
 MAINTAINER Johannes Wettinger, http://github.com/jojow
 
-ENV CONTAINER_HOST localhost
-ENV CONTAINER_PORT 1337
+ENV ENGINE_HOSTNAME localhost
+ENV ENGINE_HOSTNAME_INTERNAL localhost
+ENV ENGINE_PORT 1337
 
 ENV MAVEN_VERSION 3.3.9
 ENV MAVEN_URL http://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz
@@ -25,12 +26,27 @@ RUN wget ${MAVEN_URL} && \
     cp -R apache-maven-${MAVEN_VERSION} /opt
 
 # Install vinothek
-WORKDIR /opt
-RUN git clone https://github.com/OpenTOSCA/vinothek.git
+RUN git clone https://github.com/OpenTOSCA/vinothek.git /opt/vinothek
 WORKDIR /opt/vinothek
-RUN sed -i "s/containerHost = split\[0\]/containerHost = \"$CONTAINER_HOST\"/g" src/main/java/org/opentosca/ui/vinothek/VinothekContainerClient.java
-RUN sed -i "s/containerHost = containerTmp/containerHost = \"$CONTAINER_HOST\"/g" src/main/java/org/opentosca/ui/vinothek/VinothekContainerClient.java
-RUN sed -i "s/containerPort = Integer.parseInt(split\[1\])/containerPort = $CONTAINER_PORT/g" src/main/java/org/opentosca/ui/vinothek/VinothekContainerClient.java
-RUN mvn clean package
+#RUN mvn clean package
 
-CMD cp /opt/vinothek/target/vinothek.war $TOMCAT_HOME/webapps
+#CMD cp /opt/vinothek/target/vinothek.war $TOMCAT_HOME/webapps
+
+
+
+# Workaround
+CMD sed -i "s/containerHost = split\[0\]/containerHost = \"$ENGINE_HOSTNAME_INTERNAL\"/g" src/main/java/org/opentosca/ui/vinothek/VinothekContainerClient.java && \
+    sed -i "s/containerHost = containerTmp/containerHost = \"$ENGINE_HOSTNAME_INTERNAL\"/g" src/main/java/org/opentosca/ui/vinothek/VinothekContainerClient.java && \
+    sed -i "s/containerPort = Integer.parseInt(split\[1\])/containerPort = $ENGINE_PORT/g" src/main/java/org/opentosca/ui/vinothek/VinothekContainerClient.java && \
+    \
+    sed -i "s/<%=client.getContainerHost()%>/$ENGINE_HOSTNAME/g" src/main/webapp/RenderedApplicationIconBox.jsp && \
+    sed -i "s/<%=client.getContainerHost()%>/$ENGINE_HOSTNAME/g" src/main/webapp/ApplicationList.jsp && \
+    sed -i "s/<%=client.getContainerHost()%>/$ENGINE_HOSTNAME/g" src/main/webapp/ApplicationElement.jsp && \
+    \
+    sed -i "s/getImageUrl())/getImageUrl()).replace(\":\/\/$ENGINE_HOSTNAME_INTERNAL\", \":\/\/$ENGINE_HOSTNAME\")/g" src/main/webapp/ApplicationElement.jsp && \
+    sed -i "s/getIconUrl())/getIconUrl()).replace(\":\/\/$ENGINE_HOSTNAME_INTERNAL\", \":\/\/$ENGINE_HOSTNAME\")/g" src/main/webapp/ApplicationElement.jsp && \
+    sed -i "s/getIconUrl())/getIconUrl()).replace(\":\/\/$ENGINE_HOSTNAME_INTERNAL\", \":\/\/$ENGINE_HOSTNAME\")/g" src/main/webapp/RenderedApplicationIconBox.jsp && \
+    \
+    mvn -q clean package && \
+    \
+    cp /opt/vinothek/target/vinothek.war $TOMCAT_HOME/webapps

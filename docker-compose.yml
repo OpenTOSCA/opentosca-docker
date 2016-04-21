@@ -44,6 +44,8 @@ services:
     depends_on:
     - tomcat
     - engine
+    environment:
+      ENGINE_HOSTNAME: 'docker' # default: localhost
   winery:
     build: ./winery
     volumes_from:

@@ -38,21 +38,20 @@ RUN . ${NVM_HOME}/nvm.sh && \
     npm install -g bower@${BOWER_VERSION}
 
 # Install winery
-WORKDIR /opt
-RUN git clone --recursive git://git.eclipse.org/gitroot/winery/org.eclipse.winery.git -b ${WINERY_BRANCH}
-WORKDIR /opt/org.eclipse.winery
+RUN git clone --recursive git://git.eclipse.org/gitroot/winery/org.eclipse.winery.git -b ${WINERY_BRANCH} /opt/winery
+WORKDIR /opt/winery
 RUN git checkout ${WINERY_REV} && git reset --hard
 
-WORKDIR /opt/org.eclipse.winery/org.eclipse.winery.model.csar.toscametafile
+WORKDIR /opt/winery/org.eclipse.winery.model.csar.toscametafile
 RUN mvn install
-WORKDIR /opt/org.eclipse.winery/org.eclipse.winery.model.selfservice
+WORKDIR /opt/winery/org.eclipse.winery.model.selfservice
 RUN mvn install
-WORKDIR /opt/org.eclipse.winery/org.eclipse.winery.model.tosca
+WORKDIR /opt/winery/org.eclipse.winery.model.tosca
 RUN mvn install
 
-WORKDIR /opt/org.eclipse.winery
+WORKDIR /opt/winery
 RUN . ${NVM_HOME}/nvm.sh && \
     mvn clean package
 
-CMD cp /opt/org.eclipse.winery/org.eclipse.winery.repository/target/winery.war $TOMCAT_HOME/webapps/ && \
-    cp /opt/org.eclipse.winery/org.eclipse.winery.topologymodeler/target/winery-topologymodeler.war $TOMCAT_HOME/webapps/
+CMD cp /opt/winery/org.eclipse.winery.repository/target/winery.war $TOMCAT_HOME/webapps/ && \
+    cp /opt/winery/org.eclipse.winery.topologymodeler/target/winery-topologymodeler.war $TOMCAT_HOME/webapps/

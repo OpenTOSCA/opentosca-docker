@@ -22,9 +22,8 @@ RUN wget ${MAVEN_URL} && \
     cp -R apache-maven-${MAVEN_VERSION} /opt
 
 # Install root-ui
-WORKDIR /opt
-RUN git clone https://github.com/OpenTOSCA/ui-root.git
-WORKDIR /opt/ui-root
+RUN git clone https://github.com/OpenTOSCA/ui-root.git /opt/root-ui
+WORKDIR /opt/root-ui
 RUN mvn clean package
 
-CMD rm -rf $TOMCAT_HOME/webapps/ROOT* && cp /opt/ui-root/target/ROOT.war $TOMCAT_HOME/webapps
+CMD rm -rf $TOMCAT_HOME/webapps/ROOT* && cp /opt/root-ui/target/ROOT.war $TOMCAT_HOME/webapps
