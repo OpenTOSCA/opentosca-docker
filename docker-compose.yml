@@ -7,6 +7,8 @@ services:
     - '8778:8778'
     volumes:
     - '/opt/tomcat/webapps'
+    environment:
+      REMOTE_HOSTNAME: 'docker' # default: localhost
     network_mode: 'host' # required because OpenTOSCA has many localhost endpoints hard-coded
   bps:
     build: ./bps
@@ -14,7 +16,7 @@ services:
     - '9443:9443'
     - '9763:9763'
     environment:
-      BPS_HOSTNAME: 'docker' # default: localhost
+      REMOTE_HOSTNAME: 'docker' # default: localhost
     network_mode: 'host' # required because OpenTOSCA has many localhost endpoints hard-coded
   engine:
     build: ./engine
@@ -44,8 +46,6 @@ services:
     depends_on:
     - tomcat
     - engine
-    environment:
-      ENGINE_HOSTNAME: 'docker' # default: localhost
   winery:
     build: ./winery
     volumes_from:

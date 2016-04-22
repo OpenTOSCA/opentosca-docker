@@ -40,7 +40,7 @@
        This is will become part of the End Point Reference of the
        services deployed on this server instance.
     -->
-    <HostName>{{ .Env.BPS_HOSTNAME }}</HostName>
+    <HostName>{{ .Env.REMOTE_HOSTNAME }}</HostName>
 
     <!--
         The URL of the back end server. This is where the admin services are hosted and

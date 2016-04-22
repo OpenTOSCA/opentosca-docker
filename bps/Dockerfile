@@ -2,10 +2,11 @@ FROM ubuntu:14.04
 
 MAINTAINER Johannes Wettinger, http://github.com/jojow
 
+ENV REMOTE_HOSTNAME localhost
+
 ENV BPS_URL http://www.iaas.uni-stuttgart.de/OpenTOSCA/third-party/wso2bps-2.1.2.zip
-ENV BPSRESTEXT_URL https://github.com/OpenTOSCA/OpenTOSCA.github.io/raw/master/third-party/bpel4restlight1.1.jar 
+ENV BPS_RESTEXT_URL https://github.com/OpenTOSCA/OpenTOSCA.github.io/raw/master/third-party/bpel4restlight1.1.jar 
 ENV BPS_HOME /opt/bps
-ENV BPS_HOSTNAME localhost
 ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64/
 
 ENV DOCKERIZE_VERSION 0.2.0
@@ -27,7 +28,7 @@ RUN wget ${BPS_URL} && \
     unzip -qo wso2bps-2.1.2.zip || true && \
     mv wso2bps-2.1.2 ${BPS_HOME} && \
     chmod +x ${BPS_HOME}/bin/wso2server.sh && \
-    wget -O ${BPS_HOME}/repository/components/lib/bpel4restlight1.1.jar ${BPSRESTEXT_URL}
+    wget -O ${BPS_HOME}/repository/components/lib/bpel4restlight1.1.jar ${BPS_RESTEXT_URL}
 
 ADD bps.xml ${BPS_HOME}/repository/conf/bps.xml
 

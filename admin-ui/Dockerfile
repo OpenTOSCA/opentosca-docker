@@ -2,9 +2,6 @@ FROM ubuntu:14.04
 
 MAINTAINER Johannes Wettinger, http://github.com/jojow
 
-ENV ENGINE_HOSTNAME localhost
-ENV ENGINE_PORT 1337
-
 ENV MAVEN_VERSION 3.3.9
 ENV MAVEN_URL http://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz
 
@@ -27,15 +24,6 @@ RUN wget ${MAVEN_URL} && \
 # Install admin-ui
 RUN git clone https://github.com/OpenTOSCA/ui-admin.git /opt/admin-ui
 WORKDIR /opt/admin-ui
-#RUN mvn clean package
+RUN mvn clean package
 
-#CMD cp /opt/admin-ui/target/admin.war $TOMCAT_HOME/webapps
-
-
-
-# Workaround
-CMD sed -i "s/\"http:\/\/\" + host + \":1337\/containerapi\"/\"http:\/\/$ENGINE_HOSTNAME:$ENGINE_PORT\/containerapi\"/g" src/main/java/org/opentosca/ui/admin/action/client/ContainerClient.java && \
-    \
-    mvn -q clean package && \
-    \
-    cp /opt/admin-ui/target/admin.war $TOMCAT_HOME/webapps
+CMD cp /opt/admin-ui/target/admin.war $TOMCAT_HOME/webapps

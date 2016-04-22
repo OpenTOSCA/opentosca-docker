@@ -2,6 +2,8 @@ FROM ubuntu:14.04
 
 MAINTAINER Johannes Wettinger, http://github.com/jojow
 
+ENV REMOTE_HOSTNAME localhost
+
 ENV TOMCAT_VERSION 7.0.30
 ENV TOMCAT_URL http://archive.apache.org/dist/tomcat/tomcat-7/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz
 ENV TOMCAT_HOME /opt/tomcat
@@ -34,4 +36,5 @@ RUN wget ${TOMCAT_URL} -O /tmp/catalina.tar.gz && \
 EXPOSE 8080 8778
 
 #CMD [ "/opt/tomcat/bin/catalina.sh", "run" ]
-CMD dockerize -template /opt/tomcat-users.xml.tpl:$TOMCAT_HOME/conf/tomcat-users.xml $TOMCAT_HOME/bin/catalina.sh run
+CMD echo "127.0.0.1 $REMOTE_HOSTNAME" >> /etc/hosts && \
+    dockerize -template /opt/tomcat-users.xml.tpl:$TOMCAT_HOME/conf/tomcat-users.xml $TOMCAT_HOME/bin/catalina.sh run
