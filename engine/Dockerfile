@@ -2,7 +2,7 @@ FROM ubuntu:14.04
 
 MAINTAINER Johannes Wettinger, http://github.com/jojow
 
-ENV ENGINE_BRANCH planbuildercleanup
+ENV ENGINE_BRANCH maven
 ENV ENGINE_REV HEAD
 
 ENV MAVEN_VERSION 3.3.9
