@@ -16,6 +16,9 @@ ENV PATH ${PATH}:${BPS_HOME}/bin
 
 ADD carbon.xml.tpl /opt/carbon.xml.tpl
 
+# Replace /dev/random by /dev/urandom to avoid blocking
+RUN rm /dev/random && ln -s /dev/urandom /dev/random
+
 # Install dependencies
 RUN apt-get update -y && \
     apt-get install -y wget unzip openjdk-7-jdk && \

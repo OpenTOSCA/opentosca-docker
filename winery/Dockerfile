@@ -21,9 +21,12 @@ WORKDIR ${HOME}
 ENV DEBIAN_FRONTEND noninteractive
 ENV PATH ${PATH}:/opt/apache-maven-${MAVEN_VERSION}/bin/
 
+# Replace /dev/random by /dev/urandom to avoid blocking
+RUN rm /dev/random && ln -s /dev/urandom /dev/random
+
 # Install dependencies
 RUN apt-get update -y && \
-    apt-get install -y git wget openjdk-7-jdk build-essential && \
+    apt-get install -y wget git openjdk-7-jdk build-essential && \
     apt-get clean -y
 RUN wget ${MAVEN_URL} && \
     tar -zxf apache-maven-${MAVEN_VERSION}-bin.tar.gz && \
