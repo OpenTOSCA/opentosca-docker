@@ -27,7 +27,7 @@ services:
     depends_on:
     - tomcat
     - bps
-    network_mode: 'host' # required because OpenTOSCA has  localhost endpoints hard-coded
+    network_mode: 'host' # required because OpenTOSCA has localhost endpoints hard-coded
   admin-ui:
     image: opentosca/admin-ui
     volumes_from:
