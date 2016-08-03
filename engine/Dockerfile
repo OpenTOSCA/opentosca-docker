@@ -30,8 +30,6 @@ ENV DOCKER_BUCKET get.docker.com
 ENV DOCKER_VERSION 1.12.0
 ENV DOCKER_SHA256 3dd07f65ea4a7b4c8829f311ab0213bca9ac551b5b24706f3e79a97e22097f8b
 ENV DOCKER_COMPOSE_VERSION 1.8.0
-ENV OPENTOSCA_DOCKER_COMPOSE_SCRIPT /usr/local/bin/docker-compose.sh
-ADD https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/run.sh /usr/local/bin/docker-compose.sh
 RUN set -x && \
     curl -fSL "https://${DOCKER_BUCKET}/builds/Linux/x86_64/docker-${DOCKER_VERSION}.tgz" -o docker.tgz && \
     echo "${DOCKER_SHA256} *docker.tgz" | sha256sum -c - && \
@@ -40,6 +38,8 @@ RUN set -x && \
     rmdir docker && \
     rm docker.tgz && \
     docker -v
+ADD https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/run.sh /usr/local/bin/docker-compose.sh
+ENV OPENTOSCA_DOCKER_COMPOSE_SCRIPT /usr/local/bin/docker-compose.sh
 
 # Install engine
 RUN git clone --recursive https://github.com/OpenTOSCA/container.git -b ${ENGINE_BRANCH} /opt/engine
