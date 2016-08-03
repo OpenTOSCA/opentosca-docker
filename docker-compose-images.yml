@@ -1,0 +1,56 @@
+version: '2'
+services:
+  tomcat:
+    image: opentosca/tomcat
+    ports:
+    - '8080:8080'
+    - '8778:8778'
+    volumes:
+    - '/opt/tomcat/webapps'
+    environment:
+      REMOTE_HOSTNAME: '${DOCKER_HOSTNAME}' # default: localhost
+    network_mode: 'host' # required because OpenTOSCA has localhost endpoints hard-coded
+  bps:
+    image: opentosca/bps
+    ports:
+    - '9443:9443'
+    - '9763:9763'
+    environment:
+      REMOTE_HOSTNAME: '${DOCKER_HOSTNAME}' # default: localhost
+    network_mode: 'host' # required because OpenTOSCA has localhost endpoints hard-coded
+  engine:
+    image: opentosca/engine
+    ports:
+    - '1337:1337'
+    volumes:
+    - '/var/run/docker.sock:/var/run/docker.sock'
+    depends_on:
+    - tomcat
+    - bps
+    network_mode: 'host' # required because OpenTOSCA has  localhost endpoints hard-coded
+  admin-ui:
+    image: opentosca/admin-ui
+    volumes_from:
+    - tomcat
+    depends_on:
+    - tomcat
+    - engine
+  root-ui:
+    image: opentosca/root-ui
+    volumes_from:
+    - tomcat
+    depends_on:
+    - tomcat
+  vinothek:
+    image: opentosca/vinothek
+    volumes_from:
+    - tomcat
+    depends_on:
+    - tomcat
+    - engine
+  winery:
+    image: opentosca/winery
+    volumes_from:
+    - tomcat
+    depends_on:
+    - tomcat
