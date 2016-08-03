@@ -9,7 +9,7 @@ services:
     - '/opt/tomcat/webapps'
     environment:
       REMOTE_HOSTNAME: '${DOCKER_HOSTNAME}' # default: localhost
-    network_mode: 'host' # required because OpenTOSCA has many localhost endpoints hard-coded
+    network_mode: 'host' # required because OpenTOSCA has localhost endpoints hard-coded
   bps:
     build: ./bps
     ports:
@@ -17,15 +17,17 @@ services:
     - '9763:9763'
     environment:
       REMOTE_HOSTNAME: '${DOCKER_HOSTNAME}' # default: localhost
-    network_mode: 'host' # required because OpenTOSCA has many localhost endpoints hard-coded
+    network_mode: 'host' # required because OpenTOSCA has localhost endpoints hard-coded
   engine:
     build: ./engine
     ports:
     - '1337:1337'
+    volumes:
+    - '/var/run/docker.sock:/var/run/docker.sock'
     depends_on:
     - tomcat
     - bps
-    network_mode: 'host' # required because OpenTOSCA has many localhost endpoints hard-coded
+    network_mode: 'host' # required because OpenTOSCA has  localhost endpoints hard-coded
   admin-ui:
     build: ./admin-ui
     volumes_from:
@@ -52,3 +54,12 @@ services:
     - tomcat
     depends_on:
     - tomcat
+
+#
+# export DOCKER_HOSTNAME=docker
+# docker-compose build --force-rm
+# docker-compose up -d --remove-orphans
+# docker-compose logs -f
+# docker-compose port SERVICE_NAME PRIVATE_PORT
+# docker-compose down -v --remove-orphans
+#
