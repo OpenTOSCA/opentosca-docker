@@ -1,0 +1,87 @@
+version: '2'
+services:
+  tomcat:
+    image: opentosca/tomcat
+    ports:
+    - '8080:8080'
+    - '8778:8778'
+    volumes:
+    - '/opt/tomcat/webapps'
+    environment:
+      REMOTE_HOSTNAME: '${DOCKER_HOSTNAME}' # default: localhost
+    network_mode: 'host' # required because OpenTOSCA has localhost endpoints hard-coded
+  bps:
+    image: opentosca/bps
+    ports:
+    - '9443:9443'
+    - '9763:9763'
+    environment:
+      REMOTE_HOSTNAME: '${DOCKER_HOSTNAME}' # default: localhost
+    network_mode: 'host' # required because OpenTOSCA has localhost endpoints hard-coded
+  engine:
+    image: opentosca/engine
+    ports:
+    - '1337:1337'
+    volumes:
+    - '/var/run/docker.sock:/var/run/docker.sock'
+    - '/endpoints'
+    environment:
+      OPENTOSCA_ENDPOINTS_JSON: '/endpoints/opentosca.json'
+    depends_on:
+    - tomcat
+    - bps
+    network_mode: 'host' # required because OpenTOSCA has localhost endpoints hard-coded
+  admin-ui:
+    image: opentosca/admin-ui
+    volumes_from:
+    - tomcat
+    depends_on:
+    - tomcat
+    - engine
+  vinothek:
+    image: opentosca/vinothek
+    volumes_from:
+    - tomcat
+    depends_on:
+    - tomcat
+    - engine
+
+  pre-runner:
+    build: ./runner/pre
+    volumes_from:
+    - engine
+    volumes:
+    - '${RUNNER_CSARS_DIR}:/csars'
+    depends_on:
+    - admin-ui
+    network_mode: 'host' # required because OpenTOSCA has localhost endpoints hard-coded
+  runner:
+    build: ${RUNNER_BUILD_DIR}
+    volumes_from:
+    - engine
+    volumes:
+    - '${RUNNER_CONTEXT_DIR}:/context'
+    - '${RUNNER_CSARS_DIR}:/csars'
+    depends_on:
+    - admin-ui
+    - vinothek
+    network_mode: 'host' # required because OpenTOSCA has localhost endpoints hard-coded
+  post-runner:
+    build: ./runner/post
+    volumes_from:
+    - engine
+    depends_on:
+    - admin-ui
+    network_mode: 'host' # required because OpenTOSCA has localhost endpoints hard-coded
+
+#
+# export DOCKER_HOSTNAME=docker
+#
+# docker-compose -f docker-compose-runner.yml pull
+# docker-compose -f docker-compose-runner.yml build --force-rm
+# docker-compose -f docker-compose-runner.yml up --remove-orphans pre-runner
+# docker-compose -f docker-compose-runner.yml up --remove-orphans runner
+# docker-compose -f docker-compose-runner.yml up --remove-orphans post-runner
+# docker-compose -f docker-compose-runner.yml logs -f
+# docker-compose -f docker-compose-runner.yml down -v --remove-orphans
+#

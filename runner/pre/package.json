@@ -1,0 +1,15 @@
+{
+  "name": "pre-runner",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "start": "node pre.js"
+  },
+  "dependencies": {
+    "async": "^2.0.1",
+    "form-data": "^1.0.0-rc4",
+    "glob": "^7.0.5",
+    "got": "^6.3.0",
+    "lodash": "^4.15.0"
+  }
+}

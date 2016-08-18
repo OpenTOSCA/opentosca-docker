@@ -5,7 +5,7 @@ MAINTAINER Johannes Wettinger, http://github.com/jojow
 ENV REMOTE_HOSTNAME localhost
 
 ENV BPS_URL http://www.iaas.uni-stuttgart.de/OpenTOSCA/third-party/wso2bps-2.1.2.zip
-ENV BPS_RESTEXT_URL https://github.com/OpenTOSCA/OpenTOSCA.github.io/raw/master/third-party/bpel4restlight1.1.jar 
+ENV BPS_RESTEXT_URL https://github.com/OpenTOSCA/OpenTOSCA.github.io/raw/gh-pages/third-party/bpel4restlight1.1.jar 
 ENV BPS_HOME /opt/bps
 ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64/
 

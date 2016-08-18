@@ -54,3 +54,12 @@ services:
     - tomcat
     depends_on:
     - tomcat
+
+#
+# export DOCKER_HOSTNAME=docker
+#
+# docker-compose -f docker-compose-images.yml pull
+# docker-compose -f docker-compose-images.yml up -d --remove-orphans
+# docker-compose -f docker-compose-images.yml logs -f
+# docker-compose -f docker-compose-images.yml down -v --remove-orphans
+#
