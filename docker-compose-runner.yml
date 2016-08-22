@@ -1,7 +1,7 @@
 version: '2'
 services:
   engine:
-    build: opentosca/engine
+    image: opentosca/engine
     ports:
     - '1337:1337' # engine
     - '8080:8080' # tomcat
@@ -12,20 +12,20 @@ services:
     - '/var/run/docker.sock:/var/run/docker.sock'
     - '/tmp:/tmp' # shared temp directory among containers
   tomcat:
-    build: opentosca/tomcat
+    image: opentosca/tomcat
     volumes:
     - '/opt/tomcat/webapps'
     environment:
       REMOTE_HOSTNAME: '${DOCKER_HOSTNAME}' # default: localhost
     network_mode: 'service:engine'
   bps:
-    build: opentosca/bps
+    image: opentosca/bps
     environment:
       REMOTE_HOSTNAME: '${DOCKER_HOSTNAME}' # default: localhost
     network_mode: 'service:engine'
 
   admin-ui:
-    build: opentosca/admin-ui
+    image: opentosca/admin-ui
     volumes_from:
     - tomcat
     depends_on:
@@ -33,13 +33,13 @@ services:
     - tomcat
     - bps
   root-ui:
-    build: opentosca/root-ui
+    image: opentosca/root-ui
     volumes_from:
     - tomcat
     depends_on:
     - tomcat
   vinothek:
-    build: opentosca/vinothek
+    image: opentosca/vinothek
     volumes_from:
     - tomcat
     depends_on:
@@ -47,7 +47,7 @@ services:
     - tomcat
     - bps
   winery:
-    build: opentosca/winery
+    image: opentosca/winery
     volumes_from:
     - tomcat
     depends_on:
