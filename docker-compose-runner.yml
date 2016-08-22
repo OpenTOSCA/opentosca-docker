@@ -1,51 +1,57 @@
 version: '2'
 services:
-  tomcat:
-    image: opentosca/tomcat
+  engine:
+    build: opentosca/engine
     ports:
-    - '8080:8080'
-    - '8778:8778'
+    - '1337:1337' # engine
+    - '8080:8080' # tomcat
+    - '8778:8778' # tomcat
+    - '9443:9443' # bps
+    - '9763:9763' # bps
+    volumes:
+    - '/var/run/docker.sock:/var/run/docker.sock'
+    - '/tmp:/tmp' # shared temp directory among containers
+  tomcat:
+    build: opentosca/tomcat
     volumes:
     - '/opt/tomcat/webapps'
     environment:
       REMOTE_HOSTNAME: '${DOCKER_HOSTNAME}' # default: localhost
-    network_mode: 'host' # required because OpenTOSCA has localhost endpoints hard-coded
+    network_mode: 'service:engine'
   bps:
-    image: opentosca/bps
-    ports:
-    - '9443:9443'
-    - '9763:9763'
+    build: opentosca/bps
     environment:
       REMOTE_HOSTNAME: '${DOCKER_HOSTNAME}' # default: localhost
-    network_mode: 'host' # required because OpenTOSCA has localhost endpoints hard-coded
-  engine:
-    image: opentosca/engine
-    ports:
-    - '1337:1337'
-    volumes:
-    - '/var/run/docker.sock:/var/run/docker.sock'
-    - '/tmp:/tmp' # shared temp directory among containers
-    - '/endpoints'
-    environment:
-      OPENTOSCA_ENDPOINTS_JSON: '/endpoints/opentosca.json'
+    network_mode: 'service:engine'
+
+  admin-ui:
+    build: opentosca/admin-ui
+    volumes_from:
+    - tomcat
     depends_on:
+    - engine
     - tomcat
     - bps
-    network_mode: 'host' # required because OpenTOSCA has localhost endpoints hard-coded
-  admin-ui:
-    image: opentosca/admin-ui
+  root-ui:
+    build: opentosca/root-ui
     volumes_from:
     - tomcat
     depends_on:
     - tomcat
-    - engine
   vinothek:
-    image: opentosca/vinothek
+    build: opentosca/vinothek
+    volumes_from:
+    - tomcat
+    depends_on:
+    - engine
+    - tomcat
+    - bps
+  winery:
+    build: opentosca/winery
     volumes_from:
     - tomcat
     depends_on:
     - tomcat
-    - engine
 
   pre-runner:
     build: ./runner/pre
@@ -55,7 +61,7 @@ services:
     - '${RUNNER_CSARS_DIR}:/csars'
     depends_on:
     - admin-ui
-    network_mode: 'host' # required because OpenTOSCA has localhost endpoints hard-coded
+    network_mode: 'service:engine'
   runner:
     build: ${RUNNER_BUILD_DIR}
     volumes_from:
@@ -66,14 +72,14 @@ services:
     depends_on:
     - admin-ui
     - vinothek
-    network_mode: 'host' # required because OpenTOSCA has localhost endpoints hard-coded
+    network_mode: 'service:engine'
   post-runner:
     build: ./runner/post
     volumes_from:
     - engine
     depends_on:
     - admin-ui
-    network_mode: 'host' # required because OpenTOSCA has localhost endpoints hard-coded
+    network_mode: 'service:engine'
 
 #
 # export DOCKER_HOSTNAME=docker

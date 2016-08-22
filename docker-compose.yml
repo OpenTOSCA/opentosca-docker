@@ -1,41 +1,37 @@
 version: '2'
 services:
+  engine:
+    build: ./engine
+    ports:
+    - '1337:1337' # engine
+    - '8080:8080' # tomcat
+    - '8778:8778' # tomcat
+    - '9443:9443' # bps
+    - '9763:9763' # bps
+    volumes:
+    - '/var/run/docker.sock:/var/run/docker.sock'
+    - '/tmp:/tmp' # shared temp directory among containers
   tomcat:
     build: ./tomcat
-    ports:
-    - '8080:8080'
-    - '8778:8778'
     volumes:
     - '/opt/tomcat/webapps'
     environment:
       REMOTE_HOSTNAME: '${DOCKER_HOSTNAME}' # default: localhost
-    network_mode: 'host' # required because OpenTOSCA has localhost endpoints hard-coded
+    network_mode: 'service:engine'
   bps:
     build: ./bps
-    ports:
-    - '9443:9443'
-    - '9763:9763'
     environment:
       REMOTE_HOSTNAME: '${DOCKER_HOSTNAME}' # default: localhost
-    network_mode: 'host' # required because OpenTOSCA has localhost endpoints hard-coded
-  engine:
-    build: ./engine
-    ports:
-    - '1337:1337'
-    volumes:
-    - '/var/run/docker.sock:/var/run/docker.sock'
-    - '/tmp:/tmp' # shared temp directory among containers
-    depends_on:
-    - tomcat
-    - bps
-    network_mode: 'host' # required because OpenTOSCA has localhost endpoints hard-coded
+    network_mode: 'service:engine'
+
   admin-ui:
     build: ./admin-ui
     volumes_from:
     - tomcat
     depends_on:
-    - tomcat
     - engine
+    - tomcat
+    - bps
   root-ui:
     build: ./root-ui
     volumes_from:
@@ -47,8 +43,9 @@ services:
     volumes_from:
     - tomcat
     depends_on:
-    - tomcat
     - engine
+    - tomcat
+    - bps
   winery:
     build: ./winery
     volumes_from:
