@@ -11,6 +11,9 @@ services:
     volumes:
     - '/var/run/docker.sock:/var/run/docker.sock'
     - '/tmp:/tmp' # shared temp directory among containers
+    - '/endpoints'
+    environment:
+      OPENTOSCA_ENDPOINTS_JSON: '/endpoints/opentosca.json'
   tomcat:
     image: opentosca/tomcat
     volumes:
