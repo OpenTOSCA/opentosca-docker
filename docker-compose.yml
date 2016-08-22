@@ -10,7 +10,9 @@ services:
     - '9763:9763' # bps
     volumes:
     - '/var/run/docker.sock:/var/run/docker.sock'
-    - '/tmp:/tmp' # shared temp directory among containers
+    - '/tmp/opentosca-docker-compose:/tmp/opentosca-docker-compose'
+    environment:
+      OPENTOSCA_DOCKER_COMPOSE_TMP: '/tmp/opentosca-docker-compose'
   tomcat:
     build: ./tomcat
     volumes:
