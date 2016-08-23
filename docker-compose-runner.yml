@@ -76,7 +76,7 @@ services:
     depends_on:
     - admin-ui
     - vinothek
-    network_mode: 'service:engine'
+    network_mode: 'host' # runner needs to access IA endpoints
   post-runner:
     build: ./runner/post
     volumes_from:
@@ -88,6 +88,7 @@ services:
 #
 # #export DOCKER_HOSTNAME=docker
 # rm -rf /tmp/opentosca-docker-compose /tmp/opentosca-docker-compose-endpoints.json
+# docker network rm ...
 #
 # docker-compose -f docker-compose-runner.yml pull
 # docker-compose -f docker-compose-runner.yml build --force-rm

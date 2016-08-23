@@ -58,6 +58,7 @@ services:
 #
 # #export DOCKER_HOSTNAME=docker
 # rm -rf /tmp/opentosca-docker-compose /tmp/opentosca-docker-compose-endpoints.json
+# docker network rm ...
 #
 # docker-compose -f docker-compose-images.yml pull
 # docker-compose -f docker-compose-images.yml up -d --remove-orphans
