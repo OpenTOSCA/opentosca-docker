@@ -15,7 +15,7 @@ const CSARS_DIR = '/csars';
 const OPENTOSCA_ENDPOINTS_JSON = '/endpoints/opentosca.json';
 const ENDPOINTS_JSON = '/endpoints/endpoints.json';
 const RETRY_DELAY = 15 * 1000;
-const DEPLOY_TIMEOUT = 2 * 60 * 1000;
+const DEPLOY_TIMEOUT = 30 * 60 * 1000;
 
 let csars = [];
 let endpoints = {};
