@@ -13,6 +13,7 @@ services:
     - '/tmp/opentosca-docker-compose:/tmp/opentosca-docker-compose'
     environment:
       OPENTOSCA_DOCKER_COMPOSE_TMP: '/tmp/opentosca-docker-compose'
+      OPENTOSCA_DOCKER_COMPOSE_NET: 'opentosca-docker-compose'
   tomcat:
     build: ./tomcat
     volumes:

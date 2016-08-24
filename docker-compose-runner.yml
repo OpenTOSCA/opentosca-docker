@@ -14,6 +14,7 @@ services:
     - '/endpoints'
     environment:
       OPENTOSCA_DOCKER_COMPOSE_TMP: '/tmp/opentosca-docker-compose'
+      OPENTOSCA_DOCKER_COMPOSE_NET: 'opentosca-docker-compose'
       OPENTOSCA_ENDPOINTS_JSON: '/endpoints/opentosca.json'
   tomcat:
     image: opentosca/tomcat
