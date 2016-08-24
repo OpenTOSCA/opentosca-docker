@@ -160,7 +160,13 @@ async.series([
         if (err) return done(err);
 
         _.forEach(_.map(content.trim().split('\n'), JSON.parse), (entry) => {
-          if (entry.deployed) endpoints[entry.endpoint] = entry;
+          if (!entry.deployed) return;
+
+          _.forEach(entry, (val, key) => {
+            if (val === 'null') entry[key] = null;
+          });
+
+          endpoints[entry.endpoint] = entry;
         });
 
         console.log('endpoints consolidated', endpoints);
