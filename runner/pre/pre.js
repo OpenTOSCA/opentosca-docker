@@ -168,7 +168,11 @@ async.series([
         if (err) return done(err);
 
         _.forEach(_.map(content.trim().split('\n'), JSON.parse), (entry) => {
-          if (!entry.deployed) return;
+          if (!entry.deployed || entry.undeployed) {
+            delete endpoints[entry.endpoint];
+
+            return;
+          }
 
           _.forEach(entry, (val, key) => {
             if (val === 'null') entry[key] = null;
