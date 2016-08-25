@@ -15,7 +15,7 @@ const CSARS_DIR = '/csars';
 const OPENTOSCA_ENDPOINTS_JSON = '/endpoints/opentosca.json';
 const ENDPOINTS_JSON = '/endpoints/endpoints.json';
 const RETRY_DELAY = 15 * 1000;
-const DEPLOY_TIMEOUT = 30 * 60 * 1000;
+const DEPLOY_TIMEOUT = 45 * 60 * 1000;
 
 let csars = [];
 let endpoints = {};
@@ -131,13 +131,21 @@ async.series([
       // path.basename(csar, '.csar')
       form.append('file', fs.createReadStream(csar));
 
+      const timer = setInterval(() => {
+        console.log('still deploying CSAR', csar);
+      }, 5 * 60 * 1000);
+
       got.post(ADMIN_UI_BASE + '/admin/uploadCSAR.action', {
         timeout: DEPLOY_TIMEOUT,
         headers: form.getHeaders(),
         body: form
       }).then(response => {
+        clearInterval(timer);
+
         done();
       }).catch(err => {
+        clearInterval(timer);
+
         if (err.response.statusCode !== 302) return done(err);
 
         console.log('CSAR deployed', csar);
@@ -198,7 +206,7 @@ async.series([
 // BODY: form: selectedCSAR=test-wrapped.csar
 
 // GET http://localhost:1337/containerapi/CSARs/moodle2.csar/Content/SELFSERVICE-Metadata/plan.input.default.xml
-// ERROR: cannot get file
+// ERROR: cannot get file ... try accept(APPLICATION_OCTET_STREAM)
 // ... read from Container API: CSARs/SELFSERVICE-Metadata/data.xml -> reference to planInputFile
 
 // GET http://localhost:8080/vinothek/ApplicationInstantiation?container=localhost&applicationId=http://localhost:1337/containerapi/CSARs/moodle2.csar/Content/SELFSERVICE-Metadata/&optionId=1&xml=%3Csoapenv%3AEnvelope+xmlns%3Asoapenv%3D%22http%3A%2F%2Fschemas.xmlsoap.org%2Fsoap%2Fenvelope%2F%22+xmlns%3Aorg%3D%22http%3A%2F%2F%2Fwww.opentosca.org%2Fexamples%2FMoodle%2FBuildPlan%22%3E%0A+++%3Csoapenv%3AHeader%2F%3E%0A+++%3Csoapenv%3ABody%3E%0A++++++%3Corg%3AMoodleBuildPlanRequest%3E%0A+++++++++%3Corg%3Aregion%3EAWS-REGION-NAME+(e.g.%2C+%22ec2.eu-west-1.amazonaws.com%22)%3C%2Forg%3Aregion%3E%0A+++++++++%3Corg%3AsecurityGroup%3EAWS-SECURITY-GROUP-NAME+(All+TCP+ports+open)%3C%2Forg%3AsecurityGroup%3E%0A+++++++++%3Corg%3AkeyPairName%3EAWS-KEY-PAIR-NAME%3C%2Forg%3AkeyPairName%3E%0A+++++++++%3Corg%3AsshKey%3E-----BEGIN+RSA+PRIVATE+KEY-----%0A...%0AAWS-SSH-KEY%0A(Ensure+that+all+line+breaks+are+conserved+and+no+white+spaces+at+the+beginning+of+the+lines+are+added!)%0A...%0Aabcdefghijklmnopqrstuvwxyz0123456789%3D%3D%0A-----END+RSA+PRIVATE+KEY-----%3C%2Forg%3AsshKey%3E%0A+++++++++%3Corg%3Aami%3EAWS-AMI-ID+(e.g.%2C+%22ami-ce7b6fba%22)%3C%2Forg%3Aami%3E%0A+++++++++%3Corg%3AinstanceType%3Et1.micro%3C%2Forg%3AinstanceType%3E%0A+++++++++%3Corg%3AaccessKey%3EAWS-ACCESS-KEY%3C%2Forg%3AaccessKey%3E%0A+++++++++%3Corg%3AsecretKey%3EAWS-SECRET-KEY%3C%2Forg%3AsecretKey%3E%0A%09%09+%3C!--+Example+for+%25CSAR-NAME%25+%3D+Moodle.csar+--%3E%0A%09%09+%3Corg%3AcsarName%3E%25CSAR-NAME%25%3C%2Forg%3AcsarName%3E%0A%09%09+%3C!--+Example+for+%25CONTAINER-API%25+%3D+http%3A%2F%2F%3CCONTAINER-HOST%3E%3A1337%2Fcontainerapi+--%3E%0A%09%09+%3Corg%3AcontainerApi%3E%25CONTAINER-API%25%3C%2Forg%3AcontainerApi%3E%0A%09%09+%3Corg%3AcallbackUrl%3E%25CALLBACK-URL%25%3C%2Forg%3AcallbackUrl%3E%0A%09%09+%3Corg%3ACorrelationID%3E%25CORRELATION-ID%25%3C%2Forg%3ACorrelationID%3E%0A++++++%3C%2Forg%3AMoodleBuildPlanRequest%3E%0A+++%3C%2Fsoapenv%3ABody%3E%0A%3C%2Fsoapenv%3AEnvelope%3E
