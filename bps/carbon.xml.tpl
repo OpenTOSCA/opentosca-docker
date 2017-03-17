@@ -18,7 +18,7 @@
 
 <!--
     This is the main server configuration file
-    
+
     ${carbon.home} represents the carbon.home system property.
     Other system properties can be specified in a similar manner.
 -->
@@ -119,7 +119,7 @@
             <!-- Port which KDC (Kerberos Key Distribution Center) server runs -->
             <KDCServerPort>8000</KDCServerPort>
         </EmbeddedLDAP>
-	
+
 	    <!-- Embedded Qpid broker ports -->
         <EmbeddedQpid>
 	    <!-- Broker TCP Port -->
@@ -145,12 +145,12 @@
         JNDI Configuration
     -->
     <JNDI>
-        <!-- 
+        <!--
              The fully qualified name of the default initial context factory
         -->
         <DefaultInitialContextFactory>org.apache.naming.java.javaURLContextFactory</DefaultInitialContextFactory>
-        <!-- 
-             The restrictions that are done to various JNDI Contexts in a Multi-tenant environment 
+        <!--
+             The restrictions that are done to various JNDI Contexts in a Multi-tenant environment
         -->
         <Restrictions>
             <!--
@@ -166,7 +166,7 @@
                     </UrlContext>
                 </UrlContexts>
             </SuperTenantOnly> -->
-            <!-- 
+            <!--
                 Contexts that are common to all tenants
             -->
             <AllTenants>
@@ -179,8 +179,8 @@
                     </UrlContext> -->
                 </UrlContexts>
             </AllTenants>
-            <!-- 
-                 All other contexts not mentioned above will be available on a per-tenant basis 
+            <!--
+                 All other contexts not mentioned above will be available on a per-tenant basis
                  (i.e. will not be shared among tenants)
             -->
         </Restrictions>
@@ -289,22 +289,22 @@
 
         <!--
             The Authenticator configuration to be used at the JVM level. We extend the
-            java.net.Authenticator to make it possible to authenticate to given servers and 
+            java.net.Authenticator to make it possible to authenticate to given servers and
             proxies.
         -->
         <NetworkAuthenticatorConfig>
-            <!-- 
+            <!--
                 Below is a sample configuration for a single authenticator. Please note that
                 all child elements are mandatory. Not having some child elements would lead to
                 exceptions at runtime.
             -->
             <!-- <Credential> -->
-                <!-- 
+                <!--
                     the pattern that would match a subset of URLs for which this authenticator
                     would be used
                 -->
                 <!-- <Pattern>regularExpression</Pattern> -->
-                <!-- 
+                <!--
                     the type of this authenticator. Allowed values are:
                     1. server
                     2. proxy
@@ -341,7 +341,7 @@
 		<Class>org.apache.rahas.impl.FSBasedRetiredTokenPersister</Class>
 		<StoragePath>${carbon.home}/repository/resources/security/tokenstore</StoragePath>
 		<InMemoryThreshold>500</InMemoryThreshold>
-		<!--Properties> 
+		<!--Properties>
 			<Property>
 				<Name>propName</Name>
 				<Value>propValue</Value>
@@ -436,7 +436,7 @@
 
        The value of the Item element is the first parameter in the query string(e.g. ?wsdl)
        which needs special processing
-       
+
        The value of the Class element is a class which implements
        org.wso2.carbon.transport.HttpGetRequestProcessor
     -->
@@ -474,7 +474,7 @@
     <ServerInitializers>
         <!--<Initializer></Initializer>-->
     </ServerInitializers>
-    
+
     <!--
     Indicates whether the Carbon Servlet is required by the system, and whether it should be
     registered
@@ -496,7 +496,7 @@
         name="pgPort"  - The port (default: 5435)
         name="pgAllowOthers"  - Allow other computers to connect
         name="trace" - Print additional trace information; for all servers
-        name="baseDir" - The base directory for H2 databases; for all servers  
+        name="baseDir" - The base directory for H2 databases; for all servers
     -->
     <!--H2DatabaseConfiguration>
         <property name="web" />
