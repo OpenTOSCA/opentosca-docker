@@ -1,69 +1,36 @@
-version: '2'
-services:
-  engine:
-    build: ./engine
-    ports:
-    - '1337:1337' # engine
-    - '8080:8080' # tomcat
-    - '8778:8778' # tomcat
-    - '9443:9443' # bps
-    - '9763:9763' # bps
-    volumes:
-    - '/var/run/docker.sock:/var/run/docker.sock'
-    - '/tmp/opentosca-docker-compose:/tmp/opentosca-docker-compose'
-    environment:
-      OPENTOSCA_DOCKER_COMPOSE_TMP: '/tmp/opentosca-docker-compose'
-      OPENTOSCA_DOCKER_COMPOSE_NET: 'opentosca-docker-compose'
-  tomcat:
-    build: ./tomcat
-    volumes:
-    - '/opt/tomcat/webapps'
-    environment:
-      REMOTE_HOSTNAME: '${DOCKER_HOSTNAME}' # default: localhost
-    network_mode: 'service:engine'
-  bps:
-    build: ./bps
-    environment:
-      REMOTE_HOSTNAME: '${DOCKER_HOSTNAME}' # default: localhost
-    network_mode: 'service:engine'
-
-  admin-ui:
-    build: ./admin-ui
-    volumes_from:
-    - tomcat
-    depends_on:
-    - engine
-    - tomcat
-    - bps
-  root-ui:
-    build: ./root-ui
-    volumes_from:
-    - tomcat
-    depends_on:
-    - tomcat
-  vinothek:
-    build: ./vinothek
-    volumes_from:
-    - tomcat
-    depends_on:
-    - engine
-    - tomcat
-    - bps
-  winery:
-    build: ./winery
-    volumes_from:
-    - tomcat
-    depends_on:
-    - tomcat
-
-#
-# #export DOCKER_HOSTNAME=docker
-# rm -rf /tmp/opentosca-docker-compose /tmp/opentosca-docker-compose-endpoints.json
-# docker network rm ...
 #
 # docker-compose build --force-rm
 # docker-compose up -d --remove-orphans
-# docker-compose logs -f
-# docker-compose port SERVICE_NAME PRIVATE_PORT
+# docker-compose logs -f [<SERVICE_NAME>]
+# docker-compose port <SERVICE_NAME> <PRIVATE_PORT>
 # docker-compose down -v --remove-orphans
 #
+version: '2'
+services:
+  opentosca-container:
+    build: ./opentosca-container
+    ports:
+      - '1337:1337' # container
+      - '8080:8080' # tomcat
+      - '9443:9443' # bps
+      - '9763:9763' # bps
+  opentosca-ui:
+    build: ./opentosca-ui
+    volumes_from:
+      - tomcat
+    depends_on:
+      - tomcat
+  winery:
+    build: ./winery
+    volumes_from:
+      - tomcat
+    depends_on:
+      - tomcat
+  tomcat:
+    build: ./tomcat
+    volumes:
+      - '/usr/local/tomcat/webapps'
+    network_mode: 'service:opentosca-container'
+  bps:
+    build: ./bps
+    network_mode: 'service:opentosca-container'
