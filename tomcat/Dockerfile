@@ -2,8 +2,8 @@ FROM tomcat:8-jre8
 
 LABEL maintainer "Johannes Wettinger <jowettinger@gmail.com>, Michael Wurster <miwurster@gmail.com>"
 
-ENV TOMCAT_USERNAME admin
-ENV TOMCAT_PASSWORD admin
+ENV TOMCAT_USERNAME tcManager
+ENV TOMCAT_PASSWORD 4Syq5MQeedIDzzP6BG7b
 
 ENV DOCKERIZE_VERSION v0.3.0
 

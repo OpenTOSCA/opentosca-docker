@@ -18,6 +18,7 @@
 <tomcat-users>
   <role rolename="admin-gui"/>
   <role rolename="manager-gui"/>
+  <role rolename="manager-script"/>
   <user username="{{ .Env.TOMCAT_USERNAME }}" password="{{ .Env.TOMCAT_PASSWORD }}"
-        roles="admin-gui,manager-gui"/>
+        roles="admin-gui,manager-gui,manager-script"/>
 </tomcat-users>
