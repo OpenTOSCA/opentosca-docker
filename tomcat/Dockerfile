@@ -13,6 +13,7 @@ RUN rm /dev/random && ln -s /dev/urandom /dev/random \
     && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
 ADD tomcat-users.xml.tpl ${CATALINA_HOME}/conf/tomcat-users.xml.tpl
+ADD server.xml ${CATALINA_HOME}/conf/server.xml
 
 EXPOSE 8080
 
