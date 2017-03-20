@@ -1,8 +1,7 @@
 #
-# docker-compose build --force-rm
+# docker-compose build --force-rm [--no-cache [<SERVICE_NAME>...]]
 # docker-compose up -d --remove-orphans
-# docker-compose logs -f [<SERVICE_NAME>]
-# docker-compose port <SERVICE_NAME> <PRIVATE_PORT>
+# docker-compose logs -f [<SERVICE_NAME>...]
 # docker-compose down -v --remove-orphans
 #
 version: '2'
