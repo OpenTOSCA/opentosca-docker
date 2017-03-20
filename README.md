@@ -11,7 +11,7 @@ The fastest way to get started is using [Docker Compose](https://docs.docker.com
 Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost:8080/opentosca).
 
 | OpenTOSCA Component | URL |
-| ------------------- | --- |
+|:------------------- |:--- |
 | OpenTOSCA UI | http://localhost:8080/opentosca |
 | OpenTOSCA Container API | http://localhost:1337/containerapi |
 | Winery | http://localhost:8080/winery |
