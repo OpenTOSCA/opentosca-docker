@@ -6,15 +6,6 @@
 #
 version: '2'
 services:
-  opentosca-container:
-    build: ./opentosca-container
-    network_mode: 'service:tomcat'
-  opentosca-ui:
-    build: ./opentosca-ui
-    volumes_from:
-      - tomcat
-    depends_on:
-      - tomcat
   winery:
     build: ./winery
     volumes_from:
@@ -24,7 +15,6 @@ services:
   tomcat:
     build: ./tomcat
     ports:
-      - '1337:1337' # container (http)
       - '8080:8080' # tomcat (http)
       - '9443:9443' # bps (https)
       - '9763:9763' # bps (http)
