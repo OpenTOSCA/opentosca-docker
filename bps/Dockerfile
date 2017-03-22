@@ -6,7 +6,7 @@ ENV REMOTE_HOSTNAME localhost
 
 ENV BPS_HOME /opt/bps
 ENV BPS_DOWNLOAD_URL http://www.iaas.uni-stuttgart.de/OpenTOSCA/third-party/wso2bps-2.1.2.zip
-ENV BPEL4RESTLIGHT_DOWNLOAD_URL https://github.com/OpenTOSCA/OpenTOSCA.github.io/raw/gh-pages/third-party/bpel4restlight1.1.1.jar
+ENV BPEL4RESTLIGHT_DOWNLOAD_URL https://github.com/OpenTOSCA/OpenTOSCA.github.io/raw/master/third-party/bpel4restlight1.1.1.jar
 
 ENV DOCKERIZE_VERSION v0.3.0
 
