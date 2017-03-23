@@ -1,12 +1,12 @@
-FROM openjdk:7
+FROM openjdk:8
 
 LABEL maintainer "Johannes Wettinger <jowettinger@gmail.com>, Michael Wurster <miwurster@gmail.com>"
 
 ENV REMOTE_HOSTNAME localhost
 
 ENV BPS_HOME /opt/bps
-ENV BPS_DOWNLOAD_URL http://www.iaas.uni-stuttgart.de/OpenTOSCA/third-party/wso2bps-2.1.2.zip
-ENV BPEL4RESTLIGHT_DOWNLOAD_URL https://github.com/OpenTOSCA/OpenTOSCA.github.io/raw/master/third-party/bpel4restlight1.1.1.jar
+ENV BPS_DOWNLOAD_URL http://files.opentosca.org/third-party/master/wso2bps-2.1.2-java8.zip
+ENV BPEL4RESTLIGHT_DOWNLOAD_URL http://files.opentosca.org/third-party/master/bpel4restlight1.1.1.jar
 
 ENV DOCKERIZE_VERSION v0.3.0
 
@@ -20,12 +20,11 @@ RUN apt-get update -y \
     && apt-get clean -y
 
 WORKDIR /tmp
-RUN wget ${BPS_DOWNLOAD_URL} \
+RUN wget -O wso2bps-2.1.2.zip ${BPS_DOWNLOAD_URL} \
     && unzip -qo wso2bps-2.1.2.zip -d /opt || true \
     && mv -T /opt/wso2bps-2.1.2 ${BPS_HOME} \
     && chmod +x ${BPS_HOME}/bin/wso2server.sh \
     && wget -O ${BPS_HOME}/repository/components/lib/bpel4restlight1.1.1.jar ${BPEL4RESTLIGHT_DOWNLOAD_URL} \
-    && rm ${BPS_HOME}/repository/components/lib/bpel4restlight1.1.jar \
     && rm wso2bps-2.1.2.zip
 
 ADD carbon.xml.tpl /opt/carbon.xml.tpl
