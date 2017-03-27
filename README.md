@@ -19,3 +19,19 @@ Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost:80
 | Apache Tomcat | http://localhost:8080 |
 
 Have fun!
+
+---
+
+### Tipps and Tricks
+
+```bash
+# Shutdown services and remove container
+docker-compose down -v --remove-orphans
+
+# Re-build OpenTOSCA components
+docker-compose build --force-rm --no-cache opentosca-container opentosca-ui winery
+
+# Display useful logs
+docker-compose logs -f opentosca-container
+docker-compose logs -f tomcat bps
+```
