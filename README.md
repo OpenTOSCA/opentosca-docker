@@ -1,19 +1,37 @@
-# opentosca-dockerfiles
+# Dockerized OpenTOSCA Environment
 
-Dockerfiles for running the entire OpenTOSCA stack.
+> Docker files for running the entire OpenTOSCA stack.
 
-The fastest way to get started is using [docker-compose](https://docs.docker.com/compose/):
+The fastest way to get started is using [Docker Compose](https://docs.docker.com/compose/):
 
-    git clone https://github.com/jojow/opentosca-dockerfiles.git
-    cd opentosca-dockerfiles
+    git clone https://github.com/OpenTOSCA/opentosca-dockerfiles.git && cd opentosca-dockerfiles
+    docker-compose build
     docker-compose up
 
-Wait a few seconds, then open:
+Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost:8080/opentosca).
 
-    http://<HOST>:8080
-
-You can also run a subset of the OpenTOSCA stack, for example, if you only need Winery:
-
-    docker-compose up winery
+| OpenTOSCA Component | URL |
+|:------------------- |:--- |
+| OpenTOSCA UI | http://localhost:8080/opentosca |
+| OpenTOSCA Container API | http://localhost:1337/containerapi |
+| Winery | http://localhost:8080/winery |
+| WSO2 BPS Engine | http://localhost:9763 |
+| Apache Tomcat | http://localhost:8080 |
 
 Have fun!
+
+---
+
+### Tipps and Tricks
+
+```bash
+# Shutdown services and remove container
+docker-compose down -v --remove-orphans
+
+# Re-build OpenTOSCA components
+docker-compose build --force-rm --no-cache opentosca-container opentosca-ui winery
+
+# Display useful logs
+docker-compose logs -f opentosca-container
+docker-compose logs -f tomcat bps
+```

@@ -1,41 +1,36 @@
-FROM ubuntu:14.04
+FROM openjdk:8
 
-MAINTAINER Johannes Wettinger, http://github.com/jojow
+LABEL maintainer "Johannes Wettinger <jowettinger@gmail.com>, Michael Wurster <miwurster@gmail.com>"
+
+ARG BPS_HOME=/opt/bps
+ARG BPS_DOWNLOAD_URL=http://files.opentosca.org/third-party/master/wso2bps-2.1.2-java8.zip
+ARG BPEL4RESTLIGHT_DOWNLOAD_URL=http://files.opentosca.org/third-party/master/bpel4restlight1.1.1.jar
+
+ARG DOCKERIZE_VERSION=v0.3.0
 
 ENV REMOTE_HOSTNAME localhost
 
-ENV BPS_URL http://www.iaas.uni-stuttgart.de/OpenTOSCA/third-party/wso2bps-2.1.2.zip
-ENV BPS_RESTEXT_URL https://github.com/OpenTOSCA/OpenTOSCA.github.io/raw/gh-pages/third-party/bpel4restlight1.1.jar 
-ENV BPS_HOME /opt/bps
-ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64/
+RUN rm /dev/random && ln -s /dev/urandom /dev/random \
+    && wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+    && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+    && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
-ENV DOCKERIZE_VERSION 0.2.0
+RUN apt-get update -y \
+    && apt-get install -y unzip \
+    && apt-get clean -y
 
-ENV DEBIAN_FRONTEND noninteractive
-ENV PATH ${PATH}:${BPS_HOME}/bin
+WORKDIR /tmp
+RUN wget -O wso2bps-2.1.2.zip ${BPS_DOWNLOAD_URL} \
+    && unzip -qo wso2bps-2.1.2.zip -d /opt || true \
+    && mv -T /opt/wso2bps-2.1.2 ${BPS_HOME} \
+    && chmod +x ${BPS_HOME}/bin/wso2server.sh \
+    && wget -O ${BPS_HOME}/repository/components/lib/bpel4restlight1.1.1.jar ${BPEL4RESTLIGHT_DOWNLOAD_URL} \
+    && rm wso2bps-2.1.2.zip
 
 ADD carbon.xml.tpl /opt/carbon.xml.tpl
 
-# Replace /dev/random by /dev/urandom to avoid blocking
-RUN rm /dev/random && ln -s /dev/urandom /dev/random
-
-# Install dependencies
-RUN apt-get update -y && \
-    apt-get install -y wget unzip openjdk-7-jdk && \
-    apt-get clean -y
-RUN wget https://github.com/jwilder/dockerize/releases/download/v${DOCKERIZE_VERSION}/dockerize-linux-amd64-v${DOCKERIZE_VERSION}.tar.gz && \
-    tar -C /usr/local/bin -xzvf dockerize-linux-amd64-v${DOCKERIZE_VERSION}.tar.gz
-
-# Install WSO2 BPS and REST extension
-RUN wget ${BPS_URL} && \
-    unzip -qo wso2bps-2.1.2.zip || true && \
-    mv wso2bps-2.1.2 ${BPS_HOME} && \
-    chmod +x ${BPS_HOME}/bin/wso2server.sh && \
-    wget -O ${BPS_HOME}/repository/components/lib/bpel4restlight1.1.jar ${BPS_RESTEXT_URL}
-
-ADD bps.xml ${BPS_HOME}/repository/conf/bps.xml
-
 EXPOSE 9443 9763
 
-#CMD [ "/opt/bps/bin/wso2server.sh" ]
-CMD dockerize -template /opt/carbon.xml.tpl:$BPS_HOME/repository/conf/carbon.xml $BPS_HOME/bin/wso2server.sh
+WORKDIR ${BPS_HOME}
+CMD dockerize -template /opt/carbon.xml.tpl:${BPS_HOME}/repository/conf/carbon.xml \
+    ${BPS_HOME}/bin/wso2server.sh

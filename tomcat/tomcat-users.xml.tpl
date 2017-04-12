@@ -16,26 +16,9 @@
   limitations under the License.
 -->
 <tomcat-users>
-<!--
-  NOTE:  By default, no user is included in the "manager-gui" role required
-  to operate the "/manager/html" web application.  If you wish to use this app,
-  you must define such a user - the username and password are arbitrary.
--->
-<!--
-  NOTE:  The sample user and role entries below are wrapped in a comment
-  and thus are ignored when reading this file. Do not forget to remove
-  <!.. ..> that surrounds them.
--->
-
-    <role rolename="manager-gui"/>
-    <role rolename="manager-script"/>
-    <user username="{{ .Env.TOMCAT_USERNAME }}" password="{{ .Env.TOMCAT_PASSWORD }}" roles="manager-gui,manager-script"/>
-
-<!--
-  <role rolename="tomcat"/>
-  <role rolename="role1"/>
-  <user username="tomcat" password="tomcat" roles="tomcat"/>
-  <user username="both" password="tomcat" roles="tomcat,role1"/>
-  <user username="role1" password="tomcat" roles="role1"/>
--->
+  <role rolename="admin-gui"/>
+  <role rolename="manager-gui"/>
+  <role rolename="manager-script"/>
+  <user username="{{ .Env.TOMCAT_USERNAME }}" password="{{ .Env.TOMCAT_PASSWORD }}"
+        roles="admin-gui,manager-gui,manager-script"/>
 </tomcat-users>
