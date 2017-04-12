@@ -8,6 +8,8 @@ ARG BPEL4RESTLIGHT_DOWNLOAD_URL=http://files.opentosca.org/third-party/master/bp
 
 ARG DOCKERIZE_VERSION=v0.3.0
 
+ENV BPS_HOME /opt/bps
+
 ENV REMOTE_HOSTNAME localhost
 
 RUN rm /dev/random && ln -s /dev/urandom /dev/random \
