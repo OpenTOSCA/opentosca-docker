@@ -2,13 +2,13 @@ FROM openjdk:8
 
 LABEL maintainer "Johannes Wettinger <jowettinger@gmail.com>, Michael Wurster <miwurster@gmail.com>"
 
+ARG BPS_HOME=/opt/bps
+ARG BPS_DOWNLOAD_URL=http://files.opentosca.org/third-party/master/wso2bps-2.1.2-java8.zip
+ARG BPEL4RESTLIGHT_DOWNLOAD_URL=http://files.opentosca.org/third-party/master/bpel4restlight1.1.1.jar
+
+ARG DOCKERIZE_VERSION=v0.3.0
+
 ENV REMOTE_HOSTNAME localhost
-
-ENV BPS_HOME /opt/bps
-ENV BPS_DOWNLOAD_URL http://files.opentosca.org/third-party/master/wso2bps-2.1.2-java8.zip
-ENV BPEL4RESTLIGHT_DOWNLOAD_URL http://files.opentosca.org/third-party/master/bpel4restlight1.1.1.jar
-
-ENV DOCKERIZE_VERSION v0.3.0
 
 RUN rm /dev/random && ln -s /dev/urandom /dev/random \
     && wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \

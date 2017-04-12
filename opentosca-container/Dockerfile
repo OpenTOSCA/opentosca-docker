@@ -2,8 +2,8 @@ FROM maven:3-jdk-8
 
 LABEL maintainer "Johannes Wettinger <jowettinger@gmail.com>, Michael Wurster <miwurster@gmail.com>"
 
-ENV OPENTOSCA_CONTAINER_BRANCH master
-ENV OPENTOSCA_CONTAINER_REV HEAD
+ARG OPENTOSCA_CONTAINER_BRANCH=master
+ARG OPENTOSCA_CONTAINER_REV=HEAD
 
 RUN rm /dev/random && ln -s /dev/urandom /dev/random
 

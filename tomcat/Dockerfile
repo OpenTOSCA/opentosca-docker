@@ -2,10 +2,10 @@ FROM tomcat:8-jre8
 
 LABEL maintainer "Johannes Wettinger <jowettinger@gmail.com>, Michael Wurster <miwurster@gmail.com>"
 
+ARG DOCKERIZE_VERSION=v0.3.0
+
 ENV TOMCAT_USERNAME tcManager
 ENV TOMCAT_PASSWORD 4Syq5MQeedIDzzP6BG7b
-
-ENV DOCKERIZE_VERSION v0.3.0
 
 RUN rm /dev/random && ln -s /dev/urandom /dev/random \
     && wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \

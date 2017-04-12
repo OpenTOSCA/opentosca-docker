@@ -6,21 +6,6 @@
 #
 version: '2'
 services:
-  opentosca-container:
-    build: ./opentosca-container
-    network_mode: 'service:tomcat'
-  opentosca-ui:
-    build: ./opentosca-ui
-    volumes_from:
-      - tomcat
-    depends_on:
-      - tomcat
-  winery:
-    build: ./winery
-    volumes_from:
-      - tomcat
-    depends_on:
-      - tomcat
   tomcat:
     build: ./tomcat
     ports:
@@ -28,8 +13,40 @@ services:
       - '8080:8080' # tomcat (http)
       - '9443:9443' # bps (https)
       - '9763:9763' # bps (http)
+      # - '9975:2375' # dind (tcp)
     volumes:
       - '/usr/local/tomcat/webapps'
+    environment:
+      - TOMCAT_USERNAME=tcManager
+      - TOMCAT_PASSWORD=4Syq5MQeedIDzzP6BG7b
+  opentosca-container:
+    build:
+      context: ./opentosca-container
+      args:
+        - OPENTOSCA_CONTAINER_BRANCH=master
+    network_mode: 'service:tomcat'
   bps:
     build: ./bps
     network_mode: 'service:tomcat'
+  dind:
+    image: docker:dind
+    privileged: true
+    network_mode: 'service:tomcat'
+  opentosca-ui:
+    build:
+      context: ./opentosca-ui
+      args:
+        - OPENTOSCA_UI_BRANCH=master
+    volumes_from:
+      - tomcat
+    depends_on:
+      - tomcat
+  winery:
+    build:
+      context: ./winery
+      args:
+        - WINERY_BRANCH=master
+    volumes_from:
+      - tomcat
+    depends_on:
+      - tomcat

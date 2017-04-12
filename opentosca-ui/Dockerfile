@@ -2,8 +2,8 @@ FROM maven:3-jdk-8
 
 LABEL maintainer "Michael Wurster <miwurster@gmail.com>"
 
-ENV OPENTOSCA_UI_BRANCH master
-ENV OPENTOSCA_UI_REV HEAD
+ARG OPENTOSCA_UI_BRANCH=master
+ARG OPENTOSCA_UI_REV=HEAD
 
 ENV CATALINA_HOME /usr/local/tomcat
 

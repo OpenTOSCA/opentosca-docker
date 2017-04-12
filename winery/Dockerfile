@@ -2,8 +2,8 @@ FROM maven:3-jdk-8
 
 LABEL maintainer "Johannes Wettinger <jowettinger@gmail.com>, Michael Wurster <miwurster@gmail.com>"
 
-ENV WINERY_BRANCH master
-ENV WINERY_REV HEAD
+ARG WINERY_BRANCH=master
+ARG WINERY_REV=HEAD
 
 ENV CATALINA_HOME /usr/local/tomcat
 
