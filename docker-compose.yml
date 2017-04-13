@@ -29,9 +29,12 @@ services:
     build: ./bps
     network_mode: 'service:tomcat'
   dind:
-    image: docker:dind
+    image: jpetazzo/dind:latest
     privileged: true
     network_mode: 'service:tomcat'
+    environment:
+      - PORT=2375
+      - DOCKER_DAEMON_ARGS=--dns 8.8.8.8 --dns 8.8.4.4 -D
   opentosca-ui:
     build:
       context: ./opentosca-ui

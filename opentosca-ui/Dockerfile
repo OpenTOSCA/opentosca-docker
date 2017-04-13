@@ -9,9 +9,9 @@ ENV CATALINA_HOME /usr/local/tomcat
 
 RUN rm /dev/random && ln -s /dev/urandom /dev/random \
     && curl -sL https://deb.nodesource.com/setup_6.x | bash - \
-    && apt-get update -y \
-    && apt-get install -y nodejs \
-    && apt-get clean -y
+    && apt-get update -qq && apt-get install -qqy \
+        nodejs \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /opt/opentosca-ui
 RUN git clone --recursive https://github.com/OpenTOSCA/ui.git -b ${OPENTOSCA_UI_BRANCH} /opt/opentosca-ui \

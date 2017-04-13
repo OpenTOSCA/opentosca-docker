@@ -17,9 +17,9 @@ RUN rm /dev/random && ln -s /dev/urandom /dev/random \
     && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
     && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
-RUN apt-get update -y \
-    && apt-get install -y unzip \
-    && apt-get clean -y
+RUN apt-get update -qq && apt-get install -qqy \
+        unzip \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /tmp
 RUN wget -O wso2bps-2.1.2.zip ${BPS_DOWNLOAD_URL} \
