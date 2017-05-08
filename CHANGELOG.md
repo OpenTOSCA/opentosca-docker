@@ -23,5 +23,5 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## 0.0.1 - 2016-08-25
 Initial submission by @jojow: https://github.com/jojow/opentosca-dockerfiles
 
-[Unreleased]: https://github.com/OpenTOSCA/opentosca-dockerfiles/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/OpenTOSCA/opentosca-dockerfiles/compare/v0.0.2...HEAD
 [0.0.2]: https://github.com/jojow/opentosca-dockerfiles/compare/master...OpenTOSCA:v0.0.2
