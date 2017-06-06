@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Added
 - Added a Changelog file based on the format of [Keep a Changelog](http://keepachangelog.com/).
 - Added build arg `GIT_REPO_URL` to configure the used Git repository.
+- Serving OpenTOSCA UI in a separate process (Tomcat).
 
 ## [0.0.2] - 2017-05-08
 ### Added

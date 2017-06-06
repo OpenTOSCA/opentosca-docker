@@ -17,4 +17,4 @@ WORKDIR /opt/opentosca-ui
 RUN git clone --recursive --depth=1 ${GIT_REPO_URL} -b ${GIT_BRANCH} /opt/opentosca-ui \
     && mvn package
 
-CMD cp /opt/opentosca-ui/build/target/opentosca.war ${CATALINA_HOME}/webapps
+CMD java -jar /opt/opentosca-ui/build/target/opentosca.war --server.port=8088

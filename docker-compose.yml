@@ -42,10 +42,8 @@ services:
       context: ./opentosca-ui
       args:
         - GIT_BRANCH=master
-    volumes_from:
-      - tomcat
-    depends_on:
-      - tomcat
+    ports:
+      - '8088:8088'
   winery:
     build:
       context: ./winery
