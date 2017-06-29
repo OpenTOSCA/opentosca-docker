@@ -7,8 +7,9 @@ ARG GIT_BRANCH=master
 
 ENV CATALINA_HOME /usr/local/tomcat
 
-WORKDIR /opt/bpmn4tosca
+WORKDIR /opt/
 RUN git clone --recursive --depth=1 ${GIT_REPO_URL} -b ${GIT_BRANCH} /opt/bpmn4tosca \
+    && cd /opt/bpmn4tosca \
     && npm install -g grunt-cli \
     && npm install && grunt
 

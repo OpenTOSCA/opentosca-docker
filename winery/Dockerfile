@@ -22,13 +22,14 @@ RUN rm /dev/random && ln -s /dev/urandom /dev/random \
     && echo '{ "allow_root": true }' > /root/.bowerrc \
     && npm install -g bower
 
-WORKDIR /opt/${NAME}
-RUN git clone --recursive --depth=1 ${GIT_REPO_URL} -b ${GIT_BRANCH} /opt/${NAME} \
+WORKDIR /opt/
+RUN git clone --recursive --depth=1 ${GIT_REPO_URL} -b ${GIT_BRANCH} /opt/${NAME} && cd ${NAME} \
     && mvn package
 
 # Injecting base URL for BPMN4TOSCA Modeler
 RUN mkdir -p /tmp/${NAME} \
     && unzip /opt/${NAME}/org.eclipse.winery.repository/target/winery.war -d /tmp/${NAME} \
+    && unzip /opt/${NAME}/org.eclipse.winery.topologymodeler/target/winery-topologymodeler.war -d /tmp/winery-topologymodeler \
     && sed -i "sXbpmn4toscamodelerBaseURI=.*Xbpmn4toscamodelerBaseURI=http://${REMOTE_HOSTNAME}:8080/bpmn4toscaX" /tmp/${NAME}/WEB-INF/classes/winery.properties \
     && sed -i "sX#repositoryPath=.*XrepositoryPath=/opt/${NAME}-csar-repositoryX" /tmp/${NAME}/WEB-INF/classes/winery.properties
 
@@ -46,5 +47,5 @@ RUN if [ -z ${CSAR_GIT_REPO_USER} ] && [ ! -z ${CSAR_GIT_REPO_HOST} ] ; then \
     fi
 
 CMD cp -r /tmp/${NAME} ${CATALINA_HOME}/webapps/ && \
-    cp /opt/${NAME}/org.eclipse.winery.topologymodeler/target/winery-topologymodeler.war ${CATALINA_HOME}/webapps && \
-    cp -r /tmp/${NAME}-csar-repository /opt/ 
+    cp -r /tmp/winery-topologymodeler ${CATALINA_HOME}/webapps/ && \
+    if [ ! -z ${CSAR_GIT_REPO_HOST} ] ; then cp -r /tmp/${NAME}-csar-repository / ; fi 
