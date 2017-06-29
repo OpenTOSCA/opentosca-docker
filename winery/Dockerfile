@@ -30,20 +30,21 @@ RUN git clone --recursive --depth=1 ${GIT_REPO_URL} -b ${GIT_BRANCH} /opt/${NAME
 RUN mkdir -p /tmp/${NAME} \
     && unzip /opt/${NAME}/org.eclipse.winery.repository/target/winery.war -d /tmp/${NAME} \
     && sed -i "sXbpmn4toscamodelerBaseURI=.*Xbpmn4toscamodelerBaseURI=http://${REMOTE_HOSTNAME}:8080/bpmn4toscaX" /tmp/${NAME}/WEB-INF/classes/winery.properties \
-    && sed -i "sX#repositoryPath=.*XrepositoryPath=/opt/${NAME}-repositoryX" /tmp/${NAME}/WEB-INF/classes/winery.properties
+    && sed -i "sX#repositoryPath=.*XrepositoryPath=/opt/${NAME}-csar-repositoryX" /tmp/${NAME}/WEB-INF/classes/winery.properties
 
 # fetch (if configured) csar repository
-RUN if [ ! -z ${CSAR_GIT_REPO_USER} -a ! -z ${CSAR_GIT_REPO_HOST} ] ; then \
-       git clone --recursive https://${CSAR_GIT_REPO_USER}:${CSAR_GIT_REPO_PW}@${CSAR_GIT_REPO_HOST} /opt/${NAME}-csar-repository && cp -r /opt/${NAME}-csar-repository /opt/${NAME}-repository/ ;\
+RUN if [ ! -z ${CSAR_GIT_REPO_USER} ] && [ ! -z ${CSAR_GIT_REPO_HOST} ] ; then \
+       git clone --recursive https://${CSAR_GIT_REPO_USER}:${CSAR_GIT_REPO_PW}@${CSAR_GIT_REPO_HOST} /tmp/${NAME}-csar-repository ;\
     else \
       echo "No private CSAR Repository specified" ; \    
     fi
 
-RUN if [ -z ${CSAR_GIT_REPO_USER} -a ! -z ${CSAR_GIT_REPO_HOST} ] ; then \
-       git clone --recursive ${CSAR_GIT_REPO_HOST} /opt/${NAME}-csar-repository && cp -r /opt/${NAME}-csar-repository /opt/${NAME}-repository/ ;\
+RUN if [ -z ${CSAR_GIT_REPO_USER} ] && [ ! -z ${CSAR_GIT_REPO_HOST} ] ; then \
+       git clone --recursive ${CSAR_GIT_REPO_HOST} /tmp/${NAME}-csar-repository ; \
     else \
       echo "No public CSAR Repository specified" ; \    
     fi
 
 CMD cp -r /tmp/${NAME} ${CATALINA_HOME}/webapps/ && \
-    cp /opt/${NAME}/org.eclipse.winery.topologymodeler/target/winery-topologymodeler.war ${CATALINA_HOME}/webapps
+    cp /opt/${NAME}/org.eclipse.winery.topologymodeler/target/winery-topologymodeler.war ${CATALINA_HOME}/webapps && \
+    cp -r /tmp/${NAME}-csar-repository /opt/ 
