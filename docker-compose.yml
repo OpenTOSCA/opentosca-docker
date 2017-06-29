@@ -17,34 +17,35 @@ services:
       - '9990-9999:9990-9999' # dind
     volumes:
       - '/usr/local/tomcat/webapps'
+      - '/opt/'
     environment:
       - TOMCAT_USERNAME=tcManager
       - TOMCAT_PASSWORD=4Syq5MQeedIDzzP6BG7b
-#  opentosca-container:
-#    build:
-#      context: ./opentosca-container
-#      args:
-#        - GIT_BRANCH=master
-#    network_mode: 'service:tomcat'
-#  bps:
-#    build: ./bps
-#    network_mode: 'service:tomcat'
-#  dind:
-#    image: jpetazzo/dind:latest
-#    privileged: true
-#    network_mode: 'service:tomcat'
-#    environment:
-#      - PORT=2375
-#      - DOCKER_DAEMON_ARGS=--dns 8.8.8.8 --dns 8.8.4.4 -D
-#      # Internal DNS settings to run it inside the univeristy network
-#     # - DOCKER_DAEMON_ARGS=--dns 129.69.211.1 --dns 129.69.215.5 -D
-#  opentosca-ui:
-#    build:
-#      context: ./opentosca-ui
-#      args:
-#        - GIT_BRANCH=master
-#    ports:
-#      - '8088:8088'
+  opentosca-container:
+    build:
+      context: ./opentosca-container
+      args:
+        - GIT_BRANCH=master
+    network_mode: 'service:tomcat'
+  bps:
+    build: ./bps
+    network_mode: 'service:tomcat'
+  dind:
+    image: jpetazzo/dind:latest
+    privileged: true
+    network_mode: 'service:tomcat'
+    environment:
+      - PORT=2375
+      - DOCKER_DAEMON_ARGS=--dns 8.8.8.8 --dns 8.8.4.4 -D
+      # Internal DNS settings to run it inside the univeristy network
+      # - DOCKER_DAEMON_ARGS=--dns 129.69.211.1 --dns 129.69.215.5 -D
+  opentosca-ui:
+    build:
+      context: ./opentosca-ui
+      args:
+        - GIT_BRANCH=master
+    ports:
+      - '8088:8088'
   containerrepository:
     build:
       context: ./winery
