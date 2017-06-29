@@ -2,7 +2,7 @@ FROM maven:3-jdk-8
 
 LABEL maintainer "Johannes Wettinger <jowettinger@gmail.com>, Michael Wurster <miwurster@gmail.com>"
 
-ARG GIT_REPO_URL=https://github.com/eclipse/winery.git
+ARG GIT_REPO_URL=https://github.com/OpenTOSCA/winery.git
 ARG GIT_BRANCH=master
 ARG NAME=winery
 ARG CSAR_GIT_REPO_HOST
@@ -37,15 +37,15 @@ RUN mkdir -p /tmp/${NAME} \
 RUN if [ ! -z ${CSAR_GIT_REPO_USER} ] && [ ! -z ${CSAR_GIT_REPO_HOST} ] ; then \
        git clone --recursive https://${CSAR_GIT_REPO_USER}:${CSAR_GIT_REPO_PW}@${CSAR_GIT_REPO_HOST} /tmp/${NAME}-csar-repository ;\
     else \
-      echo "No private CSAR Repository specified" ; \    
+      echo "No private CSAR Repository specified" ; \
     fi
 
 RUN if [ -z ${CSAR_GIT_REPO_USER} ] && [ ! -z ${CSAR_GIT_REPO_HOST} ] ; then \
        git clone --recursive ${CSAR_GIT_REPO_HOST} /tmp/${NAME}-csar-repository ; \
     else \
-      echo "No public CSAR Repository specified" ; \    
+      echo "No public CSAR Repository specified" ; \
     fi
 
 CMD cp -r /tmp/${NAME} ${CATALINA_HOME}/webapps/ && \
     cp -r /tmp/winery-topologymodeler ${CATALINA_HOME}/webapps/ && \
-    if [ ! -z ${CSAR_GIT_REPO_HOST} ] ; then cp -r /tmp/${NAME}-csar-repository / ; fi 
+    if [ ! -z ${CSAR_GIT_REPO_HOST} ] ; then cp -r /tmp/${NAME}-csar-repository / ; fi
