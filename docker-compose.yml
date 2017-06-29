@@ -1,7 +1,7 @@
 #
 # docker-compose build --force-rm [--no-cache [<SERVICE_NAME>...]]
 # docker-compose up -d --remove-orphans
-# docker-compose logs -f [<SERVICE_NAME>...]
+# docker-compose logs -f [--tail=1 <SERVICE_NAME>...]
 # docker-compose down -v --remove-orphans
 #
 version: '2'
@@ -13,7 +13,8 @@ services:
       - '8080:8080' # tomcat (http)
       - '9443:9443' # bps (https)
       - '9763:9763' # bps (http)
-      # - '9975:2375' # dind (tcp)
+      - '9975:2375' # dind (tcp)
+      - '9990-9999:9990-9999' # dind
     volumes:
       - '/usr/local/tomcat/webapps'
     environment:
