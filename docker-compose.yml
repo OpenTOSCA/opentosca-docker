@@ -29,8 +29,7 @@ services:
         - GIT_BRANCH=master
     network_mode: 'service:tomcat'
     volumes:
-      # Container configuration file
-      # - './opentosca-container/config.ini:/opt/opentosca-container/org.opentosca.container.product/target/products/org.opentosca.container.product/linux/gtk/x86_64/configuration/config.ini'
+      - './opentosca-container/config.ini:/opt/opentosca-container/org.opentosca.container.product/target/products/org.opentosca.container.product/linux/gtk/x86_64/configuration/config.ini'
   bps:
     build: ./bps
     network_mode: 'service:tomcat'
