@@ -14,7 +14,7 @@ Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost:80
 |:------------------- |:--- |
 | OpenTOSCA UI | http://localhost:8088 |
 | OpenTOSCA Container API | http://localhost:1337 |
-| Winery | http://localhost:8080/winery |
+| OpenTOSCA Container Repository | http://localhost:8080/containerrepository |
 | WSO2 BPS Engine | http://localhost:9763 |
 | Apache Tomcat | http://localhost:8080 |
 
@@ -28,8 +28,8 @@ Have fun!
 # Shutdown services and remove container
 docker-compose down -v --remove-orphans
 
-# Re-build OpenTOSCA components
-docker-compose build --force-rm --no-cache opentosca-container opentosca-ui winery
+# Re-build OpenTOSCA components (for development purposes)
+docker-compose build --force-rm --no-cache opentosca-container opentosca-ui containerrepository winery
 
 # Display useful logs
 docker-compose logs -f opentosca-container
