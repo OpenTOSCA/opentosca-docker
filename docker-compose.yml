@@ -16,6 +16,7 @@ services:
       - '9975:2375' # dind (tcp)
       - '9990-9999:9990-9999' # dind
     volumes:
+      # - '/var/run/docker.sock:/var/run/docker.sock'
       - '/usr/local/tomcat/webapps'
       - '/opt/'
     environment:
@@ -27,6 +28,9 @@ services:
       args:
         - GIT_BRANCH=master
     network_mode: 'service:tomcat'
+    volumes:
+      # Container configuration file
+      # - './opentosca-container/config.ini:/opt/opentosca-container/org.opentosca.container.product/target/products/org.opentosca.container.product/linux/gtk/x86_64/configuration/config.ini'
   bps:
     build: ./bps
     network_mode: 'service:tomcat'
