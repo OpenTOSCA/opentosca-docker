@@ -1,17 +1,10 @@
-FROM maven:3-jdk-8
+FROM maven:3-jdk-8 as builder
 
 LABEL maintainer "Johannes Wettinger <jowettinger@gmail.com>, Michael Wurster <miwurster@gmail.com>"
 
 ARG GIT_REPO_URL=https://github.com/OpenTOSCA/winery.git
 ARG GIT_BRANCH=master
 ARG NAME=winery
-ARG CSAR_GIT_REPO_HOST
-ARG CSAR_GIT_REPO_USER
-ARG CSAR_GIT_REPO_PW
-
-ENV REMOTE_HOSTNAME localhost
-
-ENV CATALINA_HOME /usr/local/tomcat
 
 RUN rm /dev/random && ln -s /dev/urandom /dev/random \
     && curl -sL https://deb.nodesource.com/setup_6.x | bash - \
@@ -25,9 +18,25 @@ RUN rm /dev/random && ln -s /dev/urandom /dev/random \
 WORKDIR /opt/
 RUN git clone --recursive --depth=1 ${GIT_REPO_URL} -b ${GIT_BRANCH} /opt/${NAME} && cd ${NAME} \
     && mvn package
+	
+FROM openjdk:8
+
+ARG NAME=winery
+ARG CSAR_GIT_REPO_HOST
+ARG CSAR_GIT_REPO_USER
+ARG CSAR_GIT_REPO_PW
+
+ENV REMOTE_HOSTNAME localhost
+
+ENV CATALINA_HOME /usr/local/tomcat
+
+COPY --from=builder /opt/${NAME}/org.eclipse.winery.repository/target /opt/${NAME}/org.eclipse.winery.repository/target
+COPY --from=builder /opt/${NAME}/org.eclipse.winery.topologymodeler/target /opt/${NAME}/org.eclipse.winery.topologymodeler/target
 
 # Injecting base URL for BPMN4TOSCA Modeler
 RUN mkdir -p /tmp/${NAME} \
+	&& apt-get update -qq && apt-get install -qqy \
+        unzip \
     && unzip /opt/${NAME}/org.eclipse.winery.repository/target/winery.war -d /tmp/${NAME} \
     && unzip /opt/${NAME}/org.eclipse.winery.topologymodeler/target/winery-topologymodeler.war -d /tmp/winery-topologymodeler \
     && sed -i "sXbpmn4toscamodelerBaseURI=.*Xbpmn4toscamodelerBaseURI=http://${REMOTE_HOSTNAME}:8080/bpmn4toscaX" /tmp/${NAME}/WEB-INF/classes/winery.properties \
