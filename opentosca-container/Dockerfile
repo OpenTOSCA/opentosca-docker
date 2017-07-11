@@ -12,11 +12,13 @@ RUN git clone --recursive --depth=1 https://github.com/OpenTOSCA/container.git -
 
 FROM alpine:latest  
 
-COPY --from=builder /opt/opentosca-container/org.opentosca.container.product/target/products/org.opentosca.container.product/linux/gtk/x86_64/OpenTOSCA .
+COPY --from=builder /opt/opentosca-container /opt/opentosca-container
 
-RUN ln ./OpenTOSCA /usr/local/bin/opentosca-container \
+RUN ln -s /opt/opentosca-container/org.opentosca.container.product/target/products/org.opentosca.container.product/linux/gtk/x86_64/OpenTOSCA /usr/local/bin/opentosca-container \
     && chmod +x /usr/local/bin/opentosca-container
 
 EXPOSE 1337
 
 CMD [ "/usr/local/bin/opentosca-container" ]
+
+
