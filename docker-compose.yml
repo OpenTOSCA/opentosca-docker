@@ -61,8 +61,8 @@ services:
     build:
       context: ./winery
       args:
-        - GIT_BRANCH=master	
-ports:
+        - GIT_BRANCH=master
+    ports:
       - '8081:8080' # tomcat (http)
     environment:
       - NAME=winery
