@@ -64,6 +64,8 @@ services:
         - GIT_BRANCH=master
     ports:
       - '8081:8080' # tomcat (http)
+      - '9975:2375' # dind (tcp)
+      - '9990-9999:9990-9999' # dind
     environment:
       - NAME=winery
   winery-bpmn4tosca:
