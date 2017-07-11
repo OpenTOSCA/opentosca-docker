@@ -10,7 +10,7 @@ WORKDIR /opt/opentosca-container
 RUN git clone --recursive --depth=1 https://github.com/OpenTOSCA/container.git -b ${GIT_BRANCH} /opt/opentosca-container \
     && mvn package
 
-FROM alpine:latest  
+FROM openjdk:8  
 
 COPY --from=builder /opt/opentosca-container/org.opentosca.container.product/target/products/org.opentosca.container.product/linux/gtk/x86_64 /opt/opentosca-container/org.opentosca.container.product/target/products/org.opentosca.container.product/linux/gtk/x86_64
 
