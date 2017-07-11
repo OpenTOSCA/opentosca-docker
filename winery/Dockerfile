@@ -19,7 +19,7 @@ WORKDIR /opt/
 RUN git clone --recursive --depth=1 ${GIT_REPO_URL} -b ${GIT_BRANCH} /opt/${NAME} && cd ${NAME} \
     && mvn package
 	
-FROM openjdk:8
+FROM tomcat:8.0.20-jre8
 
 ARG NAME=winery
 ARG CSAR_GIT_REPO_HOST
