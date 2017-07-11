@@ -30,6 +30,22 @@ ENV REMOTE_HOSTNAME localhost
 
 ENV CATALINA_HOME /usr/local/tomcat
 
+ARG DOCKERIZE_VERSION=v0.3.0
+
+ENV TOMCAT_USERNAME admin
+ENV TOMCAT_PASSWORD admin
+
+RUN rm /dev/random && ln -s /dev/urandom /dev/random \
+    && wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+    && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+    && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+
+ADD tomcat-users.xml.tpl ${CATALINA_HOME}/conf/tomcat-users.xml.tpl
+ADD server.xml ${CATALINA_HOME}/conf/server.xml
+ADD manager.xml ${CATALINA_HOME}/conf/Catalina/localhost/manager.xml
+
+EXPOSE 8080
+
 COPY --from=builder /opt/${NAME}/org.eclipse.winery.repository/target /opt/${NAME}/org.eclipse.winery.repository/target
 COPY --from=builder /opt/${NAME}/org.eclipse.winery.topologymodeler/target /opt/${NAME}/org.eclipse.winery.topologymodeler/target
 
@@ -59,4 +75,6 @@ EXPOSE 8080
 
 CMD cp -r /tmp/${NAME} ${CATALINA_HOME}/webapps/ && \
     cp -r /tmp/winery-topologymodeler ${CATALINA_HOME}/webapps/ && \
-    if [ ! -z ${CSAR_GIT_REPO_HOST} ] ; then cp -r /tmp/${NAME}-csar-repository / ; fi
+    if [ ! -z ${CSAR_GIT_REPO_HOST} ] ; then cp -r /tmp/${NAME}-csar-repository / ; fi \
+	dockerize -template ${CATALINA_HOME}/conf/tomcat-users.xml.tpl:${CATALINA_HOME}/conf/tomcat-users.xml \
+    ${CATALINA_HOME}/bin/catalina.sh run
