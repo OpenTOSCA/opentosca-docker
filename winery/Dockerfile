@@ -54,6 +54,8 @@ RUN if [ -z ${CSAR_GIT_REPO_USER} ] && [ ! -z ${CSAR_GIT_REPO_HOST} ] ; then \
     else \
       echo "No public CSAR Repository specified" ; \
     fi
+	
+EXPOSE 8080
 
 CMD cp -r /tmp/${NAME} ${CATALINA_HOME}/webapps/ && \
     cp -r /tmp/winery-topologymodeler ${CATALINA_HOME}/webapps/ && \
