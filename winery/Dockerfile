@@ -44,7 +44,7 @@ LABEL maintainer "Oliver Kopp <kopp.dev@gmail.com>, Michael Wurster <miwurster@g
 
 #BPPMN4TOSCAModeler Git Repository details
 ARG GIT_REPO_URL=https://github.com/winery/BPMN4TOSCAModeler.git
-ARG BRANCH=master
+ARG GIT_BRANCH=master
 
 WORKDIR /opt/
 RUN git clone --recursive --depth=1 ${GIT_REPO_URL} -b ${GIT_BRANCH} /opt/bpmn4tosca \
