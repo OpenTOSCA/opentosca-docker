@@ -55,6 +55,8 @@ services:
       args:
         - GIT_BRANCH=master
         - NAME=containerrepository
+    ports:
+      - '8082:8080' # tomcat (http)
     environment:
         - NAME=containerrepository
   winery:
@@ -66,12 +68,4 @@ services:
       - '8081:8080' # tomcat (http)
     environment:
       - NAME=winery
-  winery-bpmn4tosca:
-    build:
-      context: ./winery-bpmn4tosca
-      args:
-        - GIT_BRANCH=master
-    volumes_from:
-      - tomcat
-    depends_on:
-      - winery
+  
