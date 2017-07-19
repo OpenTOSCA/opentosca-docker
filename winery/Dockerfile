@@ -11,10 +11,6 @@ ARG NAME=winery
 ARG GIT_REPO_URL=https://github.com/OpenTOSCA/winery.git
 ARG GIT_BRANCH=master
 
-#BPPMN4TOSCAModeler Git Repository details
-ARG MODELER_GIT_REPO_URL=https://github.com/winery/BPMN4TOSCAModeler.git
-ARG MODELER_GIT_BRANCH=master
-
 #CSAR repository Information
 ARG CSAR_GIT_REPO_HOST
 ARG CSAR_GIT_REPO_USER
@@ -46,8 +42,12 @@ FROM node:6.10 as bpmn4tosca_builder
 
 LABEL maintainer "Oliver Kopp <kopp.dev@gmail.com>, Michael Wurster <miwurster@gmail.com>"
 
+#BPPMN4TOSCAModeler Git Repository details
+ARG GIT_REPO_URL=https://github.com/winery/BPMN4TOSCAModeler.git
+ARG BRANCH=master
+
 WORKDIR /opt/
-RUN git clone --recursive --depth=1 ${MODELER_GIT_REPO_URL} -b ${MODELER_GIT_BRANCH} /opt/bpmn4tosca \
+RUN git clone --recursive --depth=1 ${GIT_REPO_URL} -b ${GIT_BRANCH} /opt/bpmn4tosca \
     && cd /opt/bpmn4tosca \
     && npm install -g grunt-cli \
     && npm install && grunt
