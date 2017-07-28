@@ -15,6 +15,7 @@ ARG GIT_BRANCH=master
 ARG CSAR_GIT_REPO_HOST
 ARG CSAR_GIT_REPO_USER
 ARG CSAR_GIT_REPO_PW
+ENV REMOTE_HOSTNAME localhost
 
 RUN rm /dev/random && ln -s /dev/urandom /dev/random \
     && curl -sL https://deb.nodesource.com/setup_6.x | bash - \
