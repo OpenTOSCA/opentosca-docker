@@ -48,4 +48,4 @@ RUN if [ -z ${CSAR_GIT_REPO_USER} ] && [ ! -z ${CSAR_GIT_REPO_HOST} ] ; then \
 
 CMD cp -r /tmp/${NAME} ${CATALINA_HOME}/webapps/ && \
     cp -r /tmp/winery-topologymodeler ${CATALINA_HOME}/webapps/ && \
-    if [ ! -z ${CSAR_GIT_REPO_HOST} ] ; then cp -r /tmp/${NAME}-csar-repository / ; fi
+    if [ ! -z ${CSAR_GIT_REPO_HOST} ] ; then cp -r /tmp/${NAME}-csar-repository /opt/ ; fi
