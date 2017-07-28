@@ -22,21 +22,26 @@ services:
     environment:
       - TOMCAT_USERNAME=tcManager
       - TOMCAT_PASSWORD=4Syq5MQeedIDzzP6BG7b
+    networks:
+      - mynet
   opentosca-container:
     build:
       context: ./opentosca-container
       args:
         - GIT_BRANCH=master
-    network_mode: 'service:tomcat'
+    networks:
+      - mynet
     # volumes:
     #   - './opentosca-container/config.ini:/opt/opentosca-container/org.opentosca.container.product/target/products/org.opentosca.container.product/linux/gtk/x86_64/configuration/config.ini'
   bps:
     build: ./bps
-    network_mode: 'service:tomcat'
+    networks:
+      - mynet
   dind:
     image: jpetazzo/dind:latest
     privileged: true
-    network_mode: 'service:tomcat'
+    networks:
+      - mynet
     environment:
       - PORT=2375
       - DOCKER_DAEMON_ARGS=--dns 8.8.8.8 --dns 8.8.4.4 -D
@@ -49,6 +54,8 @@ services:
         - GIT_BRANCH=master
     ports:
       - '8088:8088'
+    networks:
+      - mynet
   containerrepository:
     build:
       context: ./winery
@@ -59,6 +66,8 @@ services:
       - '8082:8080' # tomcat (http)
     environment:
         - NAME=containerrepository
+    networks:
+      - mynet
   winery:
     build:
       context: ./winery
@@ -68,4 +77,9 @@ services:
       - '8081:8080' # tomcat (http)
     environment:
       - NAME=winery
+    networks:
+      - mynet
+networks:
+  mynet:
+    driver: overlay
   
