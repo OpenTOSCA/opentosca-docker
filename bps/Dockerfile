@@ -10,7 +10,7 @@ ARG DOCKERIZE_VERSION=v0.3.0
 
 ENV BPS_HOME /opt/bps
 
-ENV REMOTE_HOSTNAME localhost
+ENV REMOTE_HOSTNAME tomcat
 
 RUN rm /dev/random && ln -s /dev/urandom /dev/random \
     && wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
