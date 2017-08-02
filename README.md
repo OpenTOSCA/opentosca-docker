@@ -14,9 +14,10 @@ Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost:80
 |:------------------- |:--- |
 | OpenTOSCA UI | http://localhost:8088 |
 | OpenTOSCA Container API | http://localhost:1337 |
-| OpenTOSCA Container Repository | http://localhost:8080/containerrepository |
-| WSO2 BPS Engine | http://localhost:9763 |
-| Apache Tomcat | http://localhost:8080 |
+| OpenTOSCA Container Repository | http://localhost:8081/winery |
+| Plan Engine (WSO2 BPS) | http://localhost:9763 |
+| IA Engine (Apache Tomcat) | http://localhost:8080 |
+| OpenTOSCA Eclipse Winery™ | http://localhost:8090/winery |
 
 Have fun!
 
@@ -25,13 +26,18 @@ Have fun!
 ### Tipps and Tricks
 
 ```bash
+# Start services in background
+docker-compose up -d
+
 # Shutdown services and remove container
-docker-compose down -v --remove-orphans
+docker-compose down -v
 
 # Re-build OpenTOSCA components (for development purposes)
-docker-compose build --force-rm --no-cache opentosca-container opentosca-ui containerrepository winery
+docker-compose build --force-rm [--no-cache [<SERVICE_NAME>...]]
+docker-compose build --force-rm --no-cache container container-repository web
 
 # Display useful logs
-docker-compose logs -f opentosca-container
-docker-compose logs -f tomcat bps
+docker-compose logs -f [--tail=1 <SERVICE_NAME>...]
+docker-compose logs -f container
+docker-compose logs -f engine-ia engine-plan
 ```

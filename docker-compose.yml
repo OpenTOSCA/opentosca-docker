@@ -1,85 +1,69 @@
-#
-# docker-compose build --force-rm [--no-cache [<SERVICE_NAME>...]]
-# docker-compose up -d --remove-orphans
-# docker-compose logs -f [--tail=1 <SERVICE_NAME>...]
-# docker-compose down -v --remove-orphans
-#
 version: '2'
 services:
-  tomcat:
-    build: ./tomcat
-    ports:
-      - '1337:1337' # container (http)
-      - '8080:8080' # tomcat (http)
-      - '9443:9443' # bps (https)
-      - '9763:9763' # bps (http)
-      - '9975:2375' # dind (tcp)
-      - '9990-9999:9990-9999' # dind
-    volumes:
-      # - '/var/run/docker.sock:/var/run/docker.sock'
-      - '/usr/local/tomcat/webapps'
-      - '/opt/'
-    environment:
-      - TOMCAT_USERNAME=tcManager
-      - TOMCAT_PASSWORD=4Syq5MQeedIDzzP6BG7b
-    networks:
-      - mynet
-  opentosca-container:
+  container:
     build:
-      context: ./opentosca-container
+      context: ./container
       args:
         - GIT_BRANCH=master
+    ports:
+      - '1337:1337'
     networks:
-      - mynet
-    # volumes:
-    #   - './opentosca-container/config.ini:/opt/opentosca-container/org.opentosca.container.product/target/products/org.opentosca.container.product/linux/gtk/x86_64/configuration/config.ini'
-  bps:
-    build: ./bps
-    networks:
-      - mynet
-  dind:
-    image: jpetazzo/dind:latest
-    privileged: true
-    networks:
-      - mynet
-    environment:
-      - PORT=2375
-      - DOCKER_DAEMON_ARGS=--dns 8.8.8.8 --dns 8.8.4.4 -D
-      # Internal DNS settings to run it inside the univeristy network
-      # - DOCKER_DAEMON_ARGS=--dns 129.69.211.1 --dns 129.69.215.5 -D
-  opentosca-ui:
+      - opentosca
+  container-repository:
     build:
-      context: ./opentosca-ui
+      context: ./winery
+      args:
+        - GIT_BRANCH=master
+    ports:
+      - '8081:8080'
+    networks:
+      - opentosca
+  web:
+    build:
+      context: ./web
       args:
         - GIT_BRANCH=master
     ports:
       - '8088:8088'
     networks:
-      - mynet
-  containerrepository:
-    build:
-      context: ./winery
-      args:
-        - GIT_BRANCH=master
-        - NAME=containerrepository
+      - opentosca
+  engine-plan:
+    build: ./engine-plan
     ports:
-      - '8082:8080' # tomcat (http)
-    environment:
-        - NAME=containerrepository
+      - '9443:9443' # https
+      - '9763:9763' # http
     networks:
-      - mynet
+      - opentosca
+  engine-ia:
+    build: ./engine-ia
+    ports:
+      - '8080:8080'
+    networks:
+      - opentosca
+  dind:
+    image: jpetazzo/dind:latest
+    privileged: true
+    environment:
+      - PORT=2375
+      - DOCKER_DAEMON_ARGS=--dns 8.8.8.8 --dns 8.8.4.4 -D
+      # Internal DNS settings to run it inside the univeristy network
+      # - DOCKER_DAEMON_ARGS=--dns 129.69.211.1 --dns 129.69.215.5 -D
+    ports:
+      - '9975:2375' # dind
+      - '9990-9999:9990-9999' # dind
+    # volumes:
+    #   - '/var/run/docker.sock:/var/run/docker.sock'
+    networks:
+      - opentosca
   winery:
     build:
       context: ./winery
       args:
         - GIT_BRANCH=master
     ports:
-      - '8081:8080' # tomcat (http)
-    environment:
-      - NAME=winery
+      - '8090:8080'
     networks:
-      - mynet
+      - opentosca
 networks:
-  mynet:
+  opentosca:
     driver: bridge
-  

@@ -1,11 +1,10 @@
-FROM tomcat:8-jre8
-
+FROM tomcat:8.5-jre8
 LABEL maintainer "Johannes Wettinger <jowettinger@gmail.com>, Michael Wurster <miwurster@gmail.com>"
 
 ARG DOCKERIZE_VERSION=v0.3.0
 
-ENV TOMCAT_USERNAME tcManager
-ENV TOMCAT_PASSWORD 4Syq5MQeedIDzzP6BG7b
+ENV TOMCAT_USERNAME admin
+ENV TOMCAT_PASSWORD admin
 
 RUN rm /dev/random && ln -s /dev/urandom /dev/random \
     && wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
@@ -13,8 +12,8 @@ RUN rm /dev/random && ln -s /dev/urandom /dev/random \
     && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
 ADD tomcat-users.xml.tpl ${CATALINA_HOME}/conf/tomcat-users.xml.tpl
-ADD server.xml ${CATALINA_HOME}/conf/server.xml
 ADD manager.xml ${CATALINA_HOME}/conf/Catalina/localhost/manager.xml
+ADD server.xml ${CATALINA_HOME}/conf/server.xml
 
 EXPOSE 8080
 
