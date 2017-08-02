@@ -8,7 +8,7 @@ The fastest way to get started is using [Docker Compose](https://docs.docker.com
     docker-compose build
     docker-compose up
 
-Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost:8080/opentosca).
+Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost:8088).
 
 | OpenTOSCA Component | URL |
 |:------------------- |:--- |
