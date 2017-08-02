@@ -7,7 +7,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Added
 - Added a Changelog file based on the format of [Keep a Changelog](http://keepachangelog.com/).
 - Added build arg `GIT_REPO_URL` to configure the used Git repository.
-- Serving OpenTOSCA UI in a separate process (Tomcat).
+- The containers (`winery`, `web`) are now able to be run individually, without the requirement to have a linked Tomcat image in place.
+- Eclipse Winery™ is used as Container Repository as well as Modelling Tool in separate containers.
+- Docker Compose configuration uses a `bridge` network in order to use service names as FQDNs.
 
 ## [0.0.2] - 2017-05-08
 ### Added
