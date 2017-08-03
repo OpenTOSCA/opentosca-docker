@@ -39,8 +39,8 @@ RUN git clone --recursive --depth=1 ${GIT_REPO_URL} -b ${GIT_BRANCH} /opt/bpmn4t
 FROM tomcat:8.5-jre8
 LABEL maintainer "Johannes Wettinger <jowettinger@gmail.com>, Oliver Kopp <kopp.dev@gmail.com>, Michael Wurster <miwurster@gmail.com>"
 
-RUN rm /dev/random && ln -s /dev/urandom /dev/random
-RUN rm -rf ${CATALINA_HOME}/webapps/*
+RUN rm /dev/random && ln -s /dev/urandom /dev/random \
+    && rm -rf ${CATALINA_HOME}/webapps/*
 
 COPY --from=winery_builder /opt/winery ${CATALINA_HOME}/webapps/ROOT
 COPY --from=winery_builder /opt/winery-topologymodeler ${CATALINA_HOME}/webapps/winery-topologymodeler

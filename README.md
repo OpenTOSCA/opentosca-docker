@@ -39,5 +39,5 @@ docker-compose build --force-rm --no-cache container container-repository web
 # Display useful logs
 docker-compose logs -f [--tail=1 <SERVICE_NAME>...]
 docker-compose logs -f container
-docker-compose logs -f engine-ia engine-plan
+docker-compose logs -f engine*
 ```
