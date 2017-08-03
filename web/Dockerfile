@@ -1,5 +1,8 @@
 FROM maven:3-jdk-8 as builder
-ARG GIT_REPO_URL=https://github.com/OpenTOSCA/ui.git
+
+ADD /c/work/git/opentosca/opentosca-ui /tmp/git
+ARG GIT_REPO_URL=/tmp/git
+
 ARG GIT_BRANCH=master
 RUN rm /dev/random && ln -s /dev/urandom /dev/random \
     && curl -sL https://deb.nodesource.com/setup_6.x | bash - \
@@ -21,4 +24,4 @@ WORKDIR /opt/opentosca/web
 
 EXPOSE 8088
 
-CMD java -jar /opt/opentosca/web/opentosca.war --server.port=8088
+CMD java -jar /opt/opentosca/web/opentosca-ui.war --server.port=8088
