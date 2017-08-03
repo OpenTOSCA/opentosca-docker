@@ -36,36 +36,15 @@ RUN git clone --recursive --depth=1 ${GIT_REPO_URL} -b ${GIT_BRANCH} /opt/bpmn4t
     && grunt
 
 
-FROM openjdk:8 as repository_builder
-
-ARG CSAR_GIT_REPO_URL
-ARG CSAR_GIT_REPO_USER
-ARG CSAR_GIT_REPO_PW
-
-WORKDIR /opt/
-
-RUN mkdir -p /var/opentosca/repository
-RUN if [ ! -z ${CSAR_GIT_REPO_USER} ] && [ ! -z ${CSAR_GIT_REPO_URL} ] ; then \
-       git clone --recursive https://${CSAR_GIT_REPO_USER}:${CSAR_GIT_REPO_PW}@${CSAR_GIT_REPO_URL} /var/opentosca/repository ; \
-    else \
-      echo "No private CSAR Repository specified" ; \
-    fi
-RUN if [ -z ${CSAR_GIT_REPO_USER} ] && [ ! -z ${CSAR_GIT_REPO_URL} ] ; then \
-       git clone --recursive ${CSAR_GIT_REPO_URL} /var/opentosca/repository ; \
-    else \
-      echo "No public CSAR Repository specified" ; \
-    fi
-
-
 FROM tomcat:8.5-jre8
 LABEL maintainer "Johannes Wettinger <jowettinger@gmail.com>, Oliver Kopp <kopp.dev@gmail.com>, Michael Wurster <miwurster@gmail.com>"
 
 RUN rm /dev/random && ln -s /dev/urandom /dev/random
+RUN rm -rf ${CATALINA_HOME}/webapps/*
 
-COPY --from=winery_builder /opt/winery ${CATALINA_HOME}/webapps/winery
+COPY --from=winery_builder /opt/winery ${CATALINA_HOME}/webapps/ROOT
 COPY --from=winery_builder /opt/winery-topologymodeler ${CATALINA_HOME}/webapps/winery-topologymodeler
 COPY --from=bpmn4tosca_builder /opt/bpmn4tosca/dist ${CATALINA_HOME}/webapps/bpmn4tosca
-COPY --from=repository_builder /var/opentosca/repository /var/opentosca/repository
 
 EXPOSE 8080
 

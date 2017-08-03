@@ -16,6 +16,8 @@ services:
         - GIT_BRANCH=master
     ports:
       - '8081:8080'
+    # volumes:
+    #   - <path on host system>:/var/opentosca/repository
     networks:
       - opentosca
   web:
@@ -62,6 +64,8 @@ services:
         - GIT_BRANCH=master
     ports:
       - '8090:8080'
+    # volumes:
+    #   - <path on host system>:/var/opentosca/repository
     networks:
       - opentosca
 networks:

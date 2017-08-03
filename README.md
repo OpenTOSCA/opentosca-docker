@@ -14,8 +14,8 @@ Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost:80
 |:------------------- |:--- |
 | OpenTOSCA UI | http://localhost:8088 |
 | OpenTOSCA Container API | http://localhost:1337 |
-| OpenTOSCA Container Repository | http://localhost:8081/winery |
-| OpenTOSCA Modelling (Eclipse Winery™) | http://localhost:8090/winery |
+| OpenTOSCA Container Repository | http://localhost:8081 |
+| OpenTOSCA Modelling (Eclipse Winery™) | http://localhost:8090 |
 | Plan Engine (WSO2 BPS) | http://localhost:9763 |
 | IA Engine (Apache Tomcat) | http://localhost:8080 |
 
