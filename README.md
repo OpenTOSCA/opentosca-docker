@@ -31,10 +31,6 @@ docker-compose up -d
 # Shutdown services and remove container
 docker-compose down -v
 
-# Re-build OpenTOSCA components (for development purposes)
-docker-compose build --force-rm [--no-cache [<SERVICE_NAME>...]]
-docker-compose build --force-rm --no-cache container container-repository ui
-
 # Display useful logs
 docker-compose logs -f [--tail=1 <SERVICE_NAME>...]
 docker-compose logs -f container
