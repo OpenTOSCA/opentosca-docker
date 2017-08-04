@@ -20,9 +20,9 @@ services:
     #   - <path on host system>:/var/opentosca/repository
     networks:
       - opentosca
-  web:
+  ui:
     build:
-      context: ./web
+      context: ./ui
       args:
         - GIT_BRANCH=master
     ports:

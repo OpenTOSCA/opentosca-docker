@@ -1,9 +1,15 @@
 FROM maven:3-jdk-8 as builder
+
+ARG GIT_REPO_URL=https://github.com/OpenTOSCA/container.git
 ARG GIT_BRANCH=master
+
 RUN rm /dev/random && ln -s /dev/urandom /dev/random
+
 WORKDIR /opt/opentosca/container
-RUN git clone --recursive --depth=1 https://github.com/OpenTOSCA/container.git -b ${GIT_BRANCH} /opt/opentosca/container \
+
+RUN git clone --recursive --depth=1 ${GIT_REPO_URL} -b ${GIT_BRANCH} /opt/opentosca/container \
     && mvn package
+
 
 FROM openjdk:8
 LABEL maintainer "Johannes Wettinger <jowettinger@gmail.com>, Michael Wurster <miwurster@gmail.com>"

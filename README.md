@@ -34,7 +34,7 @@ docker-compose down -v
 
 # Re-build OpenTOSCA components (for development purposes)
 docker-compose build --force-rm [--no-cache [<SERVICE_NAME>...]]
-docker-compose build --force-rm --no-cache container container-repository web
+docker-compose build --force-rm --no-cache container container-repository ui
 
 # Display useful logs
 docker-compose logs -f [--tail=1 <SERVICE_NAME>...]
