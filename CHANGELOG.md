@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [0.0.3] - 2017-08-04
 ### Added
 - Added a Changelog file based on the format of [Keep a Changelog](http://keepachangelog.com/).
 - Added build arg `GIT_REPO_URL` to configure the used Git repository.
@@ -29,5 +31,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## 0.0.1 - 2016-08-25
 Initial submission by @jojow: https://github.com/jojow/opentosca-dockerfiles
 
-[Unreleased]: https://github.com/OpenTOSCA/opentosca-dockerfiles/compare/v0.0.2...HEAD
+[Unreleased]: https://github.com/OpenTOSCA/opentosca-dockerfiles/compare/v0.0.3...HEAD
+[0.0.3]: https://github.com/jojow/opentosca-dockerfiles/compare/OpenTOSCA:v0.0.2...OpenTOSCA:v0.0.3
 [0.0.2]: https://github.com/jojow/opentosca-dockerfiles/compare/master...OpenTOSCA:v0.0.2
