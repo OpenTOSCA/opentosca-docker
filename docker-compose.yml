@@ -1,19 +1,13 @@
 version: '2'
 services:
   container:
-    build:
-      context: ./container
-      args:
-        - GIT_BRANCH=master
+    image: opentosca/container
     ports:
       - '1337:1337'
     networks:
       - opentosca
   container-repository:
-    build:
-      context: ./winery
-      args:
-        - GIT_BRANCH=master
+    image: opentosca/winery
     ports:
       - '8081:8080'
     # volumes:
@@ -21,10 +15,7 @@ services:
     networks:
       - opentosca
   ui:
-    build:
-      context: ./ui
-      args:
-        - GIT_BRANCH=master
+    image: opentosca/ui
     ports:
       - '8088:8088'
     networks:
@@ -51,17 +42,14 @@ services:
       # Internal DNS settings to run it inside the univeristy network
       # - DOCKER_DAEMON_ARGS=--dns 129.69.211.1 --dns 129.69.215.5 -D
     ports:
-      - '9975:2375' # dind
+      # - '9975:2375' # dind
       - '9990-9999:9990-9999' # dind
     # volumes:
     #   - '/var/run/docker.sock:/var/run/docker.sock'
     networks:
       - opentosca
   winery:
-    build:
-      context: ./winery
-      args:
-        - GIT_BRANCH=master
+    image: opentosca/winery
     ports:
       - '8090:8080'
     # volumes:

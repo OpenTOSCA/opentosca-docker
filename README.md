@@ -1,23 +1,22 @@
+
 # Dockerized OpenTOSCA Environment
 
-> Docker files for running the entire OpenTOSCA stack.
+> Docker Compose file for running the entire OpenTOSCA stack.
 
 The fastest way to get started is using [Docker Compose](https://docs.docker.com/compose/):
 
-    git clone https://github.com/OpenTOSCA/opentosca-dockerfiles.git && cd opentosca-dockerfiles
-    docker-compose build
     docker-compose up
 
 Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost:8088).
 
-| OpenTOSCA Component | URL |
-|:------------------- |:--- |
-| OpenTOSCA UI | http://localhost:8088 |
-| OpenTOSCA Container API | http://localhost:1337 |
-| OpenTOSCA Container Repository | http://localhost:8081 |
-| OpenTOSCA Modelling (Eclipse Winery™) | http://localhost:8090 |
-| Plan Engine (WSO2 BPS) | http://localhost:9763 |
-| IA Engine (Apache Tomcat) | http://localhost:8080 |
+| OpenTOSCA Component | URL | GitHub | Docker Hub |
+|:------------------- |:--- |:------ |:---------- |
+| OpenTOSCA UI | http://localhost:8088 | [Link](https://github.com/OpenTOSCA/ui) | [Link](https://hub.docker.com/r/opentosca/ui) |
+| OpenTOSCA Container API | http://localhost:1337 | [Link](https://github.com/OpenTOSCA/container) | [Link](https://hub.docker.com/r/opentosca/container) |
+| OpenTOSCA Container Repository | http://localhost:8081 | [Link](https://github.com/OpenTOSCA/winery) | [Link](https://hub.docker.com/r/opentosca/winery) |
+| OpenTOSCA Modelling (Eclipse Winery™) | http://localhost:8090 | [Link](https://github.com/OpenTOSCA/winery) | [Link](https://hub.docker.com/r/opentosca/winery) |
+| Plan Engine (WSO2 BPS) | http://localhost:9763 | [Link](https://github.com/OpenTOSCA/engine-plan) | [Link](https://hub.docker.com/r/opentosca/engine-plan) |
+| IA Engine (Apache Tomcat) | http://localhost:8080 | [Link](https://github.com/OpenTOSCA/engine-ia) | [Link](https://hub.docker.com/r/opentosca/engine-ia) |
 
 Have fun!
 

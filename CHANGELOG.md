@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- Moved the `Dockerfiles` to dedicated repositories; building and publishing images to Docker Hub is now part of those repositories.
 
 ## [0.0.3] - 2017-08-04
 ### Added
@@ -25,7 +27,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Build Winery container from official Maven image.
 - Docker Compose: Variable `GIT_BRANCH` can be used to build containers from a specific Git branch.
 ### Removed
-- Removed Vinothek container since it will be replaced with the new OpenTOSCA UI (`opentosca-ui`).
+- Removed Vinothek container since it will be replaced with the new OpenTOSCA UI (`opentosca/ui`).
 - Removed `ROOT.war`; it will be replaced with a new landing page in future.
 
 ## 0.0.1 - 2016-08-25
