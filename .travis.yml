@@ -1,0 +1,21 @@
+
+language: python
+
+sudo: required
+
+services:
+  - docker
+
+script:
+  - if [ "$TRAVIS_BRANCH" = "master" ]; then
+      TAG="latest";
+    else
+      TAG="$TRAVIS_BRANCH";
+    fi
+  - docker build -t opentosca/engine-ia:$TAG ./engine-ia
+  - docker build -t opentosca/engine-plan:$TAG ./engine-plan
+
+after_success:
+  - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASSWORD;
+    docker push opentosca/engine-ia;
+    docker push opentosca/engine-plan;
