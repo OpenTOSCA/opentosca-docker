@@ -30,14 +30,14 @@ services:
     networks:
       - opentosca
   engine-plan:
-    build: ./engine-plan
+    image: opentosca/engine-plan
     ports:
       - '9443:9443' # https
       - '9763:9763' # http
     networks:
       - opentosca
   engine-ia:
-    build: ./engine-ia
+    image: opentosca/engine-ia
     ports:
       - '8080:8080'
     networks:
