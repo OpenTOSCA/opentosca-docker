@@ -25,6 +25,9 @@ Have fun!
 ### Tipps and Tricks
 
 ```bash
+# Pull the latest images
+docker-compose pull
+
 # Start services in background
 docker-compose up -d
 
@@ -34,5 +37,5 @@ docker-compose down -v
 # Display useful logs
 docker-compose logs -f [--tail=1 <SERVICE_NAME>...]
 docker-compose logs -f container
-docker-compose logs -f engine*
+docker-compose logs -f engine-ia engine-plan
 ```
