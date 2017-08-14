@@ -22,7 +22,7 @@ services:
   ui:
     image: opentosca/ui
     ports:
-      - '8088:8088'
+      - '8088:8080'
     networks:
       - opentosca
   engine-plan:
