@@ -37,7 +37,15 @@ services:
   engine-ia:
     image: opentosca/engine-ia
     ports:
+      - '8090:8080'
+    networks:
+      - opentosca
+  winery:
+    image: opentosca/winery
+    ports:
       - '8080:8080'
+    # volumes:
+    #   - <path on host system>:/var/opentosca/repository
     networks:
       - opentosca
   dind:
@@ -53,14 +61,6 @@ services:
       - '9990-9999:9990-9999' # dind
     # volumes:
     #   - '/var/run/docker.sock:/var/run/docker.sock'
-    networks:
-      - opentosca
-  winery:
-    image: opentosca/winery
-    ports:
-      - '8090:8080'
-    # volumes:
-    #   - <path on host system>:/var/opentosca/repository
     networks:
       - opentosca
 networks:
