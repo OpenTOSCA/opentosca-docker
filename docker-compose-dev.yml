@@ -1,9 +1,10 @@
 version: '2'
 services:
   container:
-    image: opentosca/container
+    image: opentosca/container-dev
     ports:
       - '1337:1337'
+      - '8001:8001' # Expose JAVA remote debugging port
     environment:
       - CONTAINER_HOSTNAME=container
       - CONTAINER_REPOSITORY_HOSTNAME=container-repository
@@ -35,9 +36,11 @@ services:
     ports:
       #- '9443:9443' # Uncomment when using BPS as plan engine
       - '9763:9763' # http
+      - '5555:8000' # Remote debugging port
     environment:
       - ENGINE_PLAN_HOSTNAME=engine-plan
       - ENGINE_PLAN_PORT=9763
+      - JAVA_OPTS=-Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n # Enable remote debugging of Apache ODE
     networks:
       - opentosca
   engine-ia:

@@ -9,11 +9,11 @@ services:
       - CONTAINER_REPOSITORY_HOSTNAME=container-repository
       - ENGINE_IA_HOSTNAME=engine-ia
       - ENGINE_PLAN_HOSTNAME=engine-plan
-      - ENGINE_PLAN=ODE # Change to "BPS" to use WSO2 BPS as plan engine
-      - ENGINE_PLAN_ROOT_URL=http://engine-plan:9763/ode # Change value to "https://engine-plan:9443" when using BPS as plan engine
-      - ENGINE_PLAN_SERVICES_URL=http://engine-plan:9763/ode/processes # Change value to "http://engine-plan:9763/services" when using BPS as plan engine
-      #- ENGINE_PLAN_USER_NAME=admin # Uncomment when using BPS as plan engine
-      #- ENGINE_PLAN_PWD=admin # Uncomment when using BPS as plan engine
+      - ENGINE_PLAN=BPS
+      - ENGINE_PLAN_ROOT_URL=https://engine-plan:9443
+      - ENGINE_PLAN_SERVICES_URL=http://engine-plan:9763/services
+      - ENGINE_PLAN_USER_NAME=admin
+      - ENGINE_PLAN_PWD=admin
     networks:
       - opentosca
   container-repository:
@@ -31,9 +31,9 @@ services:
     networks:
       - opentosca
   engine-plan:
-    image: opentosca/engine-plan-ode # Change to "opentosca/engine-plan" to use WSO2 BPS as plan engine
+    image: opentosca/engine-plan # Change to "opentosca/engine-plan" to use WSO2 BPS as plan engine
     ports:
-      #- '9443:9443' # Uncomment when using BPS as plan engine
+      - '9443:9443' # Add the https port when using BPS as plan engine
       - '9763:9763' # http
     environment:
       - ENGINE_PLAN_HOSTNAME=engine-plan
