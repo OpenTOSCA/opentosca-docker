@@ -14,6 +14,7 @@ services:
       - ENGINE_PLAN_SERVICES_URL=http://engine-plan:9763/ode/processes # Change value to "http://engine-plan:9763/services" when using BPS as plan engine
       #- ENGINE_PLAN_USER_NAME=admin # Uncomment when using BPS as plan engine
       #- ENGINE_PLAN_PWD=admin # Uncomment when using BPS as plan engine
+      - CONTAINER_JAVA_OPTS=
     networks:
       - opentosca
   container-repository:

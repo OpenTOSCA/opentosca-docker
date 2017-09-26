@@ -1,20 +1,29 @@
 version: '2'
 services:
   container:
-    image: opentosca/container-dev
+    image: opentosca/container
     ports:
       - '1337:1337'
       - '8001:8001' # Expose JAVA remote debugging port
     environment:
-      - CONTAINER_HOSTNAME=container
-      - CONTAINER_REPOSITORY_HOSTNAME=container-repository
-      - ENGINE_IA_HOSTNAME=engine-ia
-      - ENGINE_PLAN_HOSTNAME=engine-plan
-      - ENGINE_PLAN=ODE # Change to "BPS" to use WSO2 BPS as plan engine
-      - ENGINE_PLAN_ROOT_URL=http://engine-plan:9763/ode # Change value to "https://engine-plan:9443" when using BPS as plan engine
-      - ENGINE_PLAN_SERVICES_URL=http://engine-plan:9763/ode/processes # Change value to "http://engine-plan:9763/services" when using BPS as plan engine
-      #- ENGINE_PLAN_USER_NAME=admin # Uncomment when using BPS as plan engine
-      #- ENGINE_PLAN_PWD=admin # Uncomment when using BPS as plan engine
+      CONTAINER_HOSTNAME: container
+      CONTAINER_REPOSITORY_HOSTNAME: container-repository
+      ENGINE_IA_HOSTNAME: engine-ia
+      ENGINE_PLAN_HOSTNAME: engine-plan
+      # Change to "BPS" to use WSO2 BPS as plan engine
+      ENGINE_PLAN: ODE
+      # Change value to "https://engine-plan:9443" when using BPS as plan engine
+      ENGINE_PLAN_ROOT_URL: http://engine-plan:9763/ode
+      # Change value to "http://engine-plan:9763/services" when using BPS as plan engine
+      ENGINE_PLAN_SERVICES_URL: http://engine-plan:9763/ode/processes
+      # Uncomment when using BPS as plan engine
+      # ENGINE_PLAN_USER_NAME: admin
+      # Uncomment when using BPS as plan engine
+      # ENGINE_PLAN_PWD: admin
+      # Add remote debugging options to OpenTOSCA.ini file (options need to be on separate lines)
+      CONTAINER_JAVA_OPTS: |-
+        -Xdebug
+        -Xrunjdwp:transport=dt_socket,address=8001,server=y,suspend=n
     networks:
       - opentosca
   container-repository:

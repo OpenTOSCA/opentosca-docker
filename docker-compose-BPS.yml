@@ -14,6 +14,7 @@ services:
       - ENGINE_PLAN_SERVICES_URL=http://engine-plan:9763/services
       - ENGINE_PLAN_USER_NAME=admin
       - ENGINE_PLAN_PWD=admin
+      - CONTAINER_JAVA_OPTS=
     networks:
       - opentosca
   container-repository:
