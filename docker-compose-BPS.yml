@@ -32,9 +32,9 @@ services:
     networks:
       - opentosca
   engine-plan:
-    image: opentosca/engine-plan # Change to "opentosca/engine-plan" to use WSO2 BPS as plan engine
+    image: opentosca/bps
     ports:
-      - '9443:9443' # Add the https port when using BPS as plan engine
+      - '9443:9443' # https
       - '9763:9763' # http
     environment:
       - ENGINE_PLAN_HOSTNAME=engine-plan
