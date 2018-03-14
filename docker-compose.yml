@@ -4,17 +4,19 @@ services:
     image: opentosca/container
     ports:
       - '1337:1337'
+      - '8081-8087:8081-8087'
     environment:
-      - CONTAINER_HOSTNAME=container
-      - CONTAINER_REPOSITORY_HOSTNAME=container-repository
-      - ENGINE_PLAN_HOSTNAME=engine-plan
+      - PUBLIC_HOSTNAME=container
       - ENGINE_IA_HOSTNAME=engine-ia
+      - ENGINE_PLAN_HOSTNAME=engine-plan
+      - CONTAINER_REPOSITORY_HOSTNAME=container-repository
+      - CONTAINER_DEPLOYMENT_TESTS=false
+    # volumes:
+    #   - <path on host system>:/tmp/opentosca
     networks:
       - opentosca
   container-repository:
     image: opentosca/winery
-    ports:
-      - '8081:8080'
     # volumes:
     #   - <path on host system>:/var/opentosca/repository
     networks:
@@ -31,13 +33,15 @@ services:
       - '9443:9443' # https
       - '9763:9763' # http
     environment:
-      - ENGINE_PLAN_HOSTNAME=engine-plan
+      - PUBLIC_HOSTNAME=engine-plan
     networks:
       - opentosca
   engine-ia:
     image: opentosca/engine-ia
     ports:
       - '8090:8080'
+    # volumes:
+    #   - <path on host system>:/usr/local/tomcat/webapps
     networks:
       - opentosca
   winery:
@@ -54,7 +58,7 @@ services:
     environment:
       - PORT=2375
       - DOCKER_DAEMON_ARGS=--dns 8.8.8.8 --dns 8.8.4.4 -D
-      # Internal DNS settings to run it inside the univeristy network
+      # Internal DNS settings to run it inside the university network
       # - DOCKER_DAEMON_ARGS=--dns 129.69.211.1 --dns 129.69.215.5 -D
     ports:
       # - '9975:2375' # dind
