@@ -7,6 +7,7 @@ services:
       - '8081-8087:8081-8087'
     environment:
       - PUBLIC_HOSTNAME=container
+      - PUBLIC_IP 192.168.1.2 # enter IP where the engine-ia can be accessed from outside
       - ENGINE_IA_HOSTNAME=engine-ia
       - ENGINE_PLAN_HOSTNAME=engine-plan
       - CONTAINER_REPOSITORY_HOSTNAME=container-repository
@@ -40,6 +41,7 @@ services:
     image: opentosca/engine-ia
     ports:
       - '8090:8080'
+      - '1883:1883 # MQTT
     # volumes:
     #   - <path on host system>:/usr/local/tomcat/webapps
     networks:
