@@ -8,7 +8,10 @@ services:
     environment:
       - PUBLIC_HOSTNAME=container
       - ENGINE_IA_HOSTNAME=engine-ia
+      - ENGINE_IA_PORT=8080
       - ENGINE_PLAN_HOSTNAME=engine-plan
+      - ENGINE_PLAN_PORT=9443
+      - ENGINE_PLAN_SERVICES_PORT=9763
       - CONTAINER_REPOSITORY_HOSTNAME=container-repository
       - CONTAINER_DEPLOYMENT_TESTS=false
     # volumes:
@@ -40,6 +43,7 @@ services:
     image: opentosca/engine-ia
     ports:
       - '8090:8080'
+      - '1883:1883' # MQTT
     # volumes:
     #   - <path on host system>:/usr/local/tomcat/webapps
     networks:
