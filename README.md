@@ -46,6 +46,25 @@ docker-compose logs -f engine-ia engine-plan
 
 ---
 
+## Information for the internal use of University of Stuttgart
+When the winery-repository should be mapped to a volume on the host machine, follow these steps:
+
+1. Push your winery-repository to a remote branch (e.g. remote branch in OpenTOSCA/tosca-definitions-internal)
+1. Comment the volume mappings in the `docker-compose.yml` (lines 23,24,55,56)
+2. Run `docker-compose up -d`
+3. Run `docker exec -it opentosca-docker_winery_1 bash` (important: use PowerShell on Windows)
+4. Run `cd /var/opentosca/`
+5. Run `rm -rf repository`
+6. Run `git clone https://github.com/OpenTOSCA/tosca-definitions-internal repository` (in case you want to use OpenTOSCA/tosca-definitions-internal)
+7. In case you pushed your winery-repository to a branch run `git checkout [branch]`
+7. Use Winery normally.
+8. Run again step 3
+9. Run `cd /var/opentosca/repository`
+9. Use git commands to `commit/push/pull/...` your changes in the repository
+
+
+---
+
 ## Haftungsausschluss
 
 Dies ist ein Forschungsprototyp.
