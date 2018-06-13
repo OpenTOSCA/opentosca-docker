@@ -20,11 +20,13 @@ Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost:80
 | Plan Engine (WSO2 BPS) | http://localhost:9763<br>(user: `admin`, password: `admin`) | [Link](https://github.com/OpenTOSCA/engine-plan) | [Link](https://hub.docker.com/r/opentosca/engine-plan) |
 | IA Engine (Apache Tomcat) | http://localhost:8090/manager<br>(user: `admin`, password: `admin`) | [Link](https://github.com/OpenTOSCA/engine-ia) | [Link](https://hub.docker.com/r/opentosca/engine-ia) |
 
+**Make sure following ports in your environment are free in order to start OpenTOSCA properly: 8080, 8088, 8081, 9763, 8090, 1337, 1883**
+
 Have fun!
 
 ---
 
-### Tipps and Tricks
+## Tips and Tricks
 
 ```bash
 # Pull the latest images
@@ -44,12 +46,31 @@ docker-compose logs -f engine-ia engine-plan
 
 ---
 
-### Haftungsausschluss
+## Information for the internal use of University of Stuttgart
+When the winery-repository should be mapped to a volume on the host machine, follow these steps:
+
+1. Push your winery-repository to a remote branch (e.g. remote branch in OpenTOSCA/tosca-definitions-internal)
+1. Comment the volume mappings in the `docker-compose.yml` (lines 23,24,55,56)
+2. Run `docker-compose up -d`
+3. Run `docker exec -it opentosca-docker_winery_1 bash` (important: use PowerShell on Windows)
+4. Run `cd /var/opentosca/`
+5. Run `rm -rf repository`
+6. Run `git clone https://github.com/OpenTOSCA/tosca-definitions-internal repository` (in case you want to use OpenTOSCA/tosca-definitions-internal)
+7. In case you pushed your winery-repository to a branch run `git checkout [branch]`
+7. Use Winery normally.
+8. Run again step 3
+9. Run `cd /var/opentosca/repository`
+9. Use git commands to `commit/push/pull/...` your changes in the repository
+
+
+---
+
+## Haftungsausschluss
 
 Dies ist ein Forschungsprototyp.
 Die Haftung für entgangenen Gewinn, Produktionsausfall, Betriebsunterbrechung, entgangene Nutzungen, Verlust von Daten und Informationen, Finanzierungsaufwendungen sowie sonstige Vermögens- und Folgeschäden ist, außer in Fällen von grober Fahrlässigkeit, Vorsatz und Personenschäden ausgeschlossen.
 
-### Disclaimer of Warranty
+## Disclaimer of Warranty
 
 Unless required by applicable law or agreed to in writing, Licensor provides the Work (and each Contributor provides its Contributions) on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied, including, without limitation, any warranties or conditions of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A PARTICULAR PURPOSE.
 You are solely responsible for determining the appropriateness of using or redistributing the Work and assume any risks associated with Your exercise of permissions under this License.

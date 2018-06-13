@@ -4,23 +4,26 @@ services:
     image: opentosca/container
     ports:
       - '1337:1337'
+      - '8081-8087:8081-8087'
     environment:
-      - CONTAINER_HOSTNAME=container
-      - CONTAINER_REPOSITORY_HOSTNAME=container-repository
+      - PUBLIC_HOSTNAME=container
       - ENGINE_IA_HOSTNAME=engine-ia
+      - ENGINE_IA_PORT=8080
       - ENGINE_PLAN_HOSTNAME=engine-plan
       - ENGINE_PLAN=BPS
       - ENGINE_PLAN_ROOT_URL=https://engine-plan:9443
       - ENGINE_PLAN_SERVICES_URL=http://engine-plan:9763/services
       - ENGINE_PLAN_USER_NAME=admin
       - ENGINE_PLAN_PWD=admin
+      - CONTAINER_REPOSITORY_HOSTNAME=container-repository
+      - CONTAINER_DEPLOYMENT_TESTS=false
       - CONTAINER_JAVA_OPTS=
+    # volumes:
+    #   - <path on host system>:/tmp/opentosca
     networks:
       - opentosca
   container-repository:
     image: opentosca/winery
-    ports:
-      - '8081:8080'
     # volumes:
     #   - <path on host system>:/var/opentosca/repository
     networks:
@@ -44,7 +47,18 @@ services:
   engine-ia:
     image: opentosca/engine-ia
     ports:
+      - '8090:8080'
+      - '1883:1883' # MQTT
+    # volumes:
+    #   - <path on host system>:/usr/local/tomcat/webapps
+    networks:
+      - opentosca
+  winery:
+    image: opentosca/winery
+    ports:
       - '8080:8080'
+    # volumes:
+    #   - <path on host system>:/var/opentosca/repository
     networks:
       - opentosca
   dind:
@@ -53,21 +67,13 @@ services:
     environment:
       - PORT=2375
       - DOCKER_DAEMON_ARGS=--dns 8.8.8.8 --dns 8.8.4.4 -D
-      # Internal DNS settings to run it inside the univeristy network
-      #- DOCKER_DAEMON_ARGS=--dns 129.69.211.1 --dns 129.69.215.5 -D
+      # Internal DNS settings to run it inside the university network
+      # - DOCKER_DAEMON_ARGS=--dns 129.69.211.1 --dns 129.69.215.5 -D
     ports:
       # - '9975:2375' # dind
       - '9990-9999:9990-9999' # dind
     # volumes:
     #   - '/var/run/docker.sock:/var/run/docker.sock'
-    networks:
-      - opentosca
-  winery:
-    image: opentosca/winery
-    ports:
-      - '8090:8080'
-    # volumes:
-    #   - <path on host system>:/var/opentosca/repository
     networks:
       - opentosca
 networks:

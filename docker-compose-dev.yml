@@ -4,9 +4,10 @@ services:
     image: opentosca/container
     ports:
       - '1337:1337'
+      - '8081-8087:8081-8087'
       - '8001:8001' # Expose JAVA remote debugging port
     environment:
-      CONTAINER_HOSTNAME: container
+      PUBLIC_HOSTNAME: container
       CONTAINER_REPOSITORY_HOSTNAME: container-repository
       ENGINE_IA_HOSTNAME: engine-ia
       ENGINE_PLAN_HOSTNAME: engine-plan
@@ -28,8 +29,6 @@ services:
       - opentosca
   container-repository:
     image: opentosca/winery
-    ports:
-      - '8081:8080'
     # volumes:
     #   - <path on host system>:/var/opentosca/repository
     networks:
@@ -55,7 +54,18 @@ services:
   engine-ia:
     image: opentosca/engine-ia
     ports:
+      - '8090:8080'
+      - '1883:1883' # MQTT
+    # volumes:
+    #   - <path on host system>:/usr/local/tomcat/webapps
+    networks:
+      - opentosca
+  winery:
+    image: opentosca/winery
+    ports:
       - '8080:8080'
+    # volumes:
+    #   - <path on host system>:/var/opentosca/repository
     networks:
       - opentosca
   dind:
@@ -64,21 +74,13 @@ services:
     environment:
       - PORT=2375
       - DOCKER_DAEMON_ARGS=--dns 8.8.8.8 --dns 8.8.4.4 -D
-      # Internal DNS settings to run it inside the univeristy network
-      #- DOCKER_DAEMON_ARGS=--dns 129.69.211.1 --dns 129.69.215.5 -D
+      # Internal DNS settings to run it inside the university network
+      # - DOCKER_DAEMON_ARGS=--dns 129.69.211.1 --dns 129.69.215.5 -D
     ports:
       # - '9975:2375' # dind
       - '9990-9999:9990-9999' # dind
     # volumes:
     #   - '/var/run/docker.sock:/var/run/docker.sock'
-    networks:
-      - opentosca
-  winery:
-    image: opentosca/winery
-    ports:
-      - '8090:8080'
-    # volumes:
-    #   - <path on host system>:/var/opentosca/repository
     networks:
       - opentosca
 networks:
