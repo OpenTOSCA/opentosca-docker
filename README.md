@@ -45,7 +45,7 @@ Simple How-To section to cover different kinds of use cases.
 > ```
 > Settings from file `docker-compose.override.yml` are applied automatically when using `docker-compose up`.
 
-### ... use an existing Winery repository?
+### How to use an existing Winery repository?
 
 You can map an existing Winery repository (on your host) as a volume into the `winery` container.
 
@@ -59,7 +59,7 @@ You can map an existing Winery repository (on your host) as a volume into the `w
 * Replace `<path on host system>` with the path to a valid Winery repository (can be empty)
 * Start the environment as usual: `docker-compose up -d`
 
-### ... run the environment with WSO2 BPS engine?
+### How to run the environment with WSO2 BPS engine?
 
 Start the environment with the `docker-compose.bps.yml` override:
 
@@ -67,7 +67,7 @@ Start the environment with the `docker-compose.bps.yml` override:
 docker-compose up -d -f docker-compose.yml -f docker-compose.bps.yml
 ```
 
-### ... run the environment in production (Linux only)?
+### How to run the environment in production (Linux only)?
 
 * Follow the installation instruction for Docker and Docker Compose (Linux):
     * <https://docs.docker.com/install/linux/docker-ce/ubuntu>
@@ -89,7 +89,7 @@ docker-compose up -d -f docker-compose.yml -f docker-compose.prod.yml
 ```
 * This setup also starts the lightweight management UI **Portainer** on port `9000`
 
-### ... debug components running inside the environment?
+### How to debug components running inside the environment?
 
 * Create a `docker-compose.override.yml` file (or copy it from `_docker-compose.override.yml`)
 * Make sure you enable and set the certain Java debug options (e.g., `-Xdebug`)
