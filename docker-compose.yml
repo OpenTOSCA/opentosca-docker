@@ -32,9 +32,6 @@ services:
     image: opentosca/ode
     ports:
       - '9763:9763' # http
-    environment:
-      - ENGINE_PLAN_HOSTNAME=engine-plan
-      - ENGINE_PLAN_PORT=9763
     networks:
       - opentosca
   engine-ia:
