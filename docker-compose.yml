@@ -15,6 +15,7 @@ services:
       ENGINE_PLAN_SERVICES_URL: http://engine-plan:9763/ode/processes
       CONTAINER_REPOSITORY_HOSTNAME: container-repository
       CONTAINER_DEPLOYMENT_TESTS: 'false'
+      CONTAINER_JAVA_OPTS: ''
     networks:
       - opentosca
   container-repository:
