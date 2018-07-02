@@ -29,6 +29,8 @@ Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost:80
 * `1883` (optional)
 * `9000` (optional)
 
+---
+
 ## How To ...
 
 Simple How-To section to cover different kinds of use cases.
@@ -49,11 +51,11 @@ You can map an existing Winery repository (on your host) as a volume into the `w
 
 * Create a `docker-compose.override.yml` file (or copy it from `_docker-compose.override.yml`)
 * Use the following configuration in order to map a repository:
-```
-  winery:
-    volumes:
-      - <path on host system>:/var/opentosca/repository
-```
+  ```
+    winery:
+      volumes:
+        - <path on host system>:/var/opentosca/repository
+  ```
 * Replace `<path on host system>` with the path to a valid Winery repository (can be empty)
 * Start the environment as usual: `docker-compose up -d`
 
@@ -94,7 +96,27 @@ docker-compose -f docker-compose.yml -f docker-compose.bps.yml up -d
 * Make sure you enable and set the certain Java debug options (e.g., `-Xdebug`)
 * Start the environment as usual: `docker-compose up -d`
 
-## Tips and Tricks
+### How to use the environment for local development setups?
+
+* Create a `docker-compose.override.yml` file (or copy it from `_docker-compose.override.yml`)
+* For the `container` service, modify the port settings to avoid conflicts when starting the container from your IDE
+* In addition, make sure to set the `PUBLIC_HOSTNAME` environment variable to your host's public IP address
+* The final configuration for the `container` could look like the following:
+  ```
+    container:
+      ports:
+        - '11337:1337'
+      environment:
+        PUBLIC_HOSTNAME: 129.69.214.56        
+  ```
+* Start the environment as usual: `docker-compose up -d` 
+* Afterwards, you are able to run the container via Eclipse (using a modified configuration matching your needs)
+* You should be able to use the `MyTinyTodo_Bare_Docker.csar` using the following provisioning parameters:
+    * Application Port: `9990`
+    * DockerEngineURL: `tcp://dind:2375`
+* Finally, you can launch the application on <http://localhost:9990>
+
+### Tips and Tricks
 
 ```bash
 # Pull the latest images
