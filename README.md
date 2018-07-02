@@ -17,7 +17,7 @@ Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost:80
 | OpenTOSCA Modelling (Eclipse Winery) | http://localhost:8080 | [Link](https://github.com/OpenTOSCA/winery) | [Link](https://hub.docker.com/r/opentosca/winery) |
 | OpenTOSCA Container API | http://localhost:1337 | [Link](https://github.com/OpenTOSCA/container) | [Link](https://hub.docker.com/r/opentosca/container) |
 | OpenTOSCA Container Repository | http://localhost:8081 | [Link](https://github.com/OpenTOSCA/winery) | [Link](https://hub.docker.com/r/opentosca/winery) |
-| Plan Engine (WSO2 BPS) | http://localhost:9763<br>(user: `admin`, password: `admin`) | [Link](https://github.com/OpenTOSCA/engine-plan) | [Link](https://hub.docker.com/r/opentosca/engine-plan) |
+| Plan Engine (Apache ODE or WSO2 BPS) | http://localhost:9763<br>(user: `admin`, password: `admin`) | [BPS](https://github.com/OpenTOSCA/bps) [ODE](https://github.com/OpenTOSCA/ode) | [BPS](https://hub.docker.com/r/opentosca/bps) [ODE](https://hub.docker.com/r/opentosca/ode) |
 | IA Engine (Apache Tomcat) | http://localhost:8090/manager<br>(user: `admin`, password: `admin`) | [Link](https://github.com/OpenTOSCA/engine-ia) | [Link](https://hub.docker.com/r/opentosca/engine-ia) |
 
 **Make sure following ports in your environment are free in order to start OpenTOSCA properly:**
