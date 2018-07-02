@@ -4,8 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Added override configuration to use WSO2 BPS.
+- Added production-ready configuration for Linux-based operating systems.
+- Added basic override configuration. Can be used with `cp _docker-compose.override.yml docker-compose.override.yml`.
 ### Changed
 - Moved the `Dockerfiles` to dedicated repositories; building and publishing images to Docker Hub is now part of those repositories.
+- Changed default plan engine to Apache ODE.
 
 ## [0.0.3] - 2017-08-04
 ### Added
