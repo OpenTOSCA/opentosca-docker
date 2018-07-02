@@ -17,7 +17,7 @@ Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost:80
 | OpenTOSCA Modelling (Eclipse Winery) | http://localhost:8080 | [Link](https://github.com/OpenTOSCA/winery) | [Link](https://hub.docker.com/r/opentosca/winery) |
 | OpenTOSCA Container API | http://localhost:1337 | [Link](https://github.com/OpenTOSCA/container) | [Link](https://hub.docker.com/r/opentosca/container) |
 | OpenTOSCA Container Repository | http://localhost:8081 | [Link](https://github.com/OpenTOSCA/winery) | [Link](https://hub.docker.com/r/opentosca/winery) |
-| Plan Engine (Apache ODE or WSO2 BPS) | http://localhost:9763<br>(user: `admin`, password: `admin`) | [BPS](https://github.com/OpenTOSCA/bps) [ODE](https://github.com/OpenTOSCA/ode) | [BPS](https://hub.docker.com/r/opentosca/bps) [ODE](https://hub.docker.com/r/opentosca/ode) |
+| Plan Engine (Apache ODE) | http://localhost:9763/ode | [Link](https://github.com/OpenTOSCA/ode) | [Link](https://hub.docker.com/r/opentosca/ode) |
 | IA Engine (Apache Tomcat) | http://localhost:8090/manager<br>(user: `admin`, password: `admin`) | [Link](https://github.com/OpenTOSCA/engine-ia) | [Link](https://hub.docker.com/r/opentosca/engine-ia) |
 
 **Make sure following ports in your environment are free in order to start OpenTOSCA properly:**
@@ -27,6 +27,7 @@ Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost:80
 * `8090`
 * `9763`
 * `1883` (optional)
+* `9000` (optional)
 
 ## How To ...
 
@@ -35,15 +36,12 @@ Simple How-To section to cover different kinds of use cases.
 > **Info:** We use the override feature of Docker Compose to provide different configurations for certain use cases.
 > [More information](https://docs.docker.com/compose/extends).
 >
-> A basic override file with common configuration settings for our environment:
-> ```
-> _docker-compose.override.yml
-> ```
-> Simply make a copy and modify it to your needs:
+> Basic override file with common configuration settings for our environment: [`_docker-compose.override.yml`](_docker-compose.override.yml).
+> Simply, make a copy and modify it to your needs:
 > ```
 > cp _docker-compose.override.yml docker-compose.override.yml
 > ```
-> Settings from file `docker-compose.override.yml` are applied automatically when using `docker-compose up`.
+> Settings from `docker-compose.override.yml` are applied automatically when using `docker-compose up`.
 
 ### How to use an existing Winery repository?
 
@@ -64,27 +62,31 @@ You can map an existing Winery repository (on your host) as a volume into the `w
 Start the environment with the `docker-compose.bps.yml` override:
 
 ```
-docker-compose up -d -f docker-compose.yml -f docker-compose.bps.yml
+docker-compose -f docker-compose.yml -f docker-compose.bps.yml up -d
 ```
 
 ### How to run the environment in production (Linux only)?
 
 * Follow the installation instruction for Docker and Docker Compose (Linux):
-    * <https://docs.docker.com/install/linux/docker-ce/ubuntu>
-    * <https://docs.docker.com/compose/install>
+    * [Docker CE](https://docs.docker.com/install/linux/docker-ce/ubuntu)
+    * [Docker Compose](https://docs.docker.com/compose/install)
 * Create the following directories (required to map volumes properly):
-```
-mkdir -p /var/opentosca/container/data
-mkdir -p /var/opentosca/container/repository
-mkdir -p /var/opentosca/winery/repository
-mkdir -p /var/opentosca/portainer
-```
+  ```
+  mkdir -p /var/opentosca/container/data
+  mkdir -p /var/opentosca/container/repository
+  mkdir -p /var/opentosca/winery/repository
+  mkdir -p /var/opentosca/portainer
+  ```
 * Open the `.env` file and set the `PUBLIC_HOSTNAME` variable to your host's public IP address or hostname
 * Start the environment
-```
-docker-compose up -d -f docker-compose.yml -f docker-compose.prod.yml
-```
+  ```
+  docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+  ```
 * This setup also starts the lightweight management UI **Portainer** on port `9000`
+* For special scenarios, you may have to specify an override file:
+  ```
+  docker-compose.exe -f docker-compose.yml -f docker-compose.prod.yml -f docker-compose.override.yml up -d
+  ```
 
 ### How to debug components running inside the environment?
 
@@ -97,6 +99,9 @@ docker-compose up -d -f docker-compose.yml -f docker-compose.prod.yml
 ```bash
 # Pull the latest images
 docker-compose pull
+
+# Validate and view the resulting configuration
+docker-compose [-f <file> ...] config
 
 # Start services in background
 docker-compose up -d
