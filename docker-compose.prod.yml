@@ -3,13 +3,29 @@ services:
   container:
     volumes:
       - /var/opentosca/container/data:/tmp/opentosca
+    restart: unless-stopped
   container-repository:
     volumes:
       - /var/opentosca/container/repository:/var/opentosca/repository
+    restart: unless-stopped
+  ui:
+    restart: unless-stopped
+  engine-plan:
+    restart: unless-stopped
+  engine-ia:
+    restart: unless-stopped
   winery:
     volumes:
       - /var/opentosca/winery/repository:/var/opentosca/repository
-  dind:
-    environment:
-      # University of Stuttgart internal DNS settings
-      - DOCKER_DAEMON_ARGS=--dns 129.69.211.1 --dns 129.69.215.5 -D
+    restart: unless-stopped
+  portainer:
+    image:  portainer/portainer
+    command: -H unix:///var/run/docker.sock
+    ports:
+      - '9000:9000'
+    volumes:
+      - /var/opentosca/portainer:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - opentosca
+    restart: unless-stopped
