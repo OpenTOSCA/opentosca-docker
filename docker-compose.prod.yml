@@ -1,0 +1,15 @@
+version: '2'
+services:
+  container:
+    volumes:
+      - /var/opentosca/container/data:/tmp/opentosca
+  container-repository:
+    volumes:
+      - /var/opentosca/container/repository:/var/opentosca/repository
+  winery:
+    volumes:
+      - /var/opentosca/winery/repository:/var/opentosca/repository
+  dind:
+    environment:
+      # University of Stuttgart internal DNS settings
+      - DOCKER_DAEMON_ARGS=--dns 129.69.211.1 --dns 129.69.215.5 -D

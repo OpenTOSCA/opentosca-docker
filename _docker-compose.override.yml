@@ -1,0 +1,30 @@
+version: '2'
+services:
+  container:
+  ports:
+      - '6666:8000' # Remote debugging port
+    environment:
+      CONTAINER_DEPLOYMENT_TESTS: true
+      CONTAINER_JAVA_OPTS: |-
+        -Xdebug
+        -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n
+    # volumes:
+    #   - <path on host system>:/tmp/opentosca
+  container-repository:
+    # volumes:
+    #   - <path on host system>:/var/opentosca/repository
+  engine-plan:
+    ports:
+      - '5555:8000' # Remote debugging port
+    environment:
+      - JAVA_OPTS=-Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n
+  engine-ia:
+    # volumes:
+    #   - <path on host system>:/usr/local/tomcat/webapps
+  winery:
+    # volumes:
+    #   - <path on host system>:/var/opentosca/repository
+  dind:
+    environment:
+      # University of Stuttgart internal DNS settings
+      - DOCKER_DAEMON_ARGS=--dns 129.69.211.1 --dns 129.69.215.5 -D
