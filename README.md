@@ -41,7 +41,7 @@ Simple How-To section to cover different kinds of use cases.
 > ```
 > Simply make a copy and modify it to your needs:
 > ```
-> `cp _docker-compose.override.yml docker-compose.override.yml`
+> cp _docker-compose.override.yml docker-compose.override.yml
 > ```
 > Settings from file `docker-compose.override.yml` are applied automatically when using `docker-compose up`.
 
