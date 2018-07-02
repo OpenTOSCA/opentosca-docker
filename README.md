@@ -47,7 +47,7 @@ Simple How-To section to cover different kinds of use cases.
 
 ### ... use an existing Winery repository?
 
-You can map an existing Winery repository as a volume into the `winery` container.
+You can map an existing Winery repository (on your host) as a volume into the `winery` container.
 
 * Create a `docker-compose.override.yml` file (or copy it from `_docker-compose.override.yml`)
 * Use the following configuration in order to map a repository:
@@ -78,6 +78,10 @@ mkdir -p /var/opentosca/container/data
 mkdir -p /var/opentosca/container/repository
 mkdir -p /var/opentosca/winery/repository
 mkdir -p /var/opentosca/portainer
+```
+* Create a `.env` file and set the `PUBLIC_HOSTNAME` variable to your host's public IP address or hostname:
+```
+cat PUBLIC_HOSTNAME=`curl -s ifconfig.co` > .env
 ```
 * Start the environment
 ```
