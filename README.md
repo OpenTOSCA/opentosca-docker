@@ -27,6 +27,7 @@ Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost:80
 * `8090`
 * `9763`
 * `1883` (optional)
+* `9000` (optional)
 
 ## How To ...
 
