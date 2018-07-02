@@ -79,10 +79,7 @@ mkdir -p /var/opentosca/container/repository
 mkdir -p /var/opentosca/winery/repository
 mkdir -p /var/opentosca/portainer
 ```
-* Create a `.env` file and set the `PUBLIC_HOSTNAME` variable to your host's public IP address or hostname:
-```
-cat PUBLIC_HOSTNAME=`curl -s ifconfig.co` > .env
-```
+* Open the `.env` file and set the `PUBLIC_HOSTNAME` variable to your host's public IP address or hostname
 * Start the environment
 ```
 docker-compose up -d -f docker-compose.yml -f docker-compose.prod.yml

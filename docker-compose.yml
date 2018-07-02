@@ -6,16 +6,15 @@ services:
       - '1337:1337'
       - '8081-8087:8081-8087'
     environment:
-      - PUBLIC_HOSTNAME=container
-      - ENGINE_IA_HOSTNAME=engine-ia
-      - ENGINE_IA_PORT=8080
-      - ENGINE_PLAN=ODE
-      - ENGINE_PLAN_HOSTNAME=engine-plan
-      - ENGINE_PLAN_ROOT_URL=http://engine-plan:9763/ode
-      - ENGINE_PLAN_SERVICES_URL=http://engine-plan:9763/ode/processes
-      - CONTAINER_REPOSITORY_HOSTNAME=container-repository
-      - CONTAINER_DEPLOYMENT_TESTS=false
-      - CONTAINER_JAVA_OPTS=
+      PUBLIC_HOSTNAME: ${PUBLIC_HOSTNAME}
+      ENGINE_IA_HOSTNAME: engine-ia
+      ENGINE_IA_PORT: 8080
+      ENGINE_PLAN: ODE
+      ENGINE_PLAN_HOSTNAME: engine-plan
+      ENGINE_PLAN_ROOT_URL: http://engine-plan:9763/ode
+      ENGINE_PLAN_SERVICES_URL: http://engine-plan:9763/ode/processes
+      CONTAINER_REPOSITORY_HOSTNAME: container-repository
+      CONTAINER_DEPLOYMENT_TESTS: 'false'
     networks:
       - opentosca
   container-repository:
