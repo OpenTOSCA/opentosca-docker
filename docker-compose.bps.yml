@@ -12,3 +12,5 @@ services:
     image: opentosca/bps
     ports:
       - '9443:9443' # https
+    environment:
+      - PUBLIC_HOSTNAME=engine-plan
