@@ -41,6 +41,7 @@ services:
     image: opentosca/engine-ia
     ports:
       - '8090:8080'
+      # - '1883:1883' # MQTT
     networks:
       - opentosca
   winery:
