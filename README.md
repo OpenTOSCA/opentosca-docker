@@ -36,15 +36,12 @@ Simple How-To section to cover different kinds of use cases.
 > **Info:** We use the override feature of Docker Compose to provide different configurations for certain use cases.
 > [More information](https://docs.docker.com/compose/extends).
 >
-> A basic override file with common configuration settings for our environment:
-> ```
-> _docker-compose.override.yml
-> ```
-> Simply make a copy and modify it to your needs:
+> Basic override file with common configuration settings for our environment: [`_docker-compose.override.yml`](_docker-compose.override.yml).
+> Simply, make a copy and modify it to your needs:
 > ```
 > cp _docker-compose.override.yml docker-compose.override.yml
 > ```
-> Settings from file `docker-compose.override.yml` are applied automatically when using `docker-compose up`.
+> Settings from `docker-compose.override.yml` are applied automatically when using `docker-compose up`.
 
 ### How to use an existing Winery repository?
 
@@ -65,27 +62,31 @@ You can map an existing Winery repository (on your host) as a volume into the `w
 Start the environment with the `docker-compose.bps.yml` override:
 
 ```
-docker-compose up -d -f docker-compose.yml -f docker-compose.bps.yml
+docker-compose -f docker-compose.yml -f docker-compose.bps.yml up -d
 ```
 
 ### How to run the environment in production (Linux only)?
 
 * Follow the installation instruction for Docker and Docker Compose (Linux):
-    * <https://docs.docker.com/install/linux/docker-ce/ubuntu>
-    * <https://docs.docker.com/compose/install>
+    * [Docker CE](https://docs.docker.com/install/linux/docker-ce/ubuntu)
+    * [Docker Compose](https://docs.docker.com/compose/install)
 * Create the following directories (required to map volumes properly):
-```
-mkdir -p /var/opentosca/container/data
-mkdir -p /var/opentosca/container/repository
-mkdir -p /var/opentosca/winery/repository
-mkdir -p /var/opentosca/portainer
-```
+  ```
+  mkdir -p /var/opentosca/container/data
+  mkdir -p /var/opentosca/container/repository
+  mkdir -p /var/opentosca/winery/repository
+  mkdir -p /var/opentosca/portainer
+  ```
 * Open the `.env` file and set the `PUBLIC_HOSTNAME` variable to your host's public IP address or hostname
 * Start the environment
-```
-docker-compose up -d -f docker-compose.yml -f docker-compose.prod.yml
-```
+  ```
+  docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+  ```
 * This setup also starts the lightweight management UI **Portainer** on port `9000`
+* For special scenarios, you may have to specify an override file:
+  ```
+  docker-compose.exe -f docker-compose.yml -f docker-compose.prod.yml -f docker-compose.override.yml up -d
+  ```
 
 ### How to debug components running inside the environment?
 
