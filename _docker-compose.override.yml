@@ -4,7 +4,7 @@ services:
     ports:
       - '6666:8000' # Remote debugging port
     environment:
-      PUBLIC_HOSTNAME: 127.0.0.1
+      PUBLIC_HOSTNAME: container
       # CONTAINER_DEPLOYMENT_TESTS: 'true'
       CONTAINER_JAVA_OPTS: |-
         -Xdebug
