@@ -125,6 +125,22 @@ docker-compose -f docker-compose.yml -f docker-compose.bps.yml up -d
   * DockerEngineURL: `tcp://dind:2375`
 * Finally, you can launch the application on <http://localhost:9990>
 
+### How to clone a private TOSCA definitions repository to be used with Winery
+
+* Start the environment as usual: `docker-compose up -d`
+
+* Log in to the Winery container and clone the respective Git repository manually (we use our internal `tosca-definitions-internal` repo as an example here):
+
+  ```shell
+  docker-compose exec winery bash
+  rm -rf /var/opentosca/repository
+  git clone https://github.com/OpenTOSCA/tosca-definitions-internal /var/opentosca/repository
+  exit
+  ```
+
+* Open Winery at <http://localhost:8080>
+  > **Note:** Changes to the repository has to be pushed manually with `git push`.
+
 ### Tips and Tricks
 
 ```bash
