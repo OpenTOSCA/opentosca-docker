@@ -23,6 +23,8 @@ services:
     # volumes:
     #   - <path on host system>:/usr/local/tomcat/webapps
   winery:
+    environment:
+      WINERY_REPOSITORY_URL: https://github.com/OpenTOSCA/tosca-definitions-public.git
     # volumes:
     #   - <path on host system>:/var/opentosca/repository
   dind:
