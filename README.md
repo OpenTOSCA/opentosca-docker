@@ -29,6 +29,8 @@ Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost:80
 * `1883` (optional)
 * `9000` (optional)
 
+> It is recommended that your host or virtual machine has at least 4GB of memory.
+
 ---
 
 ## How To
@@ -140,6 +142,22 @@ docker-compose -f docker-compose.yml -f docker-compose.bps.yml up -d
 
 * Open Winery at <http://localhost:8080>
   > **Note:** Changes to the repository has to be pushed manually with `git push`.
+
+### How to extend Winery's JVM Heap Size
+
+You can adjust Winery's JVM heap size by setting a respective environment variable for the `winery` container.
+
+* Create a `docker-compose.override.yml` file (or copy it from `_docker-compose.override.yml`)
+* Use the following configuration in order to map a repository:
+
+  ```yaml
+    winery:
+      environment:
+        WINERY_HEAP_MAX: 8192m
+  ```
+
+* **Note:** Make sure the hosting VM has enough capacity
+* Start the environment as usual: `docker-compose up -d`
 
 ### Tips and Tricks
 
