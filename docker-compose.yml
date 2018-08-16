@@ -1,7 +1,7 @@
 version: '2'
 services:
   container:
-    image: opentosca/container
+    image: opentosca/container:v2.1.0
     ports:
       - '1337:1337'
       - '8081-8087:8081-8087'
@@ -19,30 +19,30 @@ services:
     networks:
       - opentosca
   container-repository:
-    image: opentosca/winery
+    image: opentosca/winery:v2.1.0-M1
     networks:
       - opentosca
   ui:
-    image: opentosca/ui
+    image: opentosca/ui:v2.1.0
     ports:
       - '8088:8080'
     networks:
       - opentosca
   engine-plan:
-    image: opentosca/ode
+    image: opentosca/ode:v2.1.0
     ports:
       - '9763:9763' # http
     networks:
       - opentosca
   engine-ia:
-    image: opentosca/engine-ia
+    image: opentosca/engine-ia:v2.1.0
     ports:
       - '8090:8080'
       # - '1883:1883' # MQTT
     networks:
       - opentosca
   winery:
-    image: opentosca/winery
+    image: opentosca/winery:v2.1.0-M1
     ports:
       - '8080:8080'
     networks:
