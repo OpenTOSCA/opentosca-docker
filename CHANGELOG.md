@@ -10,7 +10,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Added proxy to reach frontends using `<hostname>:80/(ui|winery|ode|manager)`
 
-## [2.1.0] (silvaner)
+## 2.1.0 (Silvaner)
 
 Initial submission by @jojow: https://github.com/jojow/opentosca-dockerfiles
 
@@ -44,4 +44,3 @@ Initial submission by @jojow: https://github.com/jojow/opentosca-dockerfiles
 - Removed `ROOT.war`; it will be replaced with a new landing page in future.
 
 [Unreleased]: https://github.com/OpenTOSCA/opentosca-dockerfiles/compare/v2.1.0-silvaner...HEAD
-[2.1.0]: https://github.com/jojow/opentosca-dockerfiles/compare/master...OpenTOSCA:v2.1.0-silvaner
