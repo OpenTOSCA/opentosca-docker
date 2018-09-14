@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## Unreleased
 
 ### Added
 
@@ -42,5 +42,3 @@ Initial submission by @jojow: https://github.com/jojow/opentosca-dockerfiles
 
 - Removed Vinothek container since it will be replaced with the new OpenTOSCA UI (`opentosca/ui`).
 - Removed `ROOT.war`; it will be replaced with a new landing page in future.
-
-[Unreleased]: https://github.com/OpenTOSCA/opentosca-dockerfiles/compare/v2.1.0-silvaner...HEAD
