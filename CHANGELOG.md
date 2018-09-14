@@ -12,7 +12,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## 2.1.0 (Silvaner)
 
-Initial submission by @jojow: https://github.com/jojow/opentosca-dockerfiles
+> Initial submission by @jojow: https://github.com/jojow/opentosca-dockerfiles
 
 ### Added
 
