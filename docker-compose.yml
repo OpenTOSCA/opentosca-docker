@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
   container:
     image: opentosca/container
@@ -24,27 +24,27 @@ services:
       - opentosca
   ui:
     image: opentosca/ui
-    # ports:
-    #   - '8088:8080'
+    ports:
+      - '8088:8080'
     networks:
       - opentosca
   engine-plan:
     image: opentosca/ode
-    # ports:
-    #   - '9763:9763' # http
+    ports:
+      - '9763:9763' # http
     networks:
       - opentosca
   engine-ia:
     image: opentosca/engine-ia
-    # ports:
-    #   - '8090:8080'
-    #   - '1883:1883' # MQTT
+    ports:
+      - '8090:8080'
+      - '1883:1883' # MQTT
     networks:
       - opentosca
   winery:
     image: opentosca/winery
-    # ports:
-    #   - '8080:8080'
+    ports:
+      - '8080:8080'
     networks:
       - opentosca
   dind:
@@ -53,15 +53,10 @@ services:
     environment:
       - PORT=2375
       - DOCKER_DAEMON_ARGS=--dns 8.8.8.8 --dns 8.8.4.4 -D
-    ports:
-      # - '9975:2375'
-      - '9990-9999:9990-9999'
-    # volumes:
-    #   - '/var/run/docker.sock:/var/run/docker.sock'
     networks:
       - opentosca
-  webui:
-    build: webui
+  proxy:
+    build: proxy
     cap_add:
       - NET_ADMIN
     ports:

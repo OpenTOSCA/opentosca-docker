@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
   container:
     ports:
@@ -31,3 +31,7 @@ services:
     environment:
       # University of Stuttgart internal DNS settings
       - DOCKER_DAEMON_ARGS=--dns 129.69.211.1 --dns 129.69.215.5 -D
+    ports:
+      - '9990-9999:9990-9999'
+    # volumes:
+    #   - '/var/run/docker.sock:/var/run/docker.sock'
