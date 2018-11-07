@@ -186,7 +186,8 @@ docker-compose logs -f engine-ia engine-plan
 
 #### <a name="dockersettingsmac"></a> Docker Settings for MAC Users
 For a good user experience set up your docker environment accordingly:
-![Docker MAC Seetings](graphics/Docker_MAC_Settings_Screenshot.tiff)
+
+![Docker MAC Seetings](graphics/Docker_MAC_Settings_Screenshot.png)
 
 ## Haftungsausschluss
 
