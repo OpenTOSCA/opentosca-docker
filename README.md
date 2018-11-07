@@ -31,6 +31,8 @@ Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost:80
 
 > It is recommended that your host or virtual machine has at least 4GB of memory.
 
+NOTE for MAC users only: Please check the [Docker Settings for MAC Users](#dockersettingsmac)
+
 ---
 
 ## How To
@@ -160,7 +162,7 @@ You can adjust Winery's JVM heap size by setting a respective environment variab
 * Start the environment as usual: `docker-compose up -d`
 
 ### Tips and Tricks
-
+#### General
 ```bash
 # Pull the latest images
 docker-compose pull
@@ -181,6 +183,10 @@ docker-compose logs -f engine-ia engine-plan
 ```
 
 ---
+
+#### <a name="dockersettingsmac"></a> Docker Settings for MAC Users
+For a good user experience set up your docker environment accordingly:
+![Docker MAC Seetings](graphics/Docker_MAC_Settings_Screenshot.tiff)
 
 ## Haftungsausschluss
 
