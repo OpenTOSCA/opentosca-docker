@@ -1,7 +1,7 @@
 version: '3'
 services:
   container:
-    image: opentosca/container
+    image: container
     ports:
       - '1337:1337'
       - '8081-8087:8081-8087'
@@ -14,12 +14,15 @@ services:
       ENGINE_PLAN_ROOT_URL: http://engine-plan:9763/ode
       ENGINE_PLAN_SERVICES_URL: http://engine-plan:9763/ode/processes
       CONTAINER_REPOSITORY_HOSTNAME: container-repository
+      CONTAINER_REPOSITORY_PORT: 8080
       CONTAINER_DEPLOYMENT_TESTS: 'false'
       CONTAINER_JAVA_OPTS: ''
     networks:
       - opentosca
   container-repository:
     image: opentosca/winery
+    ports:
+      - '8091:8080'
     networks:
       - opentosca
   ui:
