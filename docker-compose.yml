@@ -1,7 +1,7 @@
 version: '3'
 services:
   container:
-    image: container
+    image: opentosca/container
     ports:
       - '1337:1337'
       - '8081-8087:8081-8087'
