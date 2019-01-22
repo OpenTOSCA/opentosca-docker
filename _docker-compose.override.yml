@@ -24,6 +24,8 @@ services:
   engine-ia:
     # volumes:
     #   - <path on host system>:/usr/local/tomcat/webapps
+    # ports:
+    #   - '1883:1883' # MQTT
   winery:
     environment:
       WINERY_REPOSITORY_URL: https://github.com/OpenTOSCA/tosca-definitions-public.git
