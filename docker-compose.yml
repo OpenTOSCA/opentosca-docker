@@ -4,6 +4,7 @@ services:
     image: opentosca/container
     ports:
       - '1337:1337'
+      - '1883:1883' # MQTT
       - '8081-8087:8081-8087'
     environment:
       PUBLIC_HOSTNAME: ${PUBLIC_HOSTNAME}
@@ -17,6 +18,9 @@ services:
       CONTAINER_REPOSITORY_PORT: 8080
       CONTAINER_DEPLOYMENT_TESTS: 'false'
       CONTAINER_JAVA_OPTS: ''
+      COLLABORATION_MODE: 'false'
+      COLLABORATION_HOSTNAMES: ''
+      COLLABORATION_PORTS: ''
     networks:
       - opentosca
   container-repository:
