@@ -26,7 +26,7 @@ Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost:80
 * `8080-8088`
 * `8090`
 * `9763`
-* `1883` (optional)
+* `1883`
 * `9000` (optional)
 
 > It is recommended that your host or virtual machine has at least 4GB of memory.
