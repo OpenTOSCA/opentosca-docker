@@ -107,28 +107,6 @@ docker-compose -f docker-compose.yml -f docker-compose.bps.yml up -d
 * Make sure you enable and set the certain Java debug options (e.g., `-Xdebug`)
 * Start the environment as usual: `docker-compose up -d`
 
-### How to use the environment for local development setups
-
-* Create a `docker-compose.override.yml` file (or copy it from `_docker-compose.override.yml`)
-* For the `container` service, modify the port settings to avoid conflicts when starting the container from your IDE
-* In addition, make sure to set the `PUBLIC_HOSTNAME` environment variable to your host's public IP address
-* The final configuration for the `container` could look like the following:
-
-  ```yaml
-    container:
-      ports:
-        - '11337:1337'
-      environment:
-        PUBLIC_HOSTNAME: 129.69.214.56
-  ```
-
-* Start the environment as usual: `docker-compose up -d`
-* Afterwards, you are able to run the container via Eclipse (using a modified configuration matching your needs)
-* You should be able to use the `MyTinyTodo_Bare_Docker.csar` using the following provisioning parameters:
-  * Application Port: `9990`
-  * DockerEngineURL: `tcp://dind:2375`
-* Finally, you can launch the application on <http://localhost:9990>
-
 ### How to clone a private TOSCA definitions repository to be used with Winery
 
 * Start the environment as usual: `docker-compose up -d`
