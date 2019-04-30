@@ -164,7 +164,7 @@ docker-compose logs -f engine-ia engine-plan
 
 #### Docker Daemon Settings
 
-For a good user experience set up your docker environment accordingly:
+For a good user experience set up your Docker environment accordingly:
 
 ![Docker MAC Seetings](docs/docker_daemon.png)
 
