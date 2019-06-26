@@ -15,7 +15,7 @@ This How-To section shows how to setup a distributed OpenTOSCA Container in a Ma
   * Replace `${PUBLIC_HOSTNAME_SLAVE_1}` with the IP of the machine and `${PUBLIC_HOSTNAME_MASTER}` with the IP of the master machine
   * If you use another port for MQTT at the master change `COLLABORATION_PORTS` accordingly
   * Run `docker-compose -f docker-compose.slave1.yml up -d`
-* Afterwards devices can be registered at the slaves and are then accessible by deployment operations triggered by te master
+* Afterwards devices can be registered at the slaves and are then accessible by deployment operations triggered by the master
   * [More information](https://elib.uni-stuttgart.de/bitstream/11682/10328/1/Ausarbeitung.pdf) about how to register devices
 
 ### Peer-to-Peer and other setups
