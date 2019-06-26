@@ -13,12 +13,12 @@ Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost:80
 
 | OpenTOSCA Component | URL | GitHub | Docker Hub |
 |:------------------- |:--- |:------ |:---------- |
-| OpenTOSCA UI | http://localhost:8088 | [Link](https://github.com/OpenTOSCA/ui) | [Link](https://hub.docker.com/r/opentosca/ui) |
-| OpenTOSCA Modelling (Eclipse Winery) | http://localhost:8080 | [Link](https://github.com/OpenTOSCA/winery) | [Link](https://hub.docker.com/r/opentosca/winery) |
-| OpenTOSCA Container API | http://localhost:1337 | [Link](https://github.com/OpenTOSCA/container) | [Link](https://hub.docker.com/r/opentosca/container) |
-| OpenTOSCA Container Repository | http://localhost:8081 | [Link](https://github.com/OpenTOSCA/winery) | [Link](https://hub.docker.com/r/opentosca/winery) |
-| Plan Engine (Apache ODE) | http://localhost:9763/ode | [Link](https://github.com/OpenTOSCA/ode) | [Link](https://hub.docker.com/r/opentosca/ode) |
-| IA Engine (Apache Tomcat) | http://localhost:8090/manager<br>(user: `admin`, password: `admin`) | [Link](https://github.com/OpenTOSCA/engine-ia) | [Link](https://hub.docker.com/r/opentosca/engine-ia) |
+| OpenTOSCA UI | <http://localhost><br><http://localhost:8088> | [Link](https://github.com/OpenTOSCA/ui) | [Link](https://hub.docker.com/r/opentosca/ui) |
+| OpenTOSCA Modelling (Eclipse Winery) | <http://localhost/winery><br><http://localhost:8080> | [Link](https://github.com/OpenTOSCA/winery) | [Link](https://hub.docker.com/r/opentosca/winery) |
+| OpenTOSCA Container API | <http://localhost:1337> | [Link](https://github.com/OpenTOSCA/container) | [Link](https://hub.docker.com/r/opentosca/container) |
+| OpenTOSCA Container Repository | <http://localhost:8081> | [Link](https://github.com/OpenTOSCA/winery) | [Link](https://hub.docker.com/r/opentosca/winery) |
+| Plan Engine (Apache ODE) | <http://localhost/ode><br><http://localhost:9763/ode> | [Link](https://github.com/OpenTOSCA/ode) | [Link](https://hub.docker.com/r/opentosca/ode) |
+| IA Engine (Apache Tomcat) | <http://localhost/manager><br><http://localhost:8090/manager><br>(user: `admin`, password: `admin`) | [Link](https://github.com/OpenTOSCA/engine-ia) | [Link](https://hub.docker.com/r/opentosca/engine-ia) |
 
 **Make sure following ports in your environment are free in order to start OpenTOSCA properly:**
 
@@ -26,10 +26,12 @@ Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost:80
 * `8080-8088`
 * `8090`
 * `9763`
-* `1883` (optional)
+* `1883`
 * `9000` (optional)
 
 > It is recommended that your host or virtual machine has at least 4GB of memory.
+
+**NOTE:** Please check the [Docker Daemon Settings](#docker-daemon-settings)
 
 ---
 
@@ -105,28 +107,6 @@ docker-compose -f docker-compose.yml -f docker-compose.bps.yml up -d
 * Make sure you enable and set the certain Java debug options (e.g., `-Xdebug`)
 * Start the environment as usual: `docker-compose up -d`
 
-### How to use the environment for local development setups
-
-* Create a `docker-compose.override.yml` file (or copy it from `_docker-compose.override.yml`)
-* For the `container` service, modify the port settings to avoid conflicts when starting the container from your IDE
-* In addition, make sure to set the `PUBLIC_HOSTNAME` environment variable to your host's public IP address
-* The final configuration for the `container` could look like the following:
-
-  ```yaml
-    container:
-      ports:
-        - '11337:1337'
-      environment:
-        PUBLIC_HOSTNAME: 129.69.214.56
-  ```
-
-* Start the environment as usual: `docker-compose up -d`
-* Afterwards, you are able to run the container via Eclipse (using a modified configuration matching your needs)
-* You should be able to use the `MyTinyTodo_Bare_Docker.csar` using the following provisioning parameters:
-  * Application Port: `9990`
-  * DockerEngineURL: `tcp://dind:2375`
-* Finally, you can launch the application on <http://localhost:9990>
-
 ### How to clone a private TOSCA definitions repository to be used with Winery
 
 * Start the environment as usual: `docker-compose up -d`
@@ -161,6 +141,8 @@ You can adjust Winery's JVM heap size by setting a respective environment variab
 
 ### Tips and Tricks
 
+#### General
+
 ```bash
 # Pull the latest images
 docker-compose pull
@@ -179,6 +161,12 @@ docker-compose logs -f [--tail=1 <SERVICE_NAME>...]
 docker-compose logs -f container
 docker-compose logs -f engine-ia engine-plan
 ```
+
+#### Docker Daemon Settings
+
+For a good user experience set up your Docker environment accordingly:
+
+![Docker MAC Seetings](docs/docker_daemon.png)
 
 ---
 

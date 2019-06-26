@@ -1,10 +1,12 @@
-version: '2'
+version: '3'
 services:
   container:
     ports:
       - '6666:8000' # Remote debugging port
     environment:
       PUBLIC_HOSTNAME: container
+      CONTAINER_REPOSITORY_HOSTNAME: ${PUBLIC_HOSTNAME}
+      CONTAINER_REPOSITORY_PORT: 8091
       # CONTAINER_DEPLOYMENT_TESTS: 'true'
       CONTAINER_JAVA_OPTS: |-
         -Xdebug
@@ -22,6 +24,8 @@ services:
   engine-ia:
     # volumes:
     #   - <path on host system>:/usr/local/tomcat/webapps
+    # ports:
+    #   - '1883:1883' # MQTT
   winery:
     environment:
       WINERY_REPOSITORY_URL: https://github.com/OpenTOSCA/tosca-definitions-public.git
@@ -31,3 +35,7 @@ services:
     environment:
       # University of Stuttgart internal DNS settings
       - DOCKER_DAEMON_ARGS=--dns 129.69.211.1 --dns 129.69.215.5 -D
+    ports:
+      - '9990-9999:9990-9999'
+    # volumes:
+    #   - '/var/run/docker.sock:/var/run/docker.sock'

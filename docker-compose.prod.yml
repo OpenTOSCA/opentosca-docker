@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
   container:
     volumes:
@@ -17,6 +17,10 @@ services:
   winery:
     volumes:
       - /var/opentosca/winery/repository:/var/opentosca/repository
+    restart: unless-stopped
+  dind:
+    restart: "no"
+  proxy:
     restart: unless-stopped
   portainer:
     image: portainer/portainer

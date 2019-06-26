@@ -1,9 +1,10 @@
-version: '2'
+version: '3'
 services:
   container:
     image: opentosca/container:v2.1.0
     ports:
       - '1337:1337'
+      - '1883:1883' # MQTT
       - '8081-8087:8081-8087'
     environment:
       PUBLIC_HOSTNAME: ${PUBLIC_HOSTNAME}
@@ -14,12 +15,18 @@ services:
       ENGINE_PLAN_ROOT_URL: http://engine-plan:9763/ode
       ENGINE_PLAN_SERVICES_URL: http://engine-plan:9763/ode/processes
       CONTAINER_REPOSITORY_HOSTNAME: container-repository
+      CONTAINER_REPOSITORY_PORT: 8080
       CONTAINER_DEPLOYMENT_TESTS: 'false'
       CONTAINER_JAVA_OPTS: ''
+      COLLABORATION_MODE: 'false'
+      COLLABORATION_HOSTNAMES: ''
+      COLLABORATION_PORTS: ''
     networks:
       - opentosca
   container-repository:
     image: opentosca/winery:v2.1.0-M1
+    ports:
+      - '8091:8080'
     networks:
       - opentosca
   ui:
@@ -38,7 +45,6 @@ services:
     image: opentosca/engine-ia:v2.1.0
     ports:
       - '8090:8080'
-      # - '1883:1883' # MQTT
     networks:
       - opentosca
   winery:
@@ -53,11 +59,14 @@ services:
     environment:
       - PORT=2375
       - DOCKER_DAEMON_ARGS=--dns 8.8.8.8 --dns 8.8.4.4 -D
+    networks:
+      - opentosca
+  proxy:
+    build: proxy
+    cap_add:
+      - NET_ADMIN
     ports:
-      # - '9975:2375'
-      - '9990-9999:9990-9999'
-    # volumes:
-    #   - '/var/run/docker.sock:/var/run/docker.sock'
+      - '80:80'
     networks:
       - opentosca
 networks:
