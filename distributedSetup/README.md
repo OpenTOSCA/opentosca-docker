@@ -12,7 +12,7 @@ This How-To section shows how to setup a distributed OpenTOSCA Container in a Ma
   * Wait until the MQTT broker is started before continuing to setup the slaves
 * Slave 1 setup (configure slave 2 equally):
   * Copy the `docker-compose.slave1.yml` file to a machine in a protected network
-  * Replace `${PUBLIC_HOSTNAME_SLAVE_1}` with the IP of the machine and ${PUBLIC_HOSTNAME_MASTER} with the IP of the master machine
+  * Replace `${PUBLIC_HOSTNAME_SLAVE_1}` with the IP of the machine and `${PUBLIC_HOSTNAME_MASTER}` with the IP of the master machine
   * If you use another port for MQTT at the master change `COLLABORATION_PORTS` accordingly
   * Run `docker-compose -f docker-compose.slave1.yml up -d`
 * Afterwards devices can be registered at the slaves and are then accessible by deployment operations triggered by te master
@@ -26,6 +26,21 @@ It is also possible to create a Peer-to-Peer architecture with multiple OpenTOSC
 * Each value represents another Container from which requests should be accepted
 * Therefore, any topology can be created, e.g., for Peer-to-Peer all Containers get the Hostnames of all other Containers
 * However, ensure that the MQTT ports of all registered Containers are accessible
+
+### Setup on IoT devices
+
+In some scenarios only small devices (e.g. Raspberry Pis) are available in a network.
+Therefore, they have to be used to setup a local OpenTOSCA Container with its environment (engine-ia, engine-plan, ...).
+However, this can slow down the devices enormously.
+
+The following Docker Containers can be excluded from the docker-compose file of OpenTOSCA Containers which are only intended to receive request from other Containers:
+* proxy
+* dind
+* winery
+* container-repository
+
+The UI and engine-plan could be excluded for the execution of requests too. 
+However, they are currently needed to resgister devices, which should be replaced by a device discovery component later on.
 
 ## Haftungsausschluss
 
