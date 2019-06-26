@@ -40,7 +40,7 @@ The following Docker Containers can be excluded from the docker-compose file of 
 * container-repository
 
 The UI and engine-plan could be excluded for the execution of requests too. 
-However, they are currently needed to resgister devices, which should be replaced by a device discovery component later on.
+However, they are currently needed to register devices, which should be replaced by a device discovery component later on.
 
 ## Haftungsausschluss
 
