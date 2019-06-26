@@ -4,13 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## [Unreleased]
 
 ### Added
 
 - Added proxy to reach frontends using `<hostname>:80/(ui|winery|ode|manager)`
 
-## 2.1.0 (Silvaner)
+## [2.1.0] (Silvaner)
 
 > Initial submission by @jojow: https://github.com/jojow/opentosca-dockerfiles
 
@@ -42,3 +42,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Removed Vinothek container since it will be replaced with the new OpenTOSCA UI (`opentosca/ui`).
 - Removed `ROOT.war`; it will be replaced with a new landing page in future.
+
+[Unreleased]: https://github.com/OpenTOSCA/opentosca-docker/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/OpenTOSCA/opentosca-docker/releases/tag/v2.1.0
