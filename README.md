@@ -33,6 +33,8 @@ Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost:80
 
 **NOTE:** Please check the [Docker Daemon Settings](#docker-daemon-settings)
 
+**NOTE:** In an optimal setup `localhost` should be replaced by a publicly available Fully-Qualified Domain Name or ip address.
+
 ---
 
 ## How To
