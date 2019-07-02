@@ -24,7 +24,7 @@ services:
     networks:
       - opentosca
   container-repository:
-    image: opentosca/winery:v2.2.0-M1
+    image: opentosca/winery:latest
     ports:
       - '8091:8080'
     networks:
@@ -48,7 +48,7 @@ services:
     networks:
       - opentosca
   winery:
-    image: opentosca/winery:v2.2.0-M1
+    image: opentosca/winery:latest
     ports:
       - '8080:8080'
     networks:
