@@ -24,7 +24,7 @@ services:
     networks:
       - opentosca
   container-repository:
-    image: opentosca/winery:latest
+    image: opentosca/winery
     environment:
       WINERY_PORT: 8091
       WORKFLOWMODELER_PORT: 8091
@@ -52,7 +52,7 @@ services:
     networks:
       - opentosca
   winery:
-    image: opentosca/winery:latest
+    image: opentosca/winery
     ports:
       - '8080:8080'
     networks:

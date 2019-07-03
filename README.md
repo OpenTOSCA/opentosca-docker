@@ -33,7 +33,7 @@ Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost:80
 
 **NOTE:** Please check the [Docker Daemon Settings](#docker-daemon-settings)
 
-**NOTE:** In an optimal setup `localhost` should be replaced by a publicly available Fully-Qualified Domain Name or ip address.
+**NOTE:** In an optimal setup `localhost` should be replaced by a publicly available Fully-Qualified Domain Name or IP address.
 
 ---
 
@@ -49,9 +49,12 @@ Simple How-To section to cover different kinds of use cases.
 > ```shell
 > cp _docker-compose.override.yml docker-compose.override.yml
 > ```
+> Update the `docker-compose.override.yml` by replacing all `<your public ip address>` with either your IP-address or a Fully-Qualified Domain Name.
+> **NOTE**: Otherwise, the Completion feature cannot be used!
+>
 > Settings from `docker-compose.override.yml` are applied automatically when using `docker-compose up`.
 
-### How to use an existing Winery repository
+### How to use an existing **local** Winery repository
 
 You can map an existing Winery repository (on your host) as a volume into the `winery` container.
 
@@ -62,10 +65,25 @@ You can map an existing Winery repository (on your host) as a volume into the `w
     winery:
       volumes:
         - <path on host system>:/var/opentosca/repository
+      environment:
+        WINERY_REPOSITORY_PATH: /var/opentosca/repository
   ```
 
 * Replace `<path on host system>` with the path to a valid Winery repository (can be empty)
 * Start the environment as usual: `docker-compose up -d`
+
+### How to use an existing **public git** Winery repository
+
+You can instruct Winery to use a public git repository which it clones on startup.
+
+* In the `docker-compose.override.yml` file add the following map:
+
+```yml
+    winery:
+      environment:
+        WINERY_REPOSITORY_URL: <git url>
+        # exmaple: WINERY_REPOSITORY_URL: https://github.com/OpenTOSCA/tosca-definitions-public
+```
 
 ### How to run the environment with WSO2 BPS engine
 
