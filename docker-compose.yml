@@ -1,7 +1,7 @@
 version: '3'
 services:
   container:
-    image: opentosca/container:v2.2.0
+    image: opentosca/container
     ports:
       - '1337:1337'
       - '1883:1883' # MQTT
@@ -30,7 +30,7 @@ services:
     networks:
       - opentosca
   ui:
-    image: opentosca/ui:v2.2.0
+    image: opentosca/ui
     ports:
       - '8088:8080'
     networks:
@@ -53,6 +53,10 @@ services:
       - '8080:8080'
     networks:
       - opentosca
+    environment:
+      WORKFLOWMODELER_HOSTNAME: ${PUBLIC_HOSTNAME}
+      TOPOLOGYMODELER_HOSTNAME: ${PUBLIC_HOSTNAME}
+      CONTAINER_HOSTNAME: ${PUBLIC_HOSTNAME}
   dind:
     image: jpetazzo/dind:latest
     privileged: true

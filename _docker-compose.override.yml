@@ -28,7 +28,8 @@ services:
     #   - '1883:1883' # MQTT
   winery:
     environment:
-      WINERY_REPOSITORY_URL: https://github.com/OpenTOSCA/tosca-definitions-public.git
+      WINERY_REPOSITORY_URL: https://github.com/OpenTOSCA/tosca-definitions-public
+      # WINERY_REPOSITORY_PATH: /var/opentosca/repository
     # volumes:
     #   - <path on host system>:/var/opentosca/repository
   dind:
