@@ -52,6 +52,9 @@ Simple How-To section to cover different kinds of use cases.
 > Update the `docker-compose.override.yml` by replacing all `<your public ip address>` with either your IP-address or a Fully-Qualified Domain Name.
 > **NOTE**: Otherwise, the Completion feature cannot be used!
 >
+> Similarly, replace the `CONTAINER_HOSTNAME: <public ip address of the container>` with the Full-Qualified Domain Name or IP address of the container.
+`
+>
 > Settings from `docker-compose.override.yml` are applied automatically when using `docker-compose up`.
 
 ### How to use an existing **local** Winery repository
