@@ -33,7 +33,7 @@ Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost:80
 
 **NOTE:** Please check the [Docker Daemon Settings](#docker-daemon-settings)
 
-**NOTE:** In an optimal setup `localhost` should be replaced by a publicly available Fully-Qualified Domain Name or IP address.
+**NOTE:** In an optimal setup `localhost` should be replaced by a publicly available Fully-Qualified Domain Name or IP address directly in the `.env` file.
 
 ---
 
@@ -49,8 +49,6 @@ Simple How-To section to cover different kinds of use cases.
 > ```shell
 > cp _docker-compose.override.yml docker-compose.override.yml
 > ```
-> Update the `docker-compose.override.yml` by replacing all `<your public ip address>` with either your IP-address or a Fully-Qualified Domain Name.
-> **NOTE**: Otherwise, the Completion feature cannot be used!
 >
 > Similarly, replace the `CONTAINER_HOSTNAME: <public ip address of the container>` with the Full-Qualified Domain Name or IP address of the container.
 `
@@ -138,8 +136,8 @@ docker-compose -f docker-compose.yml -f docker-compose.bps.yml up -d
 
   ```shell
   docker-compose exec winery bash
-  rm -rf /var/opentosca/repository
-  git clone https://github.com/OpenTOSCA/tosca-definitions-internal /var/opentosca/repository
+  rm -rf ${WINERY_REPOSITORY_PATH}
+  git clone https://github.com/OpenTOSCA/tosca-definitions-internal ${WINERY_REPOSITORY_PATH}
   exit
   ```
 
