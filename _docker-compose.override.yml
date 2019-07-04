@@ -5,7 +5,7 @@ services:
       - '6666:8000' # Remote debugging port
     environment:
       PUBLIC_HOSTNAME: <your public ip address>
-      CONTAINER_REPOSITORY_HOSTNAME: <your public ip address>
+      CONTAINER_REPOSITORY_HOSTNAME: ${PUBLIC_HOSTNAME}
       # CONTAINER_DEPLOYMENT_TESTS: 'true'
       CONTAINER_JAVA_OPTS: |-
         -Xdebug
@@ -25,20 +25,9 @@ services:
     #   - <path on host system>:/usr/local/tomcat/webapps
     # ports:
     #   - '1883:1883' # MQTT
-  container-repository:
-    environment:
-      WINERY_HOSTNAME: <your public ip address>
-      # WORKFLOWMODELER_HOSTNAME: <your public ip address>
-      # TOPOLOGYMODELER_HOSTNAME: <your public ip address>
-      # CONTAINER_HOSTNAME: <public ip address of the container>
   winery:
     environment:
       WINERY_REPOSITORY_URL: https://github.com/OpenTOSCA/tosca-definitions-public
-      # WINERY_HOSTNAME: <your public ip address>
-      # WORKFLOWMODELER_HOSTNAME: <your public ip address>
-      # TOPOLOGYMODELER_HOSTNAME: <your public ip address>
-      # CONTAINER_HOSTNAME: <public ip address of the container>
-
   dind:
     environment:
       # University of Stuttgart internal DNS settings
