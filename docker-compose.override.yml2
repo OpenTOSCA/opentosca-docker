@@ -1,0 +1,23 @@
+version: '3'
+services:
+  container:
+    environment:
+      PUBLIC_HOSTNAME: 129.69.220.183
+      CONTAINER_REPOSITORY_HOSTNAME: 129.69.220.183
+      CONTAINER_REPOSITORY_PORT: 8091
+    #volumes:
+    # - c:/temp/opentosca-container-repository:/tmp/opentosca
+  winery:
+    environment:
+      WINERY_REPOSITORY_PATH: /var/opentosca/testrepository
+      WINERY_REPOSITORY_URL: https://github.com/OpenTOSCA/tosca-definitions-public.git
+    # volumes:
+    #   - <path on host system>:/var/opentosca/repository
+  dind:
+    environment:
+      # University of Stuttgart internal DNS settings
+      - DOCKER_DAEMON_ARGS=--dns 129.69.211.1 --dns 129.69.215.5 -D
+    ports:
+      - '9990-9999:9990-9999'
+    # volumes:
+    #   - '/var/run/docker.sock:/var/run/docker.sock'
