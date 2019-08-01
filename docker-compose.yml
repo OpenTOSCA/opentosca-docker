@@ -1,7 +1,7 @@
 version: '3'
 services:
   container:
-    image: opentosca/container:v2.2.1
+    image: opentosca/container:v2.3.0
     ports:
       - '1337:1337'
       - '1883:1883' # MQTT
@@ -24,7 +24,7 @@ services:
     networks:
       - opentosca
   container-repository:
-    image: opentosca/winery:v2.2.1-M1
+    image: opentosca/winery:v2.3.0-M1
     environment:
       WINERY_PORT: 8091
       WORKFLOWMODELER_PORT: 8091
@@ -38,7 +38,7 @@ services:
     networks:
       - opentosca
   ui:
-    image: opentosca/ui:v2.2.1
+    image: opentosca/ui:v2.3.0
     ports:
       - '8088:8080'
     networks:
@@ -56,7 +56,7 @@ services:
     networks:
       - opentosca
   winery:
-    image: opentosca/winery:v2.2.1-M1
+    image: opentosca/winery:v2.3.0-M1
     environment:
       WINERY_HOSTNAME: ${PUBLIC_HOSTNAME}
       WORKFLOWMODELER_HOSTNAME: ${PUBLIC_HOSTNAME}
