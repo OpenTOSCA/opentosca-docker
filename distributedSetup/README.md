@@ -6,15 +6,15 @@ To use this feature, one Container needs to be executed in each protected networ
 This How-To section shows how to setup a distributed OpenTOSCA Container in a Master/Slave architecture to enable the management of devices in two protected networks.
 
 * Master setup:
-  * Copy the `docker-compose.master.yml` file to a machine with open port `1883`
-  * Replace `${PUBLIC_HOSTNAME_MASTER}` with the public IP of the machine or set an environment variable
-  * Run `docker-compose -f docker-compose.master.yml up -d`
+  * Copy the repository to a machine with open port `1883`
+  * Replace `${PUBLIC_HOSTNAME_MASTER}` in the `distributedSetup/docker-compose.master.yml` file with the public IP of the machine or set an environment variable
+  * Run `docker-compose -f distributedSetup/docker-compose.master.yml up -d` from the root directory of the repository
   * Wait until the MQTT broker is started before continuing to setup the slaves
 * Slave 1 setup (configure slave 2 equally):
-  * Copy the `docker-compose.slave1.yml` file to a machine in a protected network
-  * Replace `${PUBLIC_HOSTNAME_SLAVE_1}` with the IP of the machine and `${PUBLIC_HOSTNAME_MASTER}` with the IP of the master machine
+  * Clone the repository to a machine in a protected network
+  * Replace `${PUBLIC_HOSTNAME_SLAVE_1}` in the `distributedSetup/docker-compose.slave1.yml` file with the IP of the machine and `${PUBLIC_HOSTNAME_MASTER}` with the IP of the master machine
   * If you use another port for MQTT at the master change `COLLABORATION_PORTS` accordingly
-  * Run `docker-compose -f docker-compose.slave1.yml up -d`
+  * Run `docker-compose -f distributedSetup/docker-compose.slave1.yml up -d` from the root directory of the repository
 * Afterwards devices can be registered at the slaves and are then accessible by deployment operations triggered by the master
   * [More information](https://elib.uni-stuttgart.de/bitstream/11682/10328/1/Ausarbeitung.pdf) about how to register devices
 
