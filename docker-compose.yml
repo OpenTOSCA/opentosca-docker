@@ -16,7 +16,7 @@ services:
       ENGINE_PLAN_BPMN: Camunda
       ENGINE_PLAN_BPMN_ROOT_URL: http://engine-plan-bpmn:8080/engine-rest
       CONTAINER_REPOSITORY_HOSTNAME: container-repository
-      CONTAINER_REPOSITORY_PORT: 8091
+      CONTAINER_REPOSITORY_PORT: 8080
       CONTAINER_DEPLOYMENT_TESTS: 'false'
       CONTAINER_JAVA_OPTS: ''
       COLLABORATION_MODE: 'false'

@@ -7,9 +7,14 @@
 
 The fastest way to get started is using [Docker Compose](https://docs.docker.com/compose/):
 
-    docker-compose up
+* Add your publicly available FQDN or IP address to the `PUBLIC_HOSTNAME` variable in the `.env` file
+* Execute the following command:
 
-Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost:8088).
+  ```shell
+  docker-compose up
+  ```
+
+Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost).
 
 | OpenTOSCA Component | URL | GitHub | Docker Hub |
 |:------------------- |:--- |:------ |:---------- |
@@ -26,6 +31,7 @@ Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost:80
 * `1337`
 * `8080-8088`
 * `8090`
+* `8091`
 * `8092`
 * `9763`
 * `1883`
@@ -34,8 +40,6 @@ Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost:80
 > It is recommended that your host or virtual machine has at least 4GB of memory.
 
 **NOTE:** Please check the [Docker Daemon Settings](#docker-daemon-settings)
-
-**NOTE:** In an optimal setup `localhost` should be replaced by a publicly available Fully-Qualified Domain Name or IP address directly in the `.env` file.
 
 ---
 
