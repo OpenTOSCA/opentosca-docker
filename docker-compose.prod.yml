@@ -12,6 +12,8 @@ services:
     restart: unless-stopped
   engine-plan:
     restart: unless-stopped
+  engine-plan-bpmn:
+    restart: unless-stopped
   engine-ia:
     restart: unless-stopped
   winery:
