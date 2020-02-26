@@ -81,6 +81,8 @@ services:
       - DOCKER_DAEMON_ARGS=--dns 8.8.8.8 --dns 8.8.4.4 -D
     networks:
       - opentosca
+    ports: 
+      - '2222:2375'
   proxy:
     build: proxy
     cap_add:
