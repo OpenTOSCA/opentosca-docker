@@ -1,7 +1,7 @@
 version: '3'
 services:
   container:
-    image: opentosca/container:latest
+    image: opentosca/container:dhd2020-workshop
     ports:
       - '1337:1337'
       - '1883:1883' # MQTT
@@ -25,7 +25,7 @@ services:
     networks:
       - opentosca
   container-repository:
-    image: opentosca/winery:latest
+    image: opentosca/winery:dhd2020-workshop
     environment:
       WINERY_PORT: 8091
       WORKFLOWMODELER_PORT: 8091
@@ -39,31 +39,25 @@ services:
     networks:
       - opentosca
   ui:
-    image: opentosca/ui:latest
+    image: opentosca/ui:dhd2020-workshop
     ports:
       - '8088:8080'
     networks:
       - opentosca
   engine-plan:
-    image: opentosca/ode:latest
+    image: opentosca/ode:dhd2020-workshop
     ports:
       - '9763:9763' # http
     networks:
       - opentosca
-  engine-plan-bpmn:
-    image: opentosca/camunda-bpmn:latest
-    ports:
-      - '8092:8080'
-    networks:
-      - opentosca
   engine-ia:
-    image: opentosca/engine-ia:latest
+    image: opentosca/engine-ia:dhd2020-workshop
     ports:
       - '8090:8080'
     networks:
       - opentosca
   winery:
-    image: opentosca/winery:latest
+    image: opentosca/winery:dhd2020-workshop
     environment:
       WINERY_HOSTNAME: ${PUBLIC_HOSTNAME}
       WORKFLOWMODELER_HOSTNAME: ${PUBLIC_HOSTNAME}
@@ -73,6 +67,8 @@ services:
       - '8080:8080'
     networks:
       - opentosca
+    environment:
+      WINERY_REPOSITORY_URL: https://github.com/lharzenetter/tosca-definitions-workshop
   dind:
     image: jpetazzo/dind:latest
     privileged: true
