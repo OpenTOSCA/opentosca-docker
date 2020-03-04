@@ -79,6 +79,7 @@ services:
       - opentosca
     ports: 
       - '2222:2375'
+      - '9990-9999:9990-9999'
   proxy:
     build: proxy
     cap_add:
