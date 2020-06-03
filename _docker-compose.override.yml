@@ -37,3 +37,7 @@ services:
       - '3306:3306'
     # volumes:
     #   - '/var/run/docker.sock:/var/run/docker.sock'
+  tops:
+    image: opentosca/tops:latest
+    ports:
+      - 9090:9090
