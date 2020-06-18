@@ -4,8 +4,6 @@ services:
     ports:
       - '6666:8000' # Remote debugging port
     environment:
-      PUBLIC_HOSTNAME: ${PUBLIC_HOSTNAME}
-      CONTAINER_REPOSITORY_HOSTNAME: ${PUBLIC_HOSTNAME}
       # CONTAINER_DEPLOYMENT_TESTS: 'true'
       CONTAINER_JAVA_OPTS: |-
         -Xdebug
