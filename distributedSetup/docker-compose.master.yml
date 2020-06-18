@@ -1,74 +1,67 @@
 version: '3'
 services:
   container:
-    image: opentosca/container:v2.3.0
+    image: opentosca/container:latest
     ports:
       - '1337:1337'
       - '1883:1883' # MQTT
       - '8081-8087:8081-8087'
     environment:
-      PUBLIC_HOSTNAME: ${PUBLIC_HOSTNAME}
+      PUBLIC_HOSTNAME: ${PUBLIC_HOSTNAME_MASTER}
       ENGINE_IA_HOSTNAME: engine-ia
       ENGINE_IA_PORT: 8080
-      ENGINE_PLAN_BPEL: ODE
-      ENGINE_PLAN_BPEL_ROOT_URL: http://engine-plan:9763/ode
-      ENGINE_PLAN_BPEL_SERVICES_URL: http://engine-plan:9763/ode/processes
-      ENGINE_PLAN_BPMN: Camunda
-      ENGINE_PLAN_BPMN_ROOT_URL: http://engine-plan-bpmn:8080/engine-rest
+      ENGINE_PLAN: ODE
+      ENGINE_PLAN_HOSTNAME: engine-plan
+      ENGINE_PLAN_ROOT_URL: http://engine-plan:9763/ode
+      ENGINE_PLAN_SERVICES_URL: http://engine-plan:9763/ode/processes
       CONTAINER_REPOSITORY_HOSTNAME: container-repository
       CONTAINER_REPOSITORY_PORT: 8080
       CONTAINER_DEPLOYMENT_TESTS: 'false'
       CONTAINER_JAVA_OPTS: ''
-      COLLABORATION_MODE: 'false'
+      COLLABORATION_MODE: 'true'
       COLLABORATION_HOSTNAMES: ''
       COLLABORATION_PORTS: ''
     networks:
       - opentosca
   container-repository:
-    image: opentosca/winery:v2.3.0-M1
+    image: opentosca/winery:latest
     environment:
       WINERY_PORT: 8091
       WORKFLOWMODELER_PORT: 8091
       TOPOLOGYMODELER_PORT: 8091
-      WINERY_HOSTNAME: ${PUBLIC_HOSTNAME}
-      WORKFLOWMODELER_HOSTNAME: ${PUBLIC_HOSTNAME}
-      TOPOLOGYMODELER_HOSTNAME: ${PUBLIC_HOSTNAME}
-      CONTAINER_HOSTNAME: ${PUBLIC_HOSTNAME}
+      WINERY_HOSTNAME: ${PUBLIC_HOSTNAME_MASTER}
+      WORKFLOWMODELER_HOSTNAME: ${PUBLIC_HOSTNAME_MASTER}
+      TOPOLOGYMODELER_HOSTNAME: ${PUBLIC_HOSTNAME_MASTER}
+      CONTAINER_HOSTNAME: ${PUBLIC_HOSTNAME_MASTER}
     ports:
       - '8091:8080'
     networks:
       - opentosca
   ui:
-    image: opentosca/ui:v2.3.0
+    image: opentosca/ui:latest
     ports:
       - '8088:8080'
     networks:
       - opentosca
   engine-plan:
-    image: opentosca/ode:v2.2.0
+    image: opentosca/ode:latest
     ports:
       - '9763:9763' # http
     networks:
       - opentosca
-  engine-plan-bpmn:
-    image: opentosca/camunda-bpmn:latest
-    ports:
-      - '8092:8080'
-    networks:
-      - opentosca
   engine-ia:
-    image: opentosca/engine-ia:v2.1.0
+    image: opentosca/engine-ia:latest
     ports:
       - '8090:8080'
     networks:
       - opentosca
   winery:
-    image: opentosca/winery:v2.3.0-M1
+    image: opentosca/winery:latest
     environment:
-      WINERY_HOSTNAME: ${PUBLIC_HOSTNAME}
-      WORKFLOWMODELER_HOSTNAME: ${PUBLIC_HOSTNAME}
-      TOPOLOGYMODELER_HOSTNAME: ${PUBLIC_HOSTNAME}
-      CONTAINER_HOSTNAME: ${PUBLIC_HOSTNAME}
+      WINERY_HOSTNAME: ${PUBLIC_HOSTNAME_MASTER}
+      WORKFLOWMODELER_HOSTNAME: ${PUBLIC_HOSTNAME_MASTER}
+      TOPOLOGYMODELER_HOSTNAME: ${PUBLIC_HOSTNAME_MASTER}
+      CONTAINER_HOSTNAME: ${PUBLIC_HOSTNAME_MASTER}
     ports:
       - '8080:8080'
     networks:
@@ -81,10 +74,8 @@ services:
       - DOCKER_DAEMON_ARGS=--dns 8.8.8.8 --dns 8.8.4.4 -D
     networks:
       - opentosca
-    ports: 
-      - '2222:2375'
   proxy:
-    build: proxy
+    build: ../proxy
     cap_add:
       - NET_ADMIN
     ports:

@@ -7,9 +7,15 @@
 
 The fastest way to get started is using [Docker Compose](https://docs.docker.com/compose/):
 
-    docker-compose up
+* Create a `.env` file by coping it from `_.env`
+* Add your publicly available FQDN or IP address to the `PUBLIC_HOSTNAME` variable in the `.env` file and save it
+* Execute the following command:
 
-Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost:8088).
+  ```shell
+  docker-compose up
+  ```
+
+Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost).
 
 | OpenTOSCA Component | URL | GitHub | Docker Hub |
 |:------------------- |:--- |:------ |:---------- |
@@ -17,7 +23,8 @@ Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost:80
 | OpenTOSCA Modelling (Eclipse Winery) | <http://localhost/winery><br><http://localhost:8080> | [Link](https://github.com/OpenTOSCA/winery) | [Link](https://hub.docker.com/r/opentosca/winery) |
 | OpenTOSCA Container API | <http://localhost:1337> | [Link](https://github.com/OpenTOSCA/container) | [Link](https://hub.docker.com/r/opentosca/container) |
 | OpenTOSCA Container Repository | <http://localhost:8081> | [Link](https://github.com/OpenTOSCA/winery) | [Link](https://hub.docker.com/r/opentosca/winery) |
-| Plan Engine (Apache ODE) | <http://localhost/ode><br><http://localhost:9763/ode> | [Link](https://github.com/OpenTOSCA/ode) | [Link](https://hub.docker.com/r/opentosca/ode) |
+| Plan Engine BPEL (Apache ODE) | <http://localhost/ode><br><http://localhost:9763/ode> | [Link](https://github.com/OpenTOSCA/ode) | [Link](https://hub.docker.com/r/opentosca/ode) |
+| Plan Engine BPMN (Camunda) | <http://localhost/camunda><br><http://localhost:8092/camunda> | [Link](https://github.com/OpenTOSCA/camunda-bpmn) | [Link](https://hub.docker.com/r/opentosca/camunda-bpmn) |
 | IA Engine (Apache Tomcat) | <http://localhost/manager><br><http://localhost:8090/manager><br>(user: `admin`, password: `admin`) | [Link](https://github.com/OpenTOSCA/engine-ia) | [Link](https://hub.docker.com/r/opentosca/engine-ia) |
 
 **Make sure following ports in your environment are free in order to start OpenTOSCA properly:**
@@ -25,6 +32,8 @@ Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost:80
 * `1337`
 * `8080-8088`
 * `8090`
+* `8091`
+* `8092`
 * `9763`
 * `1883`
 * `9000` (optional)
@@ -32,8 +41,6 @@ Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost:80
 > It is recommended that your host or virtual machine has at least 4GB of memory.
 
 **NOTE:** Please check the [Docker Daemon Settings](#docker-daemon-settings)
-
-**NOTE:** In an optimal setup `localhost` should be replaced by a publicly available Fully-Qualified Domain Name or IP address directly in the `.env` file.
 
 ---
 
