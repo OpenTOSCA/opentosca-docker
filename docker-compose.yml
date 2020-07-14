@@ -63,12 +63,11 @@ services:
       WORKFLOWMODELER_HOSTNAME: ${PUBLIC_HOSTNAME}
       TOPOLOGYMODELER_HOSTNAME: ${PUBLIC_HOSTNAME}
       CONTAINER_HOSTNAME: ${PUBLIC_HOSTNAME}
+      WINERY_REPOSITORY_URL: https://github.com/OpenTOSCA/tosca-definitions-public
     ports:
       - '8080:8080'
     networks:
       - opentosca
-    environment:
-      WINERY_REPOSITORY_URL: https://github.com/lharzenetter/tosca-definitions-workshop
   dind:
     image: jpetazzo/dind:latest
     privileged: true
