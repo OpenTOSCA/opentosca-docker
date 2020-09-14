@@ -7,21 +7,14 @@ services:
       - '1883:1883' # MQTT
       - '8081-8087:8081-8087'
     environment:
-      PUBLIC_HOSTNAME: ${PUBLIC_HOSTNAME}
+      CONTAINER_HOSTNAME: ${PUBLIC_HOSTNAME}
       ENGINE_IA_HOSTNAME: engine-ia
       ENGINE_IA_PORT: 8080
-      ENGINE_PLAN_BPEL: ODE
-      ENGINE_PLAN_BPEL_ROOT_URL: http://engine-plan:9763/ode
-      ENGINE_PLAN_BPEL_SERVICES_URL: http://engine-plan:9763/ode/processes
-      ENGINE_PLAN_BPMN: Camunda
-      ENGINE_PLAN_BPMN_ROOT_URL: http://engine-plan-bpmn:8080/engine-rest
       CONTAINER_REPOSITORY_HOSTNAME: container-repository
       CONTAINER_REPOSITORY_PORT: 8080
+      ENGINE_PLAN_BPEL_HOSTNAME: engine-plan
+      ENGINE_PLAN_BPMN_HOSTNAME: engine-plan-bpmn
       CONTAINER_DEPLOYMENT_TESTS: 'false'
-      CONTAINER_JAVA_OPTS: ''
-      COLLABORATION_MODE: 'false'
-      COLLABORATION_HOSTNAMES: ''
-      COLLABORATION_PORTS: ''
     networks:
       - opentosca
   container-repository:
@@ -81,6 +74,8 @@ services:
       - DOCKER_DAEMON_ARGS=--dns 8.8.8.8 --dns 8.8.4.4 -D
     networks:
       - opentosca
+    ports: 
+      - '2222:2375'
   proxy:
     build: proxy
     cap_add:

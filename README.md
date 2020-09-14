@@ -7,7 +7,8 @@
 
 The fastest way to get started is using [Docker Compose](https://docs.docker.com/compose/):
 
-* Add your publicly available FQDN or IP address to the `PUBLIC_HOSTNAME` variable in the `.env` file
+* Create a `.env` file by coping it from `_.env`
+* Add your publicly available FQDN or IP address to the `PUBLIC_HOSTNAME` variable in the `.env` file and save it
 * Execute the following command:
 
   ```shell

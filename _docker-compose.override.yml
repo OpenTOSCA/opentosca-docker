@@ -4,8 +4,6 @@ services:
     ports:
       - '6666:8000' # Remote debugging port
     environment:
-      PUBLIC_HOSTNAME: <your public ip address>
-      CONTAINER_REPOSITORY_HOSTNAME: ${PUBLIC_HOSTNAME}
       # CONTAINER_DEPLOYMENT_TESTS: 'true'
       CONTAINER_JAVA_OPTS: |-
         -Xdebug
@@ -34,5 +32,10 @@ services:
       - DOCKER_DAEMON_ARGS=--dns 129.69.211.1 --dns 129.69.215.5 -D
     ports:
       - '9990-9999:9990-9999'
+      - '3306:3306'
     # volumes:
     #   - '/var/run/docker.sock:/var/run/docker.sock'
+  tops:
+    image: opentosca/tops:latest
+    ports:
+      - 9090:9090
