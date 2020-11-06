@@ -13,7 +13,8 @@ services:
       CONTAINER_REPOSITORY_HOSTNAME: ${PUBLIC_HOSTNAME}
       CONTAINER_REPOSITORY_PORT: 8091
       ENGINE_PLAN_BPEL_HOSTNAME: engine-plan
-      ENGINE_PLAN_BPMN_HOSTNAME: ${PUBLIC_HOSTNAME}
+      ENGINE_PLAN_BPMN_HOSTNAME: engine-plan-bpmn
+      ENGINE_PLAN_BPMN_PORT: 8080
       CONTAINER_DEPLOYMENT_TESTS: 'false'
     networks:
       - opentosca
@@ -62,6 +63,7 @@ services:
       WORKFLOWMODELER_HOSTNAME: ${PUBLIC_HOSTNAME}
       TOPOLOGYMODELER_HOSTNAME: ${PUBLIC_HOSTNAME}
       CONTAINER_HOSTNAME: ${PUBLIC_HOSTNAME}
+      WINERY_REPOSITORY_URL: https://github.com/OpenTOSCA/tosca-definitions-public
     ports:
       - '8080:8080'
     networks:
