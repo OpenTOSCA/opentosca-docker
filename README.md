@@ -195,6 +195,12 @@ For a good user experience set up your Docker environment accordingly:
 
 ---
 
+#### Slow Startup
+
+On some linux systems the following problem arises: https://stackoverflow.com/questions/27612209/spring-boot-application-wont-boot-at-startup-inside-docker
+
+The easiest way right now to fix it is the following: ```bash apt-get install haveged -y```
+
 ## Haftungsausschluss
 
 Dies ist ein Forschungsprototyp.
