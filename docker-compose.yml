@@ -1,7 +1,7 @@
 version: '3'
 services:
   container:
-    image: opentosca/container:v2.4.0
+    image: opentosca/container:v3.0.0
     ports:
       - '1337:1337'
       - '1883:1883' # MQTT
@@ -19,7 +19,7 @@ services:
     networks:
       - opentosca
   container-repository:
-    image: opentosca/winery:v2.4.0-M1
+    image: opentosca/winery:v3.0.0-M1
     environment:
       WINERY_PORT: 8091
       WORKFLOWMODELER_PORT: 8091
@@ -33,31 +33,31 @@ services:
     networks:
       - opentosca
   ui:
-    image: opentosca/ui:v2.4.0
+    image: opentosca/ui:v3.0.0
     ports:
       - '8088:8080'
     networks:
       - opentosca
   engine-plan:
-    image: opentosca/ode:v2.4.0
+    image: opentosca/ode:v3.0.0
     ports:
       - '9763:9763' # http
     networks:
       - opentosca
   engine-plan-bpmn:
-    image: opentosca/camunda-bpmn:latest
+    image: opentosca/camunda-bpmn:v3.0.0
     ports:
       - '8092:8080'
     networks:
       - opentosca
   engine-ia:
-    image: opentosca/engine-ia:v2.1.0
+    image: opentosca/engine-ia:v3.0.0
     ports:
       - '8090:8080'
     networks:
       - opentosca
   winery:
-    image: opentosca/winery:v2.4.0-M1
+    image: opentosca/winery:v3.0.0-M1
     environment:
       WINERY_HOSTNAME: ${PUBLIC_HOSTNAME}
       WORKFLOWMODELER_HOSTNAME: ${PUBLIC_HOSTNAME}
@@ -76,7 +76,7 @@ services:
       - DOCKER_DAEMON_ARGS=--dns 8.8.8.8 --dns 8.8.4.4 -D
     networks:
       - opentosca
-    ports: 
+    ports:
       - '2222:2375'
   proxy:
     build: proxy
