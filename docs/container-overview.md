@@ -3,6 +3,19 @@
 ![OpenTOSCA Docker-Compose overview diagram.](docker-compose-overview.svg)
 
 
+## About the Network
+
+The containers in the docker-compose file use a bridge network (named `opentosca`).
+Dependencies that are accessed over that bridge network are marked with *"via docker-compose network"*.
+
+Because the docker compose file is also used during development on one or more components most dependencies are actually accessed through the public IP of the host computer by default (marked with *"via docker host"*).
+This allows starting some containers from the docker compose and some in a local dev setup.
+However it can also lead to problems if the public IP has changed or a firewall blocks access to the public IP from the containers.
+
+If everything is started via docker-compose on Windows or Mac then it may be possible to use `host.docker.internal` as the public IP/domain.
+(see also <https://docs.docker.com/desktop/windows/networking/#use-cases-and-workarounds> or <https://docs.docker.com/desktop/mac/networking/#use-cases-and-workarounds>)
+
+
 ## container 
 
 Image: [`opentosca/container:latest`](https://hub.docker.com/r/opentosca/container) [GitHub](https://github.com/OpenTOSCA/container)
@@ -67,8 +80,8 @@ Ports:
 
 ### Dependencies
 
- *  [container](#container) via docker host??
- *  [winery](#winery) via docker host??\
+ *  [container](#container) via docker host (configured from browser URL)
+ *  [winery](#winery) via docker host (configured from browser URL)\
     Used as CSAR repository.
 
 
@@ -115,7 +128,7 @@ Modelling UI for TOSCA topologies and repository for CSARs.
 
 Ports:
 
- *  8080: User Interface (and API?)
+ *  8080: User Interface and API
 
 ### Dependencies
 
