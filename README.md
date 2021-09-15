@@ -5,10 +5,13 @@
 
 > Docker Compose file for running the entire OpenTOSCA stack.
 
+:warning: On newer docker installations `docker-compose` will be integrated into the docker cmd. If this is the case then all `docker-compose` commands must be written as `docker compose` (without the hyphen)!
+
 The fastest way to get started is using [Docker Compose](https://docs.docker.com/compose/):
 
 * Create a `.env` file by coping it from `_.env`
-* Add your publicly available FQDN or IP address to the `PUBLIC_HOSTNAME` variable in the `.env` file and save it
+* Add your publicly available FQDN or IP address to the `PUBLIC_HOSTNAME` variable in the `.env` file and save it\
+  (see also [I don't know my public IP](#i-don't-know-my-public-ip))
 * Execute the following command:
 
   ```shell
@@ -61,6 +64,7 @@ The steps to deploy OpenTOSCA in production can be found in [docs/production.md]
 
 How-Tos explaining how to realize specific scenarios can be found in [docs/advanced-how-to.md](./docs/advanced-how-to.md)
 
+* [How to configure the OpenTOSCA UI to use a different Winery repository](./docs/advanced-how-to.md#how-to-configure-the-opentosca-ui-to-use-a-different-winery-repository)
 * [How to use an existing **local** Winery repository](./docs/advanced-how-to.md#how-to-use-an-existing-local-winery-repository)
 * [How to use an existing **public git** Winery repository](./docs/advanced-how-to.md#how-to-use-an-existing-public-git-winery-repository)
 * [How to run the environment with WSO2 BPS engine](./docs/advanced-how-to.md#how-to-run-the-environment-with-wso2-bps-engine)
@@ -72,6 +76,8 @@ How-Tos explaining how to realize specific scenarios can be found in [docs/advan
 ## Tips and Tricks
 
 ### Useful Commands
+
+:warning: New installations of `docker-compose` are integrated into the `docker` command and must be run as `docker compose` (without the hyphen)!
 
 In most cases starting the containers in the background and attaching to the log of select containers in different terminals will provide the best experience.
 
@@ -147,13 +153,42 @@ Therefore, add the following lines to your `docker-compose.override` file:
 ​
 :warning: The underscore in front of the variable name is important. If it is missing, the override does not work!
 
-### Networking troubles
+### I don't know my public IP
+
+**Windows:** Open a command line and type `ipconfig` then search for the IPv4 or IPv6 address of the wlan or ethernet adapter currently in use.
+If you know the hostname of your machine you can also try `ping yourHostnameHere` or `ping yourHostnameHere.local` to get the IP.
+To get the hostname use the command `hostname`.
+To get all IP addresses known for the hostname try `nslookup yourHostnameHere`.
+
+**Mac:** The IP address can be found in the "System Preferences" under "Network".
+Options with a green dot are active and should have an IP address that can be found by selecting the option, then clicking "Advanced" and opening the "TCP/IP" tab.
+Alternatively use the command `ifconfig` in the shell and look for `inet` or `inet6` addresses for the ethernet or wlan interfaces in use.
+
+**Linux:** Use the command `ip addr show` (or shorter `ip a s`) in a shell to list the IP addresses of all available interfaces and look for `inet` or `inet6` addresses for the ethernet or wlan interface(s).
+On older linux systems where this command is not available use `ifconfig` instead.
+If you know the hostname of your machine you can also try `host yourHostnameHere` or `host yourHostnameHere.local` to get the IP.
+To get the hostname use the command `hostname`.
+
+If you are unsure which IP to choose, start with one, run the docker-compose and test with which IPs both the OpenTOSCA UI and the Winery can be reached.
+Use the IP address that reaches both.
+
+:warning: Do **not** use the addresses `127.0.0.1` or `::1:` as these are special addresses (local loopback).
+
+:warning: If you want to use an IPv6 Address in the address line of your browser, then you need to enclose the Address in `[]` (e.g. `[2607:f0d0:1002:51::4]` or `[2607:f0d0:1002:0051:0000:0000:0000:0004]`). Do not use `[]` in the `PUBLIC_HOSTNAME` environemnt variable!
+
+### Networking Problems
 
 Make sure that the `PUBLIC_HOSTNAME` environemnt variable is set and points to your local machine running the docker-compose file.
 Test if you can reach the open ports of all containers with that address.
 See [Container Overview](./docs/container-overview.md) for a more detailed description of the container ports and dependencies between containers.
 See also [About the Network](./docs/container-overview.md#about-the-network) for background information of the bridge network setup in the docker compose file.
 
+Windows and Mac users may use `host.docker.internal` as `PUBLIC_HOSTNAME` if all containers are started locally in docker-compose.
+This will **not** work for development setups where some parts of OpenTOSCA are started outside of the docker-compose network!
+Mac users need to apply a workaround described in [About the Network](./docs/container-overview.md#about-the-network) for this to work.
+
+In rare cases the port `8080` of the `winery` container may be inaccessible.
+In these cases it may help to change the port in the docker-compose file (e.g. to `8079:8080` [`<outside-port>:<container-port>`]) and use the config options described in [How to configure the OpenTOSCA UI to use a different Winery repository](./docs/advanced-how-to.md#how-to-configure-the-opentosca-ui-to-use-a-different-winery-repository) to point the OpenTOSCA ui to the new port for the Winery.
 
 
 ---

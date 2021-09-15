@@ -15,6 +15,15 @@ However it can also lead to problems if the public IP has changed or a firewall 
 If everything is started via docker-compose on Windows or Mac then it may be possible to use `host.docker.internal` as the public IP/domain.
 (see also <https://docs.docker.com/desktop/windows/networking/#use-cases-and-workarounds> or <https://docs.docker.com/desktop/mac/networking/#use-cases-and-workarounds>)
 
+On windows `host.docker.internal` is also known for the windows host.
+For mac this is not the case.
+A workaround for mac is to add the following entry to the `/etc/hosts` file (needs administrator rights!):
+
+```
+# manually added
+127.0.0.1   host.docker.internal
+```
+
 
 ## container 
 
@@ -150,7 +159,7 @@ The provided default overlays expose the port range 9990-9999.
 Ports:
 
  *  2222 (internal 2375): docker demon API
- *  9990-9999 (via overlay): for created docker containers
+ *  9990-9999: for created docker containers, can be extended in override
 
 ## proxy
 

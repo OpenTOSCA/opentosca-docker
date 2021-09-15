@@ -14,6 +14,20 @@ Simple How-To section to cover different kinds of use cases.
 > Settings from `docker-compose.override.yml` are applied automatically when using `docker-compose up`.
 
 
+## How to configure the OpenTOSCA UI to use a different Winery repository
+
+* Open the "Administration" tab in the OpenTOSCA UI
+* In the "Repository Configuration" section click on the "OpenTOSCA" entry (it should have the URL `http://localhost:8080/winery/servicetemplates/` if the configuration was not changed before)
+* Change the domain (and port) in the dialog to point to the Winery server you want to use (e.g. `http://winery.example.com:8181/winery/servicetemplates/`)
+* Wait until the new URL is checked by the OpenTOSCA UI
+* Click "Save"
+
+The configuration is stored locally in the [Local Storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) (under the key `opentosca`) of your browser and should survive reloads of the page.
+
+To clear the configuration data, first try to change the settings in the "Administration" tab.
+If that does not work, use tho development tools of the browser and clear the local storage manually (in chrome it can be found in the "Application" tab of the development tools).
+
+
 ## How to use an existing **local** Winery repository
 
 You can map an existing Winery repository (on your host) as a volume into the `winery` container.
@@ -95,3 +109,4 @@ You can adjust Winery's JVM heap size by setting a respective environment variab
 
 * **Note:** Make sure the hosting VM has enough capacity
 * Start the environment as usual: `docker-compose up -d`
+
