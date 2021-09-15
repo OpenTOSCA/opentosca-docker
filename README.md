@@ -5,7 +5,7 @@
 
 > Docker Compose file for running the entire OpenTOSCA stack.
 
-:warning: On newer docker installations `docker-compose` will be integrated into the docker cmd. If this is the case then all `docker-compose` commands must be written as `docker compose` (without the hyphen)!
+:warning: On newer docker installations `docker-compose` will be integrated into the docker cmd. If this is the case then all `docker-compose` commands must be written as `docker compose` (without the hyphen)! (See [Compose V2 and the new docker compose command](https://docs.docker.com/compose/cli-command/#compose-v2-and-the-new-docker-compose-command))
 
 The fastest way to get started is using [Docker Compose](https://docs.docker.com/compose/):
 
@@ -77,7 +77,7 @@ How-Tos explaining how to realize specific scenarios can be found in [docs/advan
 
 ### Useful Commands
 
-:warning: New installations of `docker-compose` are integrated into the `docker` command and must be run as `docker compose` (without the hyphen)!
+:warning: New installations of `docker-compose` are integrated into the `docker` command and must be run as `docker compose` (without the hyphen)!  (See [Compose V2 and the new docker compose command](https://docs.docker.com/compose/cli-command/#compose-v2-and-the-new-docker-compose-command))
 
 In most cases starting the containers in the background and attaching to the log of select containers in different terminals will provide the best experience.
 
@@ -100,6 +100,9 @@ To pull the latest images and ensure that they are run remove the existing conta
 ```bash
 # Shutdown services and remove container
 docker-compose down -v
+
+# Shutdown services and remove containers (including containers from unspecified services)
+docker-compose down -v --remove-orphans
 
 # Pull the latest images
 docker-compose pull

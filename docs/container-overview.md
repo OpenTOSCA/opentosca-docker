@@ -27,12 +27,12 @@ A workaround for mac is to add the following entry to the `/etc/hosts` file (nee
 
 ## container 
 
-Image: [`opentosca/container:latest`](https://hub.docker.com/r/opentosca/container) [GitHub](https://github.com/OpenTOSCA/container)
+Image: [`opentosca/container:latest`](https://hub.docker.com/r/opentosca/container) ([stable images](https://hub.docker.com/r/opentosca/container/tags?page=1&ordering=last_updated) also available) [GitHub](https://github.com/OpenTOSCA/container)
 
-Main coordinator of the whole OpenTOSCA machinery.
+Main orchestrator of the whole OpenTOSCA ecosystem.
 Provides the application bus (for inter application communication) and the management bus (for management/deployment commands).
-Hosts a plan generator to generate BPEL deployment plans from topologies in a CSAR.
-Invokes management and deplyoment plans, relays implementation artifact (IA) commands to [engine-ia](#engine-ia).
+Hosts a plan generator to generate generate various BPEL plans (deployment, termination, scale-up,..) of topologies given via a CSAR.
+Invokes management and deplyoment plans, relays messages to implementation artifacts (IAs) hosted on the [engine-ia](#engine-ia) or on components of a topology.
 Manages metadata, logging, etc. of deployed instances.
 
 Ports:
@@ -44,14 +44,20 @@ Ports:
 ### Dependencies
 
  *  [engine-ia](#engine-ia) via docker-compose network\
-    Used to deploy and execute implementation artifacts when requested via the management bus.
+    Used to deploy and execute implementation artifacts implemented as WebServices and used via the management bus.
  *  [engine-plan](#engine-plan) via docker-compose network\
-    OR [engine-plan-bpmn](#engine-plan) via docker-compose network\
+    OR [engine-plan-bpmn](#engine-plan-bpmn) via docker-compose network\
+    :warning: `engine-plan` is currently unmaintained but still neccessary for generated BPEL plans.\
     Used to run deployment and management plans. Only one engine is technically neccessary, but it must be able to execute all plans (workflows) in the CSAR archives in question.
- *  [container-repository](#container-repository) via docker host\
-    Used to fill in missing information in CSARs (research feature).
- *  [dind](#dind) not configured in compose file...\
-    Used as docker endpoint to create docker containers.
+ *  Optional: [container-repository](#container-repository) via docker host\
+    Used to enable topology completion, instance freeze and defrost features.
+
+### Dependencies for Deploying APPs
+
+ *  Optional [dind](#dind) configured by end user as deployment endpoint\
+    Used as docker engine (in docker) to create docker containers for testing, demonstration and learning purposes.
+ *  Optional [openstack](https://www.openstack.org) compatible endpoint, configured by end user as deployment endpoint\
+    Used to provision reqiored VM resources and machines.
 
 
 ## container-repository
@@ -68,10 +74,6 @@ Ports:
 ### Dependencies
 
  *  [container](#container) via docker host
- *  [winery](#winery) via docker host\
-    Used as CSAR repository.
- *  [workflow-modeler](#workflow-modeler) via docker host
- *  [topology-modeler](#topology-modeler) via docker host
 
 
 ## ui
@@ -98,8 +100,11 @@ Ports:
 
 Image: [`opentosca/ode:latest`](https://hub.docker.com/r/opentosca/ode) [GitHub](https://github.com/OpenTOSCA/ode)
 
-BPEL workflow execution engine used to execute the deployment or management workflows of a CSAR.
+BPEL workflow execution engine (a dockerized version of [Apache ODE](http://ode.apache.org/)) used to execute the deployment or management workflows of a CSAR.
 Default workflow engine (generator in container outputs BPEL workflows).
+
+:warning: The BPEL Engine is deprecated.
+All plans should use BPMN if possible.
 
 Ports:
 
@@ -110,7 +115,7 @@ Ports:
 
 Image: [`opentosca/camunda-bpmn:latest`](https://hub.docker.com/r/opentosca/camunda-bpmn) [GitHub](https://github.com/OpenTOSCA/camunda-bpmn)
 
-Workflow engine to execute BPMN2 workflows.
+Workflow engine based on the [Camunda BPMN Engine](https://camunda.com/bpmn/) to execute BPMN2 workflows.
 Optional if all workflows use BPEL.
 
 Ports:
@@ -122,7 +127,7 @@ Ports:
 
 Image: [`opentosca/engine-ia:latest`](https://hub.docker.com/r/opentosca/engine-ia) [GitHub](https://github.com/OpenTOSCA/engine-ia)
 
-Application server (Apache Tomcat) for hosting and executing implementation artifacts (IA).
+Application server ([Apache Tomcat](http://tomcat.apache.org/)) for hosting and executing implementation artifacts (IA).
 IAs can be executed in the generic environment of the `engine-ia` (e.g. IAs that deploy new VMs) or can trigger execution of IAs on deployed containers/VMs.
 
 Ports:
@@ -144,13 +149,13 @@ Ports:
  *  [container](#container) via docker host\
     Used to generate plans from the current topology.
  *  `workflow-modeler` via docker host\
-    Optional external component
+    Part of the Winery container
  *  `topology-modeler` via docker host\
-    Optional external component
+    Part of the Winery container
 
 ## dind
 
-Image: `jpetazzo/dind:latest`
+Image: [`jpetazzo/dind:latest`](https://github.com/jpetazzo/dind)
 
 Packaged docker in docker to allow OpenTOSCA to create new docker containers.
 The ports available for these containers can be adjusted in the docker-compose overlay.
