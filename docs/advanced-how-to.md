@@ -60,6 +60,8 @@ You can instruct Winery to use a public git repository which it clones on startu
         # exmaple: WINERY_REPOSITORY_URL: https://github.com/OpenTOSCA/tosca-definitions-public
 ```
 
+:Warning: Make sure `git lfs` is setup correctly. See troubleshooting entry about `git lfs` for more information.
+
 
 ## How to run the environment with WSO2 BPS engine
 
@@ -92,6 +94,8 @@ docker-compose -f docker-compose.yml -f docker-compose.bps.yml up -d
 
 * Open Winery at <http://localhost:8080>
   > **Note:** Changes to the repository has to be pushed manually with `git push`.
+
+:Warning: Make sure `git lfs` is setup correctly. See troubleshooting entry about `git lfs` for more information.
 
 
 ## How to extend Winery's JVM Heap Size
