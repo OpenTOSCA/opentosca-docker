@@ -28,3 +28,5 @@
 
 :warning: The production config `docker-compose.prod.yml` maps the local docker socket into the [dind](./container-overview.md#dind) container.
 This exposes the **local** docker deamon to the OpenTOSCA containers!
+
+:Warning: Make sure `git lfs` is setup correctly if you experience problems with the Winery. See troubleshooting entry about `git lfs` for more information.
