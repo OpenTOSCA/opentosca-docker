@@ -158,8 +158,8 @@ Therefore, add the following lines to your `docker-compose.override` file:
 
 ### The Winery CSAR Repository does not work Correctly (missing `git-lfs`)
 
-The GIT repositories used by winery use [`git lfs`](https://git-lfs.github.com/) as they contain large binary files which are not checked in to the git tree.
-This can be a problem if you use a locally installed Winery ore have mapped existing git repositories into the Winery container.
+The git repositories used by winery use [`git lfs`](https://git-lfs.github.com/) as they contain large binary files which are not checked in to the git tree.
+This can be a problem if you use a locally installed Winery or have mapped existing git repositories into the Winery container.
 
 To install `git lfs` follow these steps:
 
@@ -171,7 +171,7 @@ To install `git lfs` follow these steps:
 Thus, ensure you run `git lfs pull` in every repository used by your Winery.
 
 💡 To install git lfs globally, run `git lfs install --system`. 
-This makes git lfs automatically available for all repositories, and you do not have to run git lfs pull yourself.
+This makes git lfs automatically available for all repositories and you do not have to run git lfs pull yourself.
 This **only** works for newly cloned git repositories so make sure to check all existing repositories manually.
 
 ### I don't know my public IP
