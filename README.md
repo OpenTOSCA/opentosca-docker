@@ -213,6 +213,14 @@ In these cases it may help to change the port in the docker-compose file (e.g. t
 
 ### Http Certificates Cannot be Validated / Clocks Out of Sync / `apt update` fails
 
+```text
+$ sudo apt update
+…
+Reading package lists... Done
+E: Release file for http://us.archive.ubuntu.com/ubuntu/dists/bionic-updates/InRelease is not valid yet (invalid for another 4h 34min 33s). Updates for this repository will not be applied.
+…
+```
+
 Most noticable is the `apt update` command failing with errors like "Release file is not yet valid".
 This can happen if the clock of the system is out of sync with the rest of the internet.
 Check the current date-time by calling `date` in the affected systems console.
@@ -220,7 +228,7 @@ Check the current date-time by calling `date` in the affected systems console.
 **WSL2:** Linux running on the WSL2 can get out of sync if the windows host went into sleep.
 On wakeup the windows host does not synchronize the new time with the WSL guests.
 The solution is to run `sudo hwclock --hctosys` in the linux guest to re-synchronize its clock to the hardware clock.
-Alternatively shutdown and restart the linux guest (e.g. `wsl wsl --shutdown ubuntu`).
+Alternatively shutdown and restart the linux guest (e.g. `wsl wsl --shutdown ubuntu`) or reboot the windows host.
 This **also affects docker** as it runs as a wsl guest on modern windows installations!
 
 **General:** If the time is out of sync it might be that none of the configured ntp servers are reachable.
