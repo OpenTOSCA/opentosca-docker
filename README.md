@@ -211,6 +211,21 @@ Mac users need to apply a workaround described in [About the Network](./docs/con
 In rare cases the port `8080` of the `winery` container may be inaccessible.
 In these cases it may help to change the port in the docker-compose file (e.g. to `8079:8080` [`<outside-port>:<container-port>`]) and use the config options described in [How to configure the OpenTOSCA UI to use a different Winery repository](./docs/advanced-how-to.md#how-to-configure-the-opentosca-ui-to-use-a-different-winery-repository) to point the OpenTOSCA ui to the new port for the Winery.
 
+### Http Certificates Cannot be Validated / Clocks Out of Sync / `apt update` fails
+
+Most noticable is the `apt update` command failing with errors like "Release file is not yet valid".
+This can happen if the clock of the system is out of sync with the rest of the internet.
+Check the current date-time by calling `date` in the affected systems console.
+
+**WSL2:** Linux running on the WSL2 can get out of sync if the windows host went into sleep.
+On wakeup the windows host does not synchronize the new time with the WSL guests.
+The solution is to run `sudo hwclock --hctosys` in the linux guest to re-synchronize its clock to the hardware clock.
+Alternatively shutdown and restart the linux guest (e.g. `wsl wsl --shutdown ubuntu`).
+This **also affects docker** as it runs as a wsl guest on modern windows installations!
+
+**General:** If the time is out of sync it might be that none of the configured ntp servers are reachable.
+Check the manuals for your linux distribution on how to debug/configure ntp or how to manually configure the current time.
+
 
 ---
 
