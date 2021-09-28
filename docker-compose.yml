@@ -1,7 +1,7 @@
 version: '3'
 services:
   container:
-    image: opentosca/container:latest
+    image: opentosca/container:planqk
     ports:
       - '1337:1337'
       - '1883:1883' # MQTT
@@ -19,7 +19,7 @@ services:
     networks:
       - opentosca
   container-repository:
-    image: opentosca/winery:latest
+    image: opentosca/winery:planqk
     environment:
       WINERY_PORT: 8091
       WORKFLOWMODELER_PORT: 8091
@@ -33,7 +33,7 @@ services:
     networks:
       - opentosca
   ui:
-    image: opentosca/ui:latest
+    image: opentosca/ui:planqk
     environment:
      API_ENDPOINT_HOST: ${PUBLIC_HOSTNAME}
      API_ENDPOINT_PORT: 1337
@@ -44,31 +44,27 @@ services:
     networks:
       - opentosca
   engine-plan:
-    image: opentosca/ode:latest
+    image: opentosca/ode:planqk
+    environment:
+      _JAVA_OPTIONS: "-Xmx3048m -Xms512m -Xss4m"
     ports:
       - '9763:9763' # http
     networks:
       - opentosca
-  engine-plan-bpmn:
-    image: opentosca/camunda-bpmn:latest
-    ports:
-      - '8092:8080'
-    networks:
-      - opentosca
   engine-ia:
-    image: opentosca/engine-ia:latest
+    image: opentosca/engine-ia:planqk
     ports:
       - '8090:8080'
     networks:
       - opentosca
   winery:
-    image: opentosca/winery:latest
+    image: opentosca/winery:plqnqk
     environment:
       WINERY_HOSTNAME: ${PUBLIC_HOSTNAME}
       WORKFLOWMODELER_HOSTNAME: ${PUBLIC_HOSTNAME}
       TOPOLOGYMODELER_HOSTNAME: ${PUBLIC_HOSTNAME}
       CONTAINER_HOSTNAME: ${PUBLIC_HOSTNAME}
-      WINERY_REPOSITORY_URL: https://github.com/OpenTOSCA/tosca-definitions-example-applications
+      WINERY_REPOSITORY_URL: https://github.com/OpenTOSCA/tosca-definitions-qc-applications
     ports:
       - '8080:8080'
     networks:
@@ -84,14 +80,6 @@ services:
     ports: 
       - '2222:2375'
       - '9990-9999:9990-9999'
-  proxy:
-    build: proxy
-    cap_add:
-      - NET_ADMIN
-    ports:
-      - '80:80'
-    networks:
-      - opentosca
 networks:
   opentosca:
     driver: bridge
