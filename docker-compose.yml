@@ -43,6 +43,12 @@ services:
       - '8088:8080'
     networks:
       - opentosca
+  bowie:
+    image: opentosca/bowie:latest
+    ports:
+      - '4242:80'
+    networks:
+      - opentosca 
   engine-plan:
     image: opentosca/ode:latest
     ports:
