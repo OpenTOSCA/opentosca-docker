@@ -35,7 +35,7 @@ A more detailed overview can be found in the [docs folder](./docs/container-over
 | OpenTOSCA Container Repository | <http://localhost:8081> | [Link](https://github.com/OpenTOSCA/winery) | [Link](https://hub.docker.com/r/opentosca/winery) |
 | Plan Engine BPEL (Apache ODE) | <http://localhost/ode><br><http://localhost:9763/ode> | [Link](https://github.com/OpenTOSCA/ode) | [Link](https://hub.docker.com/r/opentosca/ode) |
 | Plan Engine BPMN (Camunda) | <http://localhost/camunda><br><http://localhost:8092/camunda> | [Link](https://github.com/OpenTOSCA/camunda-bpmn) | [Link](https://hub.docker.com/r/opentosca/camunda-bpmn) |
-| IA Engine (Apache Tomcat) | <http://localhost/manager><br><http://localhost:8090/manager><br>(user: `admin`, password: `admin`) | [Link](https://github.com/OpenTOSCA/engine-ia) | [Link](https://hub.docker.com/r/opentosca/engine-ia) |
+| IA Engine (Apache Tomcat) | <http://localhost/manager><br><http://localhost:8090/manager> (based on Java 8)<br><http://localhost:8093/manager> (based on Java 17)<br>(user: `admin`, password: `admin`) | [Link](https://github.com/OpenTOSCA/engine-ia) | [Link](https://hub.docker.com/r/opentosca/engine-ia) |
 
 **Make sure following ports in your environment are free in order to start OpenTOSCA properly:**
 
@@ -44,6 +44,7 @@ A more detailed overview can be found in the [docs folder](./docs/container-over
 * `8090`
 * `8091`
 * `8092`
+* `8093`
 * `9763`
 * `1883`
 * `9000` (optional)
