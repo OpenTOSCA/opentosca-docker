@@ -61,10 +61,16 @@ services:
       - '8092:8080'
     networks:
       - opentosca
-  engine-ia:
-    image: opentosca/engine-ia:latest
+  engine-ia-jdk8:
+    image: opentosca/engine-ia:latest-jdk8
     ports:
       - '8090:8080'
+    networks:
+      - opentosca
+  engine-ia-jdk17:
+    image: opentosca/engine-ia:latest-jdk17
+    ports:
+      - '8093:8080'
     networks:
       - opentosca
   winery:
