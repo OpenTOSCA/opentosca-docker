@@ -14,7 +14,9 @@ services:
     restart: unless-stopped
   engine-plan-bpmn:
     restart: unless-stopped
-  engine-ia:
+  engine-ia-jdk8:
+    restart: unless-stopped
+  engine-ia-jdk17:
     restart: unless-stopped
   winery:
     environment:
