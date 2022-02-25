@@ -8,8 +8,8 @@ services:
       - '8081-8087:8081-8087'
     environment:
       CONTAINER_HOSTNAME: ${PUBLIC_HOSTNAME}
-      ENGINE_IA_JAVA8_HOSTNAME: engine-ia-jdk8
-      ENGINE_IA_JAVA8_PORT: 8080
+      ENGINE_IA_HOSTNAME: engine-ia-jdk8
+      ENGINE_IA_PORT: 8080
       ENGINE_IA_JAVA17_HOSTNAME: engine-ia-jdk17
       ENGINE_IA_JAVA17_PORT: 8080
       CONTAINER_REPOSITORY_HOSTNAME: container-repository
