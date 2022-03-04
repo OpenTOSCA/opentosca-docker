@@ -128,7 +128,7 @@ docker plugin install grafana/loki-docker-driver:latest --alias loki --grant-all
 docker-compose -f docker-compose.yml -f docker-compose.logging.yml up -d
 ```
 
-The logs can be accessed at `http://${PUBLIC_HOSTNAME}:3000/explorer`.
+The logs can be accessed at `http://${PUBLIC_HOSTNAME}:3000/explore`.
 The following exemplary query displays the container logs.
 ```
 {compose_service="container"}
