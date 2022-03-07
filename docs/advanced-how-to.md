@@ -129,7 +129,7 @@ docker-compose -f docker-compose.yml -f docker-compose.logging.yml up -d
 ```
 
 The logs can be accessed at `http://${PUBLIC_HOSTNAME}:3000/explore`.
-The following exemplary searches for `ready to use` in the OpenTOSCA Container logs.
+The following exemplary query searches for `ready to use` in the OpenTOSCA Container logs.
 ```
 {compose_service="container"} |= "ready to use"
 ```
