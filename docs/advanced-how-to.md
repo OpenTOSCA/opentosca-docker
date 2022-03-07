@@ -117,21 +117,21 @@ You can adjust Winery's JVM heap size by setting a respective environment variab
 
 ## How to access Logs using the Browser
 
-Its is possible to start a loki and grafana server to access docker logs in the browser.
+It is possible to start a loki and grafana server to access docker logs in the browser.
 Therefore, you must install the loki docker driver as follows and extend the default docker-compose file with the logging configurations.
 
 ```
 # Install loki docker driver
 docker plugin install grafana/loki-docker-driver:latest --alias loki --grant-all-permissions
 
-# Start next to usual services a loki and grafana server
+# Start services in background along with loki and grafana server
 docker-compose -f docker-compose.yml -f docker-compose.logging.yml up -d
 ```
 
 The logs can be accessed at `http://${PUBLIC_HOSTNAME}:3000/explore`.
-The following exemplary query displays the container logs.
+The following exemplary searches for `ready to use` in the OpenTOSCA Container logs.
 ```
-{compose_service="container"}
+{compose_service="container"} |= "ready to use"
 ```
 
 Some useful links:
