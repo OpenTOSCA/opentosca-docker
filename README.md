@@ -48,6 +48,8 @@ A more detailed overview can be found in the [docs folder](./docs/container-over
 * `9763`
 * `1883`
 * `9000` (optional)
+* `3000` (optional grafana server)
+* `3100` (optional loki server)
 
 > It is recommended that your host or virtual machine has at least 4GB of memory.
 
@@ -72,6 +74,7 @@ How-Tos explaining how to realize specific scenarios can be found in [docs/advan
 * [How to debug components running inside the environment](./docs/advanced-how-to.md#how-to-debug-components-running-inside-the-environment)
 * [How to clone a **private** TOSCA definitions repository to be used with Winery](./docs/advanced-how-to.md#how-to-clone-a-private-tosca-definitions-repository-to-be-used-with-winery)
 * [How to extend Winery's JVM Heap Size](./docs/advanced-how-to.md#how-to-extend-winery's-jvm-heap-size)
+* [How to access logs using the Browser](./docs/advanced-how-to.md#how-to-access-logs-using-the-browser)
 
 
 ## Tips and Tricks

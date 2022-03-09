@@ -1,0 +1,85 @@
+version: '3'
+
+x-logging:
+  &logging
+  driver: loki
+  options:
+    loki-url: http://${PUBLIC_HOSTNAME}:3100/loki/api/v1/push
+
+services:
+  loki:
+    image: grafana/loki:latest
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - opentosca
+    logging: *logging
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./logging/grafana.ini:/etc/grafana/grafana.ini
+      - ./logging/loki.yaml:/etc/grafana/provisioning/datasources/loki.yaml
+    networks:
+      - opentosca
+    logging: *logging
+    depends_on:
+      - loki
+
+  container:
+    logging: *logging
+    depends_on:
+      - loki
+
+  container-repository:
+    logging: *logging
+    depends_on:
+      - loki
+
+  ui:
+    logging: *logging
+    depends_on:
+      - loki
+
+  bowie:
+    logging: *logging
+    depends_on:
+      - loki
+
+  engine-plan:
+    logging: *logging
+    depends_on:
+      - loki
+
+  engine-plan-bpmn:
+    logging: *logging
+    depends_on:
+      - loki
+
+  engine-ia-jdk8:
+    logging: *logging
+    depends_on:
+      - loki
+
+  engine-ia-jdk17:
+    logging: *logging
+    depends_on:
+      - loki
+
+  winery:
+    logging: *logging
+    depends_on:
+      - loki
+
+  dind:
+    logging: *logging
+    depends_on:
+      - loki
+
+  proxy:
+    logging: *logging
+    depends_on:
+      - loki
