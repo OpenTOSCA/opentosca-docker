@@ -40,16 +40,17 @@ A more detailed overview can be found in the [docs folder](./docs/container-over
 **Make sure following ports in your environment are free in order to start OpenTOSCA properly:**
 
 * `1337`
+* `1883`
 * `8080-8088`
 * `8090`
 * `8091`
 * `8092`
 * `8093`
 * `9763`
-* `1883`
-* `9000` (optional)
 * `3000` (optional grafana server)
 * `3100` (optional loki server)
+* `9000` (optional)
+* `9990-9999` (optional, used as application ports in DIND deployments)
 
 > It is recommended that your host or virtual machine has at least 4GB of memory.
 
