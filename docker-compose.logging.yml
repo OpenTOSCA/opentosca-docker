@@ -49,7 +49,7 @@ services:
     depends_on:
       - loki
 
-  engine-plan:
+  engine-plan-bpel:
     logging: *logging
     depends_on:
       - loki

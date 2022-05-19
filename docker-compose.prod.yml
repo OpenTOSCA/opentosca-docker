@@ -10,7 +10,7 @@ services:
     restart: unless-stopped
   ui:
     restart: unless-stopped
-  engine-plan:
+  engine-plan-bpel:
     restart: unless-stopped
   engine-plan-bpmn:
     restart: unless-stopped

@@ -13,7 +13,7 @@ services:
   container-repository:
     # volumes:
     #   - <path on host system>:/var/opentosca/repository
-  engine-plan:
+  engine-plan-bpel:
     ports:
       - '5555:8000' # Remote debugging port
     environment:

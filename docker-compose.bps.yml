@@ -3,12 +3,12 @@ services:
   container:
     environment:
       ENGINE_PLAN: BPS
-      ENGINE_PLAN_HOSTNAME: engine-plan
-      ENGINE_PLAN_ROOT_URL: https://engine-plan:9443
-      ENGINE_PLAN_SERVICES_URL: http://engine-plan:9763/services
+      ENGINE_PLAN_HOSTNAME: engine-plan-bpel
+      ENGINE_PLAN_ROOT_URL: https://engine-plan-bpel:9443
+      ENGINE_PLAN_SERVICES_URL: http://engine-plan-bpel:9763/services
       ENGINE_PLAN_USER_NAME: admin
       ENGINE_PLAN_PWD: admin
-  engine-plan:
+  engine-plan-bpel:
     image: opentosca/bps
     ports:
       - '9443:9443' # https
