@@ -51,7 +51,7 @@ services:
       - '4242:80'
     networks:
       - opentosca 
-  engine-plan:
+  engine-plan-bpel:
     image: opentosca/ode:latest
     ports:
       - '9763:9763' # http
