@@ -30,7 +30,7 @@ It is also possible to create a Peer-to-Peer architecture with multiple OpenTOSC
 ### Setup on IoT devices
 
 In some scenarios only small devices (e.g. Raspberry Pis) are available in a network.
-Therefore, they have to be used to setup a local OpenTOSCA Container with its environment (engine-ia, engine-plan, ...).
+Therefore, they have to be used to setup a local OpenTOSCA Container with its environment (engine-ia-jdk8, engine-ia-jdk17, engine-plan-bpel, ...).
 However, this can slow down the devices enormously.
 
 The following Docker Containers can be excluded from the docker-compose file of OpenTOSCA Containers which are only intended to receive request from other Containers:
@@ -39,7 +39,7 @@ The following Docker Containers can be excluded from the docker-compose file of 
 * winery
 * container-repository
 
-The UI and engine-plan could be excluded for the execution of requests too. 
+The UI, engine-plan-bpel, and engine-plan-bmpn could be excluded for the execution of requests too. 
 However, they are currently needed to register devices, which should be replaced by a device discovery component later on.
 
 ## Haftungsausschluss
