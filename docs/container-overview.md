@@ -31,8 +31,8 @@ Image: [`opentosca/container:latest`](https://hub.docker.com/r/opentosca/contain
 
 Main orchestrator of the whole OpenTOSCA ecosystem.
 Provides the application bus (for inter application communication) and the management bus (for management/deployment commands).
-Hosts a plan generator to generate generate various BPEL plans (deployment, termination, scale-up,..) of topologies given via a CSAR.
-Invokes management and deplyoment plans, relays messages to implementation artifacts (IAs) hosted on the [engine-ia](#engine-ia) or on components of a topology.
+Hosts a plan generator to generate various BPEL plans (deployment, termination, scale-up, ...) of topologies given via a CSAR.
+Invokes management and deployment plans, relays messages to implementation artifacts (IAs) hosted on the [engine-ia](#engine-ia) or on components of a topology.
 Manages metadata, logging, etc. of deployed instances.
 
 Ports:
@@ -50,7 +50,7 @@ Ports:
     :warning: `engine-plan-bpel` is currently unmaintained but still necessary for executing BPEL plans.\
     Used to run deployment and management plans. Only one engine is technically necessary, but it must be able to execute all plans (workflows) in the CSAR archives in question.
  *  Optional: [container-repository](#container-repository) via docker host\
-    Used to enable topology completion, instance freeze and defrost features.
+    Used to enable topology completion, instance freeze, and defrost features.
 
 ### Dependencies for Deploying APPs
 
@@ -64,7 +64,7 @@ Ports:
 
 Image: [`opentosca/winery:latest`](https://hub.docker.com/r/opentosca/winery) [GitHub](https://github.com/OpenTOSCA/winery)
 
-Implementations of reasearch features.
+Implementations of research features.
 Used to fill in missing information of CSARs.
 
 Ports:
@@ -170,7 +170,7 @@ Ports:
 
 Image: built from local Dockerfile
 
-Proxies calls into the docker-compose network.
+Proxy calls into the docker-compose network.
 Optional component.
 
 Ports:
