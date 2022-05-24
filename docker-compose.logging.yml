@@ -34,11 +34,6 @@ services:
     depends_on:
       - loki
 
-  container-repository:
-    logging: *logging
-    depends_on:
-      - loki
-
   ui:
     logging: *logging
     depends_on:
