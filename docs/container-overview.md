@@ -43,12 +43,12 @@ Ports:
 
 ### Dependencies
 
- *  [engine-ia](#engine-ia) via docker-compose network\
+ *  [engine-ia-jdk8](#engine-ia-jdk8) via docker-compose network\
     Used to deploy and execute implementation artifacts implemented as WebServices and used via the management bus.
- *  [engine-plan](#engine-plan) via docker-compose network\
+ *  [engine-plan-bpel](#engine-plan-bpel) via docker-compose network\
     OR [engine-plan-bpmn](#engine-plan-bpmn) via docker-compose network\
-    :warning: `engine-plan` is currently unmaintained but still neccessary for generated BPEL plans.\
-    Used to run deployment and management plans. Only one engine is technically neccessary, but it must be able to execute all plans (workflows) in the CSAR archives in question.
+    :warning: `engine-plan-bpel` is currently unmaintained but still necessary for executing BPEL plans.\
+    Used to run deployment and management plans. Only one engine is technically necessary, but it must be able to execute all plans (workflows) in the CSAR archives in question.
  *  Optional: [container-repository](#container-repository) via docker host\
     Used to enable topology completion, instance freeze and defrost features.
 
@@ -96,7 +96,7 @@ Ports:
     Used as CSAR repository.
 
 
-## engine-plan
+## engine-plan-bpel
 
 Image: [`opentosca/ode:latest`](https://hub.docker.com/r/opentosca/ode) [GitHub](https://github.com/OpenTOSCA/ode)
 
@@ -123,12 +123,12 @@ Ports:
  *  8092 (internal 8080): Main API
 
 
-## engine-ia
+## engine-ia-jdk8
 
 Image: [`opentosca/engine-ia:latest`](https://hub.docker.com/r/opentosca/engine-ia) [GitHub](https://github.com/OpenTOSCA/engine-ia)
 
 Application server ([Apache Tomcat](http://tomcat.apache.org/)) for hosting and executing implementation artifacts (IA).
-IAs can be executed in the generic environment of the `engine-ia` (e.g. IAs that deploy new VMs) or can trigger execution of IAs on deployed containers/VMs.
+IAs can be executed in the generic environment of the `engine-ia-jdk8` (e.g. IAs that deploy new VMs) or can trigger execution of IAs on deployed containers/VMs.
 
 Ports:
 
@@ -155,7 +155,7 @@ Ports:
 
 ## dind
 
-Image: [`jpetazzo/dind:latest`](https://github.com/jpetazzo/dind)
+Image: [`docker:20.10-dind`](https://hub.docker.com/_/docker)
 
 Packaged docker in docker to allow OpenTOSCA to create new docker containers.
 The ports available for these containers can be adjusted in the docker-compose overlay.
@@ -168,7 +168,7 @@ Ports:
 
 ## proxy
 
-Image: built from local dockerfile
+Image: built from local Dockerfile
 
 Proxies calls into the docker-compose network.
 Optional component.

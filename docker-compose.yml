@@ -14,7 +14,7 @@ services:
       ENGINE_IA_JAVA17_PORT: 8080
       CONTAINER_REPOSITORY_HOSTNAME: container-repository
       CONTAINER_REPOSITORY_PORT: 8080
-      ENGINE_PLAN_BPEL_HOSTNAME: engine-plan
+      ENGINE_PLAN_BPEL_HOSTNAME: engine-plan-bpel
       ENGINE_PLAN_BPMN_HOSTNAME: engine-plan-bpmn
       ENGINE_PLAN_BPMN_PORT: 8080
       CONTAINER_DEPLOYMENT_TESTS: 'false'
@@ -51,7 +51,7 @@ services:
       - '4242:80'
     networks:
       - opentosca 
-  engine-plan:
+  engine-plan-bpel:
     image: opentosca/ode:latest
     ports:
       - '9763:9763' # http
@@ -88,11 +88,10 @@ services:
     networks:
       - opentosca
   dind:
-    image: jpetazzo/dind:latest
+    image: docker:20.10-dind
     privileged: true
     environment:
-      - PORT=2375
-      - DOCKER_DAEMON_ARGS=--dns 8.8.8.8 --dns 8.8.4.4 -D
+      - DOCKER_TLS_CERTDIR=
     networks:
       - opentosca
     ports: 

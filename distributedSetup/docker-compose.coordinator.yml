@@ -7,20 +7,17 @@ services:
       - '1883:1883' # MQTT
       - '8081-8087:8081-8087'
     environment:
-      PUBLIC_HOSTNAME: ${PUBLIC_HOSTNAME_SLAVE_1}
-      ENGINE_IA_HOSTNAME: engine-ia
+      CONTAINER_HOSTNAME: ${PUBLIC_HOSTNAME_COORDINATOR}
+      ENGINE_IA_HOSTNAME: engine-ia-jdk8
       ENGINE_IA_PORT: 8080
-      ENGINE_PLAN: ODE
-      ENGINE_PLAN_HOSTNAME: engine-plan
-      ENGINE_PLAN_ROOT_URL: http://engine-plan:9763/ode
-      ENGINE_PLAN_SERVICES_URL: http://engine-plan:9763/ode/processes
       CONTAINER_REPOSITORY_HOSTNAME: container-repository
       CONTAINER_REPOSITORY_PORT: 8080
+      ENGINE_PLAN_BPEL_HOSTNAME: engine-plan-bpel
+      ENGINE_PLAN_BPMN_PORT: 8080
       CONTAINER_DEPLOYMENT_TESTS: 'false'
-      CONTAINER_JAVA_OPTS: ''
       COLLABORATION_MODE: 'true'
-      COLLABORATION_HOSTNAMES: '${PUBLIC_HOSTNAME_MASTER}'
-      COLLABORATION_PORTS: '1883'
+      COLLABORATION_HOSTNAMES: ''
+      COLLABORATION_PORTS: ''
     networks:
       - opentosca
   container-repository:
@@ -29,10 +26,10 @@ services:
       WINERY_PORT: 8091
       WORKFLOWMODELER_PORT: 8091
       TOPOLOGYMODELER_PORT: 8091
-      WINERY_HOSTNAME: ${PUBLIC_HOSTNAME_SLAVE_1}
-      WORKFLOWMODELER_HOSTNAME: ${PUBLIC_HOSTNAME_SLAVE_1}
-      TOPOLOGYMODELER_HOSTNAME: ${PUBLIC_HOSTNAME_SLAVE_1}
-      CONTAINER_HOSTNAME: ${PUBLIC_HOSTNAME_SLAVE_1}
+      WINERY_HOSTNAME: ${PUBLIC_HOSTNAME_COORDINATOR}
+      WORKFLOWMODELER_HOSTNAME: ${PUBLIC_HOSTNAME_COORDINATOR}
+      TOPOLOGYMODELER_HOSTNAME: ${PUBLIC_HOSTNAME_COORDINATOR}
+      CONTAINER_HOSTNAME: ${PUBLIC_HOSTNAME_COORDINATOR}
     ports:
       - '8091:8080'
     networks:
@@ -43,13 +40,13 @@ services:
       - '8088:8080'
     networks:
       - opentosca
-  engine-plan:
+  engine-plan-bpel:
     image: opentosca/ode:latest
     ports:
       - '9763:9763' # http
     networks:
       - opentosca
-  engine-ia:
+  engine-ia-jdk8:
     image: opentosca/engine-ia:latest
     ports:
       - '8090:8080'
@@ -58,22 +55,25 @@ services:
   winery:
     image: opentosca/winery:latest
     environment:
-      WINERY_HOSTNAME: ${PUBLIC_HOSTNAME_SLAVE_1}
-      WORKFLOWMODELER_HOSTNAME: ${PUBLIC_HOSTNAME_SLAVE_1}
-      TOPOLOGYMODELER_HOSTNAME: ${PUBLIC_HOSTNAME_SLAVE_1}
-      CONTAINER_HOSTNAME: ${PUBLIC_HOSTNAME_SLAVE_1}
+      WINERY_HOSTNAME: ${PUBLIC_HOSTNAME_COORDINATOR}
+      WORKFLOWMODELER_HOSTNAME: ${PUBLIC_HOSTNAME_COORDINATOR}
+      TOPOLOGYMODELER_HOSTNAME: ${PUBLIC_HOSTNAME_COORDINATOR}
+      CONTAINER_HOSTNAME: ${PUBLIC_HOSTNAME_COORDINATOR}
     ports:
       - '8080:8080'
     networks:
       - opentosca
   dind:
-    image: jpetazzo/dind:latest
+    image: docker:20.10-dind
     privileged: true
     environment:
-      - PORT=2375
-      - DOCKER_DAEMON_ARGS=--dns 8.8.8.8 --dns 8.8.4.4 -D
+      - DOCKER_TLS_CERTDIR=
     networks:
       - opentosca
+    ports:
+      - '2222:2375'
+      - '9990-9999:9990-9999'
+      - '9990-9999:9990-9999/udp'
   proxy:
     build: ../proxy
     cap_add:

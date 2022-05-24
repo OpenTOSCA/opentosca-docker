@@ -94,7 +94,7 @@ docker-compose up -d
 docker-compose logs -f container
 
 # Attach to engine logs in second terminal
-docker-compose logs -f engine-ia engine-plan
+docker-compose logs -f engine-ia-jdk8 engine-plan-bpel
 
 # Shutdown services
 docker-compose down
@@ -122,7 +122,7 @@ docker-compose [-f <file> ...] config
 # Display useful logs
 docker-compose logs -f [--tail=1 <SERVICE_NAME>...]
 docker-compose logs -f container
-docker-compose logs -f engine-ia engine-plan
+docker-compose logs -f engine-ia-jdk8 engine-plan-bpel
 ```
 
 
@@ -147,14 +147,14 @@ The amount of RAM that Docker is allowed to use is probably too small.
 
 => See [Not enough RAM for the Docker Daemon?](#not-enough-ram-for-the-docker-daemon)
 ​
-### StackOverflow exception in the engine-plan container
+### StackOverflow exception in the engine-plan-bpel container
 ​
 This is usually a problem with the configured stack size in Java.
 You can try to fix it by allowing the Java runtime in the container to use more space.
 Therefore, add the following lines to your `docker-compose.override` file:
 ​
 ```yaml
-  engine-plan:
+  engine-plan-bpel:
     environment:
       _JAVA_OPTIONS: "-Xmx3048m -Xms512m -Xss4m"
 ```

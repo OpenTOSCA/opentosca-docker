@@ -13,7 +13,7 @@ services:
   container-repository:
     # volumes:
     #   - <path on host system>:/var/opentosca/repository
-  engine-plan:
+  engine-plan-bpel:
     ports:
       - '5555:8000' # Remote debugging port
     environment:
@@ -27,14 +27,11 @@ services:
     environment:
       WINERY_REPOSITORY_URL: https://github.com/OpenTOSCA/tosca-definitions-public
   dind:
-    environment:
-      # University of Stuttgart internal DNS settings
-      - DOCKER_DAEMON_ARGS=--dns 129.69.211.1 --dns 129.69.215.5 -D
+    volumes:
+      # Enable University of Stuttgart internal DNS settings via corresponding config file
+      - ./resolv.conf:/etc/resolv.conf
     ports:
-      - '9990-9999:9990-9999'
       - '3306:3306'
-    # volumes:
-    #   - '/var/run/docker.sock:/var/run/docker.sock'
   tops:
     image: opentosca/tops:latest
     ports:
