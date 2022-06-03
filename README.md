@@ -94,6 +94,9 @@ docker-compose up -d
 docker-compose logs -f container
 
 # Attach to engine logs in second terminal
+docker-compose logs -f engine-ia-jdk17 engine-plan-bpel
+
+# Or attach to engine logs for legacy IAs
 docker-compose logs -f engine-ia-jdk8 engine-plan-bpel
 
 # Shutdown services
@@ -122,7 +125,7 @@ docker-compose [-f <file> ...] config
 # Display useful logs
 docker-compose logs -f [--tail=1 <SERVICE_NAME>...]
 docker-compose logs -f container
-docker-compose logs -f engine-ia-jdk8 engine-plan-bpel
+docker-compose logs -f engine-ia-jdk8 engine-ia-jdk17 engine-plan-bpel
 ```
 
 
