@@ -57,7 +57,7 @@ Ports:
  *  Optional [dind](#dind) configured by end user as deployment endpoint\
     Used as docker engine (in docker) to create docker containers for testing, demonstration and learning purposes.
  *  Optional [openstack](https://www.openstack.org) compatible endpoint, configured by end user as deployment endpoint\
-    Used to provision reqiored VM resources and machines.
+    Used to provision required VM resources and machines.
 
 
 ## container-repository
@@ -123,16 +123,21 @@ Ports:
  *  8092 (internal 8080): Main API
 
 
-## engine-ia-jdk8
+## engine-ia
 
-Image: [`opentosca/engine-ia:latest`](https://hub.docker.com/r/opentosca/engine-ia) [GitHub](https://github.com/OpenTOSCA/engine-ia)
+Image (JDK 8): [`opentosca/engine-ia:latest-jdk8`](https://hub.docker.com/r/opentosca/engine-ia) [GitHub](https://github.com/OpenTOSCA/engine-ia)\
+Image (JDK 17): [`opentosca/engine-ia:latest-jdk17`](https://hub.docker.com/r/opentosca/engine-ia) [GitHub](https://github.com/OpenTOSCA/engine-ia)
 
 Application server ([Apache Tomcat](http://tomcat.apache.org/)) for hosting and executing implementation artifacts (IA).
-IAs can be executed in the generic environment of the `engine-ia-jdk8` (e.g. IAs that deploy new VMs) or can trigger execution of IAs on deployed containers/VMs.
+IAs can be executed in the generic environment of the `engine-ia-jdk8` or `engine-ia-jdk17` (e.g. IAs that deploy new VMs) or can trigger execution of IAs on deployed containers/VMs.
+
+:bulb: There are two versions of the engine ia, one running on an older version of java (JDK 8) for legacy IAs and one running on a newer version (JDK 17) for new IAs.
+New IAs should always use the JDK 17 version of the engine ia!
 
 Ports:
 
- *  8090 (internal 8080): Main API
+ *  8090 (internal 8080): Main API (JDK 8)
+ *  8093 (internal 8080): Main API (JDK 17)
 
 ## winery
 
