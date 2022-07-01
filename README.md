@@ -242,15 +242,15 @@ This **also affects docker** as it runs as a wsl guest on modern windows install
 **General:** If the time is out of sync it might be that none of the configured ntp servers are reachable.
 Check the manuals for your linux distribution on how to debug/configure ntp or how to manually configure the current time.
 
-### `apt-get update` fails in Ubuntu container due to invalid GPG signature on Mac
+### `apt-get update` fails in Ubuntu container due to invalid GPG signature
 ```text
 $ sudo apt update
 …
 W: GPG error: http://ports.ubuntu.com/ubuntu-ports focal InRelease: At least one invalid signature was encountered.
 …
 ```
-The problem seems to be caused by the fact that the VM hosting the Docker images on macOS had run out of disk space ([See StackOverflow](https://stackoverflow.com/a/64553153/13363767)).
-The solution is to run `docker image prune -a` or to increase the size of the virtual disk by the virtual machine that is running docker. In Docker Desktop for Mac this can be done via Preferences > Resources > Disk image size.
+The problem seems to be caused by the fact that the VM hosting the Docker images had run out of disk space ([See StackOverflow](https://stackoverflow.com/a/64553153/13363767)).
+The solution is to run `docker image prune -a` or to increase the size of the virtual disk by the virtual machine that is running docker. In Docker Desktop this can be done via Preferences > Resources > Disk image size.
 
 ---
 
