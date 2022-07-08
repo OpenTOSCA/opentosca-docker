@@ -1,53 +1,78 @@
 version: '3'
 services:
-  container:
-    ports:
-      - '6666:8000' # Remote debugging port
-    environment:
-      CONTAINER_REPOSITORY_HOSTNAME: container-repository
-      CONTAINER_REPOSITORY_PORT: 8080
-      # CONTAINER_DEPLOYMENT_TESTS: 'true'
-      CONTAINER_JAVA_OPTS: |-
-        -Xdebug
-        -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n
-    # volumes:
-    #   - <path on host system>:/tmp/opentosca
-  container-repository:
-  # Additional winery service to be used during management feature enrichment.
-  # Use together with lines 7 and 8.
-    image: opentosca/winery:latest
-    environment:
-      WINERY_PORT: 8091
-      WORKFLOWMODELER_PORT: 8091
-      TOPOLOGYMODELER_PORT: 8091
-      WINERY_HOSTNAME: ${PUBLIC_HOSTNAME}
-      WORKFLOWMODELER_HOSTNAME: ${PUBLIC_HOSTNAME}
-      TOPOLOGYMODELER_HOSTNAME: ${PUBLIC_HOSTNAME}
-      CONTAINER_HOSTNAME: ${PUBLIC_HOSTNAME}
-    ports:
-      - '8091:8080'
-    networks:
-      - opentosca
-  engine-plan-bpel:
-    ports:
-      - '5555:8000' # Remote debugging port
-    environment:
-      JAVA_OPTS: -Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n
-  engine-ia-jdk8:
-    # volumes:
-    #   - <path on host system>:/usr/local/tomcat/webapps
-    # ports:
-    #   - '1883:1883' # MQTT
-  winery:
-    environment:
-      WINERY_REPOSITORY_URL: https://github.com/OpenTOSCA/tosca-definitions-public
+  # container:
+  #   ports:
+  #     - '6666:8000' # Remote debugging port
+  #   environment:
+  #     CONTAINER_REPOSITORY_HOSTNAME: container-repository
+  #     CONTAINER_REPOSITORY_PORT: 8080
+  #     # CONTAINER_DEPLOYMENT_TESTS: 'true'
+  #     CONTAINER_JAVA_OPTS: |-
+  #       -Xdebug
+  #       -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n
+  #   volumes:
+  #     - <path on host system>:/tmp/opentosca
+  # container-repository:
+  # # Additional winery service to be used during management feature enrichment.
+  # # Use together with lines 7 and 8.
+  #   image: opentosca/winery:latest
+  #   environment:
+  #     WINERY_PORT: 8091
+  #     WORKFLOWMODELER_PORT: 8091
+  #     TOPOLOGYMODELER_PORT: 8091
+  #     WINERY_HOSTNAME: ${PUBLIC_HOSTNAME}
+  #     WORKFLOWMODELER_HOSTNAME: ${PUBLIC_HOSTNAME}
+  #     TOPOLOGYMODELER_HOSTNAME: ${PUBLIC_HOSTNAME}
+  #     CONTAINER_HOSTNAME: ${PUBLIC_HOSTNAME}
+  #   ports:
+  #     - '8091:8080'
+  #   networks:
+  #     - opentosca
+  # engine-plan-bpel:
+  #   ports:
+  #     - '5555:8000' # Remote debugging port
+  #   environment:
+  #     _JAVA_OPTIONS: "-Xmx3048m -Xms512m -Xss4m"
+  #     JAVA_OPTS: -Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n
+  # engine-plan-bpmn:
+  #   image: opentosca/camunda-bpmn:latest
+  #   ports:
+  #     - '8092:8080'
+  #   networks:
+  #     - opentosca
+  # engine-ia-jdk8:
+  #   volumes:
+  #     - <path on host system>:/usr/local/tomcat/webapps
+  #   ports:
+  #     - '1883:1883' # MQTT
+  # winery:
+  #   # settings for mapping a local repository into Winery
+  #   environment:
+  #     WINERY_REPOSITORY_PATH: /var/opentosca/repository
+  #   volumes:
+  #     - C:/path/to/tosca-repository:/var/opentosca/repository
   dind:
-    volumes:
-      # Enable University of Stuttgart internal DNS settings via corresponding config file
-      - ./resolv.conf:/etc/resolv.conf
+    # volumes:
+    #   # Enable University of Stuttgart internal DNS settings via corresponding config file
+    #   - ./resolv.conf:/etc/resolv.conf
     ports:
+      # map the default MySQL port for testing purposes
       - '3306:3306'
-  tops:
-    image: opentosca/tops:latest
-    ports:
-      - 9090:9090
+  # proxy:
+  #   build: proxy
+  #   cap_add:
+  #     - NET_ADMIN
+  #   ports:
+  #     - '80:80'
+  #   networks:
+  #     - opentosca
+  # tops:
+  #   image: opentosca/tops:latest
+  #   ports:
+  #     - 9090:9090
+  # bowie:
+  #   image: opentosca/bowie:latest
+  #   ports:
+  #     - '4242:80'
+  #   networks:
+  #     - opentosca 
