@@ -18,7 +18,8 @@ The fastest way to get started is using [Docker Compose](https://docs.docker.com
   docker-compose up
   ```
 
-Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost).
+Wait a few seconds, then open the OpenTOSCA user interface which can be accessed by using your public IP address of FQDN.
+You should not access the frontend by using `http://localhost`, as there might be problems when the containers communicate with each other.
 
 More useful commands can be found in section [Useful Commands](#useful-commands).
 
@@ -85,6 +86,7 @@ How-Tos explaining how to realize specific scenarios can be found in [docs/advan
 :warning: New installations of `docker-compose` are integrated into the `docker` command and must be run as `docker compose` (without the hyphen)!  (See [Compose V2 and the new docker compose command](https://docs.docker.com/compose/cli-command/#compose-v2-and-the-new-docker-compose-command))
 
 In most cases starting the containers in the background and attaching to the log of select containers in different terminals will provide the best experience.
+Remember to always run the `docker-compose` commands from within the directory containing the `docker-compose.yml` files.
 
 ```bash
 # Start services in background
@@ -142,7 +144,7 @@ For a good user experience set up your Docker environment accordingly:
 
 On some linux systems the following problem arises: https://stackoverflow.com/questions/27612209/spring-boot-application-wont-boot-at-startup-inside-docker
 
-The easiest way right now to fix it is the following: ```bash apt-get install haveged -y```
+The easiest way right now to fix it is the following: ```sudo apt-get install -y haveged```
 
 ### Some containers immediately crash after starting the environment.
 ​
