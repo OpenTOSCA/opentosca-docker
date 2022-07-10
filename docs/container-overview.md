@@ -25,7 +25,7 @@ A workaround for mac is to add the following entry to the `/etc/hosts` file (nee
 ```
 
 
-## container 
+## container
 
 Image: [`opentosca/container:latest`](https://hub.docker.com/r/opentosca/container) ([stable images](https://hub.docker.com/r/opentosca/container/tags?page=1&ordering=last_updated) also available) [GitHub](https://github.com/OpenTOSCA/container)
 
@@ -43,7 +43,7 @@ Ports:
 
 ### Dependencies
 
- *  [engine-ia-jdk8](#engine-ia-jdk8) via docker-compose network\
+ *  [engine-ia-jdk8](#engine-ia) via docker-compose network\
     Used to deploy and execute implementation artifacts implemented as WebServices and used via the management bus.
  *  [engine-plan-bpel](#engine-plan-bpel) via docker-compose network\
     OR [engine-plan-bpmn](#engine-plan-bpmn) via docker-compose network\

@@ -5,13 +5,13 @@
 
 > Docker Compose file for running the entire OpenTOSCA stack.
 
-:warning: On newer docker installations `docker-compose` will be integrated into the docker cmd. If this is the case then all `docker-compose` commands must be written as `docker compose` (without the hyphen)! (See [Compose V2 and the new docker compose command](https://docs.docker.com/compose/cli-command/#compose-v2-and-the-new-docker-compose-command))
+:warning: On newer docker installations `docker-compose` will be integrated into the docker cmd. If this is the case then all `docker-compose` commands must be written as `docker compose` (without the hyphen)! (See [Compose V2 and the new docker compose command](https://docs.docker.com/compose/#compose-v2-and-the-new-docker-compose-command))
 
 The fastest way to get started is using [Docker Compose](https://docs.docker.com/compose/):
 
 * Create a `.env` file by coping it from `_.env`
 * Add your publicly available FQDN or IP address to the `PUBLIC_HOSTNAME` variable in the `.env` file and save it\
-  (see also [I don't know my public IP](#i-don't-know-my-public-ip))
+  (see also [I don't know my public IP](#i-dont-know-my-public-ip))
 * Execute the following command:
 
   ```shell
@@ -54,7 +54,7 @@ A more detailed overview can be found in the [docs folder](./docs/container-over
 
 > It is recommended that your host or virtual machine has at least 4GB of memory.
 
-**NOTE:** Please check the [Docker Daemon Settings](#docker-daemon-settings)
+**NOTE:** Please check the [Docker Daemon Settings](#not-enough-ram-for-the-docker-daemon)
 
 ---
 
@@ -175,10 +175,10 @@ To install `git lfs` follow these steps:
   2. run `git lfs install` in all git repositories used by your Winery (first `cd` into the git repository)
   3. run `git lfs pull` to download the binary files
 
-⚠️ If the lfs-files are not downloaded, the repository, and thus the modeled applications, cannot run! 
+⚠️ If the lfs-files are not downloaded, the repository, and thus the modeled applications, cannot run!
 Thus, ensure you run `git lfs pull` in every repository used by your Winery.
 
-💡 To install git lfs globally, run `git lfs install --system`. 
+💡 To install git lfs globally, run `git lfs install --system`.
 This makes git lfs automatically available for all repositories and you do not have to run git lfs pull yourself.
 This **only** works for newly cloned git repositories so make sure to check all existing repositories manually.
 

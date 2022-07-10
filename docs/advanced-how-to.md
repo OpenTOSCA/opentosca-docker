@@ -5,7 +5,7 @@ Simple How-To section to cover different kinds of use cases.
 > **Info:** We use the override feature of Docker Compose to provide different configurations for certain use cases.
 > [More information](https://docs.docker.com/compose/extends).
 >
-> Basic override file with common configuration settings for our environment: [`_docker-compose.override.yml`](_docker-compose.override.yml).
+> Basic override file with common configuration settings for our environment: [`_docker-compose.override.yml`](../_docker-compose.override.yml).
 > Simply, make a copy and modify it to your needs:
 > ```shell
 > cp _docker-compose.override.yml docker-compose.override.yml
