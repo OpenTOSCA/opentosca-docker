@@ -29,12 +29,28 @@ services:
       - '8088:8080'
     networks:
       - opentosca
+  bowie:
+    image: opentosca/bowie:latest
+    ports:
+      - '4242:80'
+    networks:
+      - opentosca
+    profiles:
+      - bpmn
   engine-plan-bpel:
     image: opentosca/ode:latest
     ports:
       - '9763:9763' # http
     networks:
       - opentosca
+  engine-plan-bpmn:
+    image: opentosca/camunda-bpmn:latest
+    ports:
+      - '8092:8080'
+    networks:
+      - opentosca
+    profiles:
+      - bpmn
   engine-ia-jdk8:
     image: opentosca/engine-ia:latest-jdk8
     ports:
@@ -70,6 +86,14 @@ services:
       - '2222:2375'
       - '9990-9999:9990-9999'
       - '9990-9999:9990-9999/udp'
+  proxy:
+    build: proxy
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - '80:80'
+    networks:
+      - opentosca
 networks:
   opentosca:
     driver: bridge

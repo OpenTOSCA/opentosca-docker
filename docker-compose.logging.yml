@@ -39,20 +39,20 @@ services:
     depends_on:
       - loki
 
-  # bowie:
-  #   logging: *logging
-  #   depends_on:
-  #     - loki
+  bowie:
+    logging: *logging
+    depends_on:
+      - loki
 
   engine-plan-bpel:
     logging: *logging
     depends_on:
       - loki
 
-  # engine-plan-bpmn:
-  #   logging: *logging
-  #   depends_on:
-  #     - loki
+  engine-plan-bpmn:
+    logging: *logging
+    depends_on:
+      - loki
 
   engine-ia-jdk8:
     logging: *logging
@@ -64,10 +64,10 @@ services:
     depends_on:
       - loki
 
-  # winery:
-  #   logging: *logging
-  #   depends_on:
-  #     - loki
+  winery:
+    logging: *logging
+    depends_on:
+      - loki
 
   dind:
     logging: *logging

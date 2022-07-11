@@ -34,12 +34,6 @@ services:
   #   environment:
   #     _JAVA_OPTIONS: "-Xmx3048m -Xms512m -Xss4m"
   #     JAVA_OPTS: -Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n
-  # engine-plan-bpmn:
-  #   image: opentosca/camunda-bpmn:latest
-  #   ports:
-  #     - '8092:8080'
-  #   networks:
-  #     - opentosca
   # engine-ia-jdk8:
   #   volumes:
   #     - <path on host system>:/usr/local/tomcat/webapps
@@ -58,21 +52,7 @@ services:
     ports:
       # map the default MySQL port for testing purposes
       - '3306:3306'
-  # proxy:
-  #   build: proxy
-  #   cap_add:
-  #     - NET_ADMIN
-  #   ports:
-  #     - '80:80'
-  #   networks:
-  #     - opentosca
   # tops:
   #   image: opentosca/tops:latest
   #   ports:
   #     - 9090:9090
-  # bowie:
-  #   image: opentosca/bowie:latest
-  #   ports:
-  #     - '4242:80'
-  #   networks:
-  #     - opentosca 

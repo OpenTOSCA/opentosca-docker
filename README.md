@@ -5,7 +5,9 @@
 
 > Docker Compose file for running the entire OpenTOSCA stack.
 
-:warning: On newer docker installations `docker-compose` will be integrated into the docker cmd. If this is the case then all `docker-compose` commands must be written as `docker compose` (without the hyphen)! (See [Compose V2 and the new docker compose command](https://docs.docker.com/compose/cli-command/#compose-v2-and-the-new-docker-compose-command))
+:warning: On newer docker installations `docker-compose` will be integrated into the docker cmd.
+If this is the case then all `docker-compose` commands must be written as `docker compose` (without the hyphen)!
+(See [Compose V2 and the new docker compose command](https://docs.docker.com/compose/cli-command/#compose-v2-and-the-new-docker-compose-command))
 
 The fastest way to get started is using [Docker Compose](https://docs.docker.com/compose/):
 
@@ -25,17 +27,17 @@ More useful commands can be found in section [Useful Commands](#useful-commands)
 
 ## Short Container Overview
 
-A more detailed overview can be found in the [docs folder](./docs/container-overview.md).
+A more detailed overview can be found in the [docs' folder](./docs/container-overview.md).
 
-| OpenTOSCA Component | URL | GitHub | Docker Hub |
-|:------------------- |:--- |:------ |:---------- |
-| OpenTOSCA UI | <http://localhost><br><http://localhost:8088> | [Link](https://github.com/OpenTOSCA/ui) | [Link](https://hub.docker.com/r/opentosca/ui) |
-| OpenTOSCA Modelling (Eclipse Winery) | <http://localhost/winery><br><http://localhost:8080> | [Link](https://github.com/OpenTOSCA/winery) | [Link](https://hub.docker.com/r/opentosca/winery) |
-| OpenTOSCA Container API | <http://localhost:1337> | [Link](https://github.com/OpenTOSCA/container) | [Link](https://hub.docker.com/r/opentosca/container) |
-| OpenTOSCA Container Repository | <http://localhost:8081> | [Link](https://github.com/OpenTOSCA/winery) | [Link](https://hub.docker.com/r/opentosca/winery) |
-| Plan Engine BPEL (Apache ODE) | <http://localhost/ode><br><http://localhost:9763/ode> | [Link](https://github.com/OpenTOSCA/ode) | [Link](https://hub.docker.com/r/opentosca/ode) |
-| Plan Engine BPMN (Camunda) | <http://localhost/camunda><br><http://localhost:8092/camunda> | [Link](https://github.com/OpenTOSCA/camunda-bpmn) | [Link](https://hub.docker.com/r/opentosca/camunda-bpmn) |
-| IA Engine (Apache Tomcat) | <http://localhost/manager><br><http://localhost:8090/manager> (based on Java 8)<br><http://localhost:8093/manager> (based on Java 17)<br>(user: `admin`, password: `admin`) | [Link](https://github.com/OpenTOSCA/engine-ia) | [Link](https://hub.docker.com/r/opentosca/engine-ia) |
+| OpenTOSCA Component                  | URL                                                           | GitHub                                            | Docker Hub                                              |
+|:------------------------------------ |:------------------------------------------------------------- |:------------------------------------------------- |:------------------------------------------------------- |
+| OpenTOSCA UI                         | <http://localhost><br><http://localhost:8088>                 | [Link](https://github.com/OpenTOSCA/ui)           | [Link](https://hub.docker.com/r/opentosca/ui)           |
+| OpenTOSCA Modelling (Eclipse Winery) | <http://localhost/winery><br><http://localhost:8080>          | [Link](https://github.com/OpenTOSCA/winery)       | [Link](https://hub.docker.com/r/opentosca/winery)       |
+| OpenTOSCA Container API              | <http://localhost:1337>                                       | [Link](https://github.com/OpenTOSCA/container)    | [Link](https://hub.docker.com/r/opentosca/container)    |
+| OpenTOSCA Container Repository       | <http://localhost:8081>                                       | [Link](https://github.com/OpenTOSCA/winery)       | [Link](https://hub.docker.com/r/opentosca/winery)       |
+| Plan Engine BPEL (Apache ODE)        | <http://localhost/ode><br><http://localhost:9763/ode>         | [Link](https://github.com/OpenTOSCA/ode)          | [Link](https://hub.docker.com/r/opentosca/ode)          |
+| Plan Engine BPMN (Camunda)           | <http://localhost/camunda><br><http://localhost:8092/camunda> | [Link](https://github.com/OpenTOSCA/camunda-bpmn) | [Link](https://hub.docker.com/r/opentosca/camunda-bpmn) |
+| IA Engine (Apache Tomcat)            | <http://localhost/manager><br><http://localhost:8090/manager> (based on Java 8)<br><http://localhost:8093/manager> (based on Java 17)<br>(user: `admin`, password: `admin`) | [Link](https://github.com/OpenTOSCA/engine-ia) | [Link](https://hub.docker.com/r/opentosca/engine-ia) |
 
 **Make sure following ports in your environment are free in order to start OpenTOSCA properly:**
 
@@ -47,12 +49,12 @@ A more detailed overview can be found in the [docs folder](./docs/container-over
 * `8092`
 * `8093`
 * `9763`
-* `3000` (optional grafana server)
-* `3100` (optional loki server)
+* `3000` (optional Grafana server)
+* `3100` (optional Loki server)
 * `9000` (optional)
 * `9990-9999` (optional, used as application ports in DIND deployments)
 
-> It is recommended that your host or virtual machine has at least 4GB of memory.
+> It is recommended that your host or virtual machine has at least 4 GB of memory.
 
 **NOTE:** Please check the [Docker Daemon Settings](#docker-daemon-settings)
 
@@ -133,14 +135,14 @@ docker-compose logs -f engine-ia-jdk8 engine-ia-jdk17 engine-plan-bpel
 
 ### Not enough RAM for the Docker Daemon?
 
-The OpenTOSCA environment needs about 6GB of RAM to run smoothly.
+The OpenTOSCA environment needs about 6 GB of RAM to run smoothly.
 For a good user experience set up your Docker environment accordingly:
 
-![Docker MAC Seetings](docs/docker_daemon.png)
+![Docker MAC Settings](docs/docker_daemon.png)
 
 ### Slow Startup of some Containers
 
-On some linux systems the following problem arises: https://stackoverflow.com/questions/27612209/spring-boot-application-wont-boot-at-startup-inside-docker
+On some Linux systems the following problem arises: https://stackoverflow.com/questions/27612209/spring-boot-application-wont-boot-at-startup-inside-docker
 
 The easiest way right now to fix it is the following: ```bash apt-get install haveged -y```
 
@@ -175,51 +177,51 @@ To install `git lfs` follow these steps:
   2. run `git lfs install` in all git repositories used by your Winery (first `cd` into the git repository)
   3. run `git lfs pull` to download the binary files
 
-⚠️ If the lfs-files are not downloaded, the repository, and thus the modeled applications, cannot run! 
+⚠️ If the LFS-files are not downloaded, the repository, and thus the modeled applications, cannot run! 
 Thus, ensure you run `git lfs pull` in every repository used by your Winery.
 
-💡 To install git lfs globally, run `git lfs install --system`. 
-This makes git lfs automatically available for all repositories and you do not have to run git lfs pull yourself.
+💡 To install git LFS globally, run `git lfs install --system`. 
+This makes git LFS automatically available for all repositories, and you do not have to run `git lfs pull` yourself.
 This **only** works for newly cloned git repositories so make sure to check all existing repositories manually.
 
 ### I don't know my public IP
 
-**Windows:** Open a command line and type `ipconfig` then search for the IPv4 or IPv6 address of the wlan or ethernet adapter currently in use.
+**Windows:** Open a command line and type `ipconfig` then search for the IPv4 or IPv6 address of the WLAN or Ethernet adapter currently in use.
 If you know the hostname of your machine you can also try `ping yourHostnameHere` or `ping yourHostnameHere.local` to get the IP.
 To get the hostname use the command `hostname`.
 To get all IP addresses known for the hostname try `nslookup yourHostnameHere`.
 
 **Mac:** The IP address can be found in the "System Preferences" under "Network".
 Options with a green dot are active and should have an IP address that can be found by selecting the option, then clicking "Advanced" and opening the "TCP/IP" tab.
-Alternatively use the command `ifconfig` in the shell and look for `inet` or `inet6` addresses for the ethernet or wlan interfaces in use.
+Alternatively use the command `ifconfig` in the shell and look for `inet` or `inet6` addresses for the Ethernet or WLAN interfaces in use.
 
-**Linux:** Use the command `ip addr show` (or shorter `ip a s`) in a shell to list the IP addresses of all available interfaces and look for `inet` or `inet6` addresses for the ethernet or wlan interface(s).
-On older linux systems where this command is not available use `ifconfig` instead.
+**Linux:** Use the command `ip addr show` (or shorter `ip a s`) in a shell to list the IP addresses of all available interfaces and look for `inet` or `inet6` addresses for the Ethernet or WLAN interface(s).
+On older Linux systems where this command is not available use `ifconfig` instead.
 If you know the hostname of your machine you can also try `host yourHostnameHere` or `host yourHostnameHere.local` to get the IP.
 To get the hostname use the command `hostname`.
 
 If you are unsure which IP to choose, start with one, run the docker-compose and test with which IPs both the OpenTOSCA UI and the Winery can be reached.
 Use the IP address that reaches both.
 
-:warning: Do **not** use the addresses `127.0.0.1` or `::1:` as these are special addresses (local loopback).
+:warning: Do **not** use the addresses `127.0.0.1` or `::1:` as these are special addresses (local loop back).
 
 :warning: If you want to use an IPv6 Address in the address line of your browser, then you need to enclose the Address in `[]` (e.g. `[2607:f0d0:1002:51::4]` or `[2607:f0d0:1002:0051:0000:0000:0000:0004]`). Do not use `[]` in the `PUBLIC_HOSTNAME` environemnt variable!
 
 ### Networking Problems
 
-Make sure that the `PUBLIC_HOSTNAME` environemnt variable is set and points to your local machine running the docker-compose file.
+Make sure that the `PUBLIC_HOSTNAME` environment variable is set and points to your local machine running the docker-compose file.
 Test if you can reach the open ports of all containers with that address.
 See [Container Overview](./docs/container-overview.md) for a more detailed description of the container ports and dependencies between containers.
 See also [About the Network](./docs/container-overview.md#about-the-network) for background information of the bridge network setup in the docker compose file.
 
 Windows and Mac users may use `host.docker.internal` as `PUBLIC_HOSTNAME` if all containers are started locally in docker-compose.
-This will **not** work for development setups where some parts of OpenTOSCA are started outside of the docker-compose network!
+This will **not** work for development setups where some parts of OpenTOSCA are started outside the docker-compose network!
 Mac users need to apply a workaround described in [About the Network](./docs/container-overview.md#about-the-network) for this to work.
 
 In rare cases the port `8080` of the `winery` container may be inaccessible.
 In these cases it may help to change the port in the docker-compose file (e.g. to `8079:8080` [`<outside-port>:<container-port>`]) and use the config options described in [How to configure the OpenTOSCA UI to use a different Winery repository](./docs/advanced-how-to.md#how-to-configure-the-opentosca-ui-to-use-a-different-winery-repository) to point the OpenTOSCA ui to the new port for the Winery.
 
-### Http Certificates Cannot be Validated / Clocks Out of Sync / `apt update` fails
+### HTTP Certificates Cannot be Validated / Clocks Out of Sync / `apt update` fails
 
 ```text
 $ sudo apt update
@@ -229,18 +231,18 @@ E: Release file for http://us.archive.ubuntu.com/ubuntu/dists/bionic-updates/InR
 …
 ```
 
-Most noticable is the `apt update` command failing with errors like "Release file is not yet valid".
+Most noticeable is the `apt update` command failing with errors like "Release file is not yet valid".
 This can happen if the clock of the system is out of sync with the rest of the internet.
 Check the current date-time by calling `date` in the affected systems console.
 
 **WSL2:** Linux running on the WSL2 can get out of sync if the windows host went into sleep.
-On wakeup the windows host does not synchronize the new time with the WSL guests.
-The solution is to run `sudo hwclock --hctosys` in the linux guest to re-synchronize its clock to the hardware clock.
-Alternatively shutdown and restart the linux guest (e.g. `wsl wsl --shutdown ubuntu`) or reboot the windows host.
-This **also affects docker** as it runs as a wsl guest on modern windows installations!
+On wake up the windows host does not synchronize the new time with the WSL guests.
+The solution is to run `sudo hwclock --hctosys` in the Linux guest to re-synchronize its clock to the hardware clock.
+Alternatively shutdown and restart the Linux guest (e.g. `wsl wsl --shutdown ubuntu`) or reboot the windows host.
+This **also affects docker** as it runs as a WSL guest on modern windows installations!
 
-**General:** If the time is out of sync it might be that none of the configured ntp servers are reachable.
-Check the manuals for your linux distribution on how to debug/configure ntp or how to manually configure the current time.
+**General:** If the time is out of sync it might be that none of the configured NTP servers are reachable.
+Check the manuals for your Linux distribution on how to debug/configure NTP or how to manually configure the current time.
 
 ### `apt-get update` fails in Ubuntu container due to invalid GPG signature
 ```text
