@@ -64,7 +64,7 @@ services:
 
 To start only the winery container, you can use the command `docker-compose up winery`.
 
-:information_source: Reusable Node Types that, e.g., can be used by multiple applications, should be placed in a common repository. On the other hand, application-specific `Node Types` should be placed in the application-specific repositories.
+:information_source: Reusable Node Types that, e.g., can be used by multiple applications, should be placed in a common repository. On the other hand, application-specific Node Types should be placed in the application-specific repositories.
 The application-specific repository can then import the common repositories.
 Therefore, the user must create a `repositories.json` file in the repository's root directory.
 In this file, all repositories to be imported are listed with their name, repository URL, and branch:
@@ -90,7 +90,7 @@ The content of the current repository is in the workspace folder.
 
 ### 2. Create a new Node Type
 
-Open Winery in your browser (default URL: http://localhost:8080) and click on the `Node Types` tab.
+Open Winery in your browser (default URL: http://localhost:8080) and click on the "Node Types" tab.
 Click on the `Add new` button on the right.
 
 ![Create new node type in winery](./images/new_node_type/new.png)
@@ -107,7 +107,7 @@ Enter the following values into the dialog and click on `Add`:
 
 ![New node type dialog](./images/new_node_type/new_dialog.png)
 
-:information_source: Namespaces are used in TOSCA to group, organize, and uniquely identify entities. Like the underlying XML format, Tosca uses URLs as the identifier for namespaces. For example, a company can use the namespace `https://my.company.example.org/tosca/applications` for all their applications. Then, Winery automatically creates and organizes sub-namespaces for `Node Types`, `Node Type Implementations`, `Artifact Templates` ... For instance, all `Node Types` are in the namespace `https://my.company.example.org/tosca/applications/nodetypes`.
+:information_source: Namespaces are used in TOSCA to group, organize, and uniquely identify entities. Like the underlying XML format, Tosca uses URLs as the identifier for namespaces. For example, a company can use the namespace `https://my.company.example.org/tosca/applications` for all their applications. Then, Winery automatically creates and organizes sub-namespaces for _Node Types_, _Node Type Implementations_, _Artifact Templates_ ... For instance, all Node Types are in the namespace `https://my.company.example.org/tosca/applications/nodetypes`.
 
 **Namespace Templates:**
 In this example we don't set the namespace manually but use the template option to specify only the start of the namespace URI.
@@ -365,12 +365,12 @@ The screenshots come from the `QHAna-Backend` Node Type that you can find in [th
 - create a [new Node Type](#2-create-a-new-node-type)
 - create an [Interface](#4-create-the-lifecycle-interface) with a `start operation` for this Node Type
 - create a [Node Type Implementation](#6-add-a-node-type-implementation) for this Node Type
-- add a `Deployment Artifact` to the `Node Type Implementation`
+- add a _Deployment Artifact_ to the Node Type Implementation
 ![deployment artifact](./images/new_node_type/deployment%20artifacts/jar_artifact.png)
-- upload the `JAR-file` to the `Deployment Artifact`
-- add a `ScriptArtifact` as [Implementation Artifact](#2-create-lifecycle-implementation) for the `start operation` to the `Node Type Implementation`
+- upload the JAR-file to the Deployment Artifact
+- add a ScriptArtifact as [Implementation Artifact](#2-create-lifecycle-implementation) for the `start operation` to the Node Type Implementation
 ![implementation artifact](./images/new_node_type/deployment%20artifacts/start_artifact.png)
-- upload a `script` to the `ScriptArtifact` that executes the `JAR-file`
+- upload a script to the ScriptArtifact that executes the JAR-file
 
 Example script to execute a `JAR-file`:
 ```bash
@@ -552,9 +552,9 @@ The function `argv_to_dict` converts the command-line arguments to a dictionary 
 The `ChainMap` class is used to merge multiple dictionaries, i.e., to merge the command-line arguments with the environment variables.
 `install_requirements` installs git.
 The file names of the Deployment Artifacts are passed as environment variables to the script under the key `DAs`, and the path to the unzipped `CSAR` folder can be found under the key `CSAR`.
-The function `install_deployment_artifacts` calculates the paths to the `Deployment Artifacts`,
+The function `install_deployment_artifacts` calculates the paths to the Deployment Artifacts,
 checks the type, and calls the correct install functions.
-`install_plugin_runner` unpacks the passed `Deployment Artifact` and installs required Python packages, `install_plugin` unpacks the passed `Deployment Artifact` into the plugins folder.
+`install_plugin_runner` unpacks the passed Deployment Artifact and installs required Python packages, `install_plugin` unpacks the passed Deployment Artifact into the plugins folder.
 In the end, `post_install` executes commands to configure the application and install more dependencies.
 
 ## Tips and tricks
@@ -564,7 +564,7 @@ In a `connectTo` operation, you can prefix the input parameters with `SOURCE_` o
 This helps in cases where the source and target Node Template have a property with the same name.
 For example, an operation definition may look like this:
 
-````xml
+```xml
 <Interface name="http://opentosca.org/interfaces/connections/db">
     <Operation name="connectTo">
         <InputParameters>
