@@ -1,7 +1,7 @@
 # Tutorial: Create Custom Node Types
 
-This tutorial takes you through the steps to create a new `Node Type` with implementation to use it in a `Topology Template`.
-The tutorial will lead you through recreating a `Node Type` from the [Tutorial: Model and Deploy an Application with OpenTOSCA](./tutorial-model-and-deploy.md).
+This tutorial takes you through the steps to create a new Node Type with implementation to use it in a Topology Template.
+The tutorial will lead you through recreating a Node Type from the [Tutorial: Model and Deploy an Application with OpenTOSCA](./tutorial-model-and-deploy.md).
 
 :information_source: Explanations of important terms can be found in the [glossary](tosca-glossary.md).
 
@@ -42,12 +42,12 @@ In this tutorial, you only need the `winery` container, but you can start the wh
 
 ## Create a new Node Type
 
-This chapter is an example of how to create a new `Node Type`.
-We will recreate the Qiskit `Node Type` from the repository `https://github.com/UST-QuAntiL/tosca-definitions-quantil` .
+This chapter is an example of how to create a new Node Type.
+We will recreate the `Qiskit` Node Type from the repository `https://github.com/UST-QuAntiL/tosca-definitions-quantil` .
 
 ### 1. Configure the Docker setup and start Winery
 
-Before a `Node Type` can be created, first start a winery instance with the main repository set to where the `Node Type` should be created.
+Before a Node Type can be created, first start a Winery instance with the main repository set to where the Node Type should be created.
 We will use the `https://github.com/UST-QuAntiL/tosca-definitions-quantil` repository for this tutorial.
 To do this, go to the opentosca-docker folder that you have cloned earlier and add a `docker-compose.override.yml` file with the following content and replace `path-to-folder` with the absolute path to the `opentosca-docker` folder:
 
@@ -64,7 +64,7 @@ services:
 
 To start only the winery container, you can use the command `docker-compose up winery`.
 
-:information_source: Reusable `Node Types` that, e.g., can be used by multiple applications, should be placed in a common repository. On the other hand, application-specific `Node Types` should be placed in the application-specific repositories.
+:information_source: Reusable Node Types that, e.g., can be used by multiple applications, should be placed in a common repository. On the other hand, application-specific `Node Types` should be placed in the application-specific repositories.
 The application-specific repository can then import the common repositories.
 Therefore, the user must create a `repositories.json` file in the repository's root directory.
 In this file, all repositories to be imported are listed with their name, repository URL, and branch:
@@ -117,12 +117,12 @@ Optionally you can create a README with markdown support, choose a license and c
 
 ![Node type readme](./images/new_node_type/readme.png)
 
-:information_source: In the case that an existing `Node Type` should be extended, go to the inheritance tab and select the `Node Type` to inherit from.
+:information_source: In the case that an existing Node Type should be extended, go to the inheritance tab and select the Node Type to inherit from.
 
 
 ### 3. Define Properties
 
-The original Qiskit `Node Type` does not have a `property`, but for this tutorial, we will define one. Open the `Property Definitions` tab.
+The original Qiskit Node Type does not have a `property`, but for this tutorial, we will define one. Open the `Property Definitions` tab.
 
 Select `Custom key/value pairs` to create new properties. Then click on the `Add` button to create a new Property.
 
@@ -139,21 +139,21 @@ Leave the rest empty and hit `Save`.
 
 ### 4. Create the Lifecycle Interface
 
-A `Node Type` in TOSCA needs to define `Interfaces` that contain the `Operations` that can be called/executed on that `Node Type`.
+A Node Type in TOSCA needs to define _Interfaces_ that contain the _Operations_ that can be called/executed on this Node Type.
 
-First, open the `Interfaces` tab.
+First, open the "Interfaces" tab.
 
-Click on the `Generate Lifecycle Interface` to create a new lifecycle interface for this `Node Type`.
+Click on the "Generate Lifecycle Interface" to create a new lifecycle interface for this Node Type.
 
-:information_source: The lifecycle interface defines operations for, e.g., installing, configuring, and starting a `Node Type`.
+:information_source: The lifecycle interface defines operations for, e.g., installing, configuring, and starting a Node Type.
 
 ![Generate Lifecycle Interface](./images/new_node_type/interfaces/generate_interfaces.png)
 
-For our Qiskit `Node Type`, we only need to install the dependency so we can delete all other operations of the lifecycle interface.
+For our Qiskit Node Type, we only need to install the dependency so we can delete all other operations of the lifecycle interface.
 
 ![Delete unused operations](./images/new_node_type/interfaces/delete_operations.png)
 
-Click on the `install` operation to define input parameters. Then, click on the `Add` button of the input parameters.
+Click on the `install` operation to define input parameters. Then, click on the "Add" button of the input parameters.
 
 ![Add input parameters](./images/new_node_type/interfaces/add_input_parameters.png)
 
@@ -165,7 +165,7 @@ Click on the `install` operation to define input parameters. Then, click on the 
 
 ![Add input parameters dialog](./images/new_node_type/interfaces/add_input_parameters_dialog.png)
 
-Hit `Add` to add the input parameter and `Save` to save the changes you made.
+Hit "Add" to add the Input Parameter and "Save" to save the changes you made.
 
 This makes the (optional) `qiskitVersion` property available to all implementations of this interface operation.
 **Be careful that the name must match exactly and is case-sensitive.**
@@ -174,15 +174,15 @@ This makes the (optional) `qiskitVersion` property available to all implementati
 
 :bangbang: **You need to press the Save button, otherwise your changes will be lost.** 
 
-:information_source: The input parameters that the `Operation` receives can come from the same `Node Type`, or any `Node Type` this `Node Type` depends on in a `Topology Template` (e.g., with a hostedOn relation). Therefore, choose unique names for properties that should not be used generically (i.e. `qiskitVersion` instead of `version`).
+:information_source: The input parameters that the Operation receives can come from the same Node Type, or any Node Type this Node Type depends on in a Topology Template (e.g., with a hostedOn relation). Therefore, choose unique names for properties that should not be used generically (i.e. `qiskitVersion` instead of `version`).
 
 :information_source: The values `VMIP`, `ContainerIP` and `IP` are handled as the same property. Hence, if you use `IP` as an `Input Paramater` in an operation you will also get the correct value if a dependent component defines `VMIP` or `ContainerIP`.
 
 
 ### 5. Create the Connection Interface
 
-`Node Types` that can connect to other `Node Types`, e.g. our Qiskit `Node Type` should be able to connect to the IBMQ cloud, need an interface implementing that connection.
-Click on the `Add` button of interfaces to create a new one.
+Node Types that can connect to other Node Types, e.g., our `Qiskit` Node Type should be able to connect to the IBMQ cloud, need an interface implementing that connection.
+Click on the "Add" button of interfaces to create a new one.
 
 ![Add interface](./images/new_node_type/interfaces/connectto/add_interface.png)
 
@@ -213,11 +213,11 @@ Add the following input parameters:
 
 ![Add input parameters](./images/new_node_type/interfaces/connectto/add_input_parameters.png)
 
-:information_source: Each `Operation` for which all required `Input Parameters` can be found in a `Topology Template` will be executed.
-This means that if you have e.g. two `connectTo` operations with the same `Input Parameters`, both will be executed for each `connectTo` `Relation`.
+:information_source: Each Operation for which all required Input Parameters can be found in a Topology Template will be executed.
+This means that if you have, e.g., two `connectTo` operations with the same Input Parameters, both will be executed for each `connectTo` Relationship.
 You can use this behavior also to control which implementation gets executed.
 
-:warning: If you want only one e.g. `connectTo` implementation to be executed, the `Operation` needs a unique set of `Input Properties` that also need to be defined in the `Implementation Artifact`.
+:warning: If you want only one e.g. `connectTo` implementation to be executed, the Operation needs a unique set of Input Parameters that also need to be defined in the Implementation Artifact.
 
 Save the changes you made.
 
@@ -227,7 +227,7 @@ Save the changes you made.
 
 ### 6. Add a Node Type Implementation
 
-Open the `implementations` tab and click on `Add` to create a new implementation.
+Open the _Implementations_ tab and click on "Add" to create a new implementation.
 
 ![Implementations](./images/new_node_type/implementations/implementations.png)
 
@@ -248,7 +248,7 @@ The new implementation opens automatically.
 
 ### 1. Add infos (optional)
 
-The new implementation opens automatically, but you can also navigate there through the `Other Elements` tab -> `Node Type Implementations` -> `CustomQiskit-Implementation`.
+The new implementation opens automatically, but you can also navigate there through the "Other Elements" tab -> "Node Type Implementations" -> `CustomQiskit-Implementation`.
 
 Here you can add a readme and license if you want.
 
@@ -256,7 +256,7 @@ Here you can add a readme and license if you want.
 
 ### 2. Create Lifecycle implementation
 
-Go to the `Implementation Artifacts` tab.
+Go to the _Implementation Artifacts_ tab.
 Add the `install` artifact.
 
 ![Add implementation artifact](./images/new_node_type/implementations/implementation_artifacts/add_new.png)
@@ -352,19 +352,19 @@ The Qiskit application can then read these values from the file.
 
 ## Deployment Artifacts
 
-`Deployment Artifacts` implement the business logic of an application, e.g., the JAR-file for a Tomcat web server.
-If you want to create a `Node Type` that has, e.g., a JAR-file as a `Deployment Artifact`, you need to create an interface with an implementation artifact that can execute this file.
-An environment variable called `DAs` is passed to `operations` and contains a list of all `Deployment Artifacts` of this `Node Type` and `Node Template`.
+_Deployment Artifacts_ implement the business logic of an application, e.g., the JAR-file for a Tomcat web server.
+If you want to create a Node Type that has, e.g., a JAR-file as a Deployment Artifact, you need to create an interface with an implementation artifact that can execute this file.
+An environment variable called `DAs` is passed to `operations` and contains a list of all Deployment Artifacts of this Node Type and Node Template.
 
-**Example with a JAR-file as `Deployment Artifact`**
+**Example with a JAR-file as Deployment Artifact**
 
-This example shows how you can create a `Node Type` with a JAR-file as `Deployment Artifact`.
+This example shows how you can create a Node Type with a JAR-file as Deployment Artifact.
 This is independent of the previous examples.
-The screenshots come from the QHAna-Backend `Node Type` that you can find in [this repository](https://github.com/UST-QuAntiL/tosca-definitions-qc-applications)
+The screenshots come from the `QHAna-Backend` Node Type that you can find in [this repository](https://github.com/UST-QuAntiL/tosca-definitions-qc-applications)
 
 - create a [new Node Type](#2-create-a-new-node-type)
-- create an [Interface](#4-create-the-lifecycle-interface) with a `start operation` for this `Node Type`
-- create a [Node Type Implementation](#6-add-a-node-type-implementation) for this `Node Type`
+- create an [Interface](#4-create-the-lifecycle-interface) with a `start operation` for this Node Type
+- create a [Node Type Implementation](#6-add-a-node-type-implementation) for this Node Type
 - add a `Deployment Artifact` to the `Node Type Implementation`
 ![deployment artifact](./images/new_node_type/deployment%20artifacts/jar_artifact.png)
 - upload the `JAR-file` to the `Deployment Artifact`
@@ -429,7 +429,7 @@ The content of `DAs` has the following format: `<DA 1 name>,<DA 1 file name>;<DA
 
 ## Example of a PythonScriptArtifact
 So far we have implemented all methods as bash scripts. But Python scripts are supported as well.
-The following example script installs `Deployment Artifacts` and requirements of the `Node Type` QHAna-PluginRunner version latest-w2.
+The following example script installs Deployment Artifacts and requirements of the `QHAna-PluginRunner_latest-w2` Node Type.
 
 ```python
 # !/usr/bin/env python
@@ -551,7 +551,7 @@ if __name__ == "__main__":
 The function `argv_to_dict` converts the command-line arguments to a dictionary for easy access.
 The `ChainMap` class is used to merge multiple dictionaries, i.e., to merge the command-line arguments with the environment variables.
 `install_requirements` installs git.
-The file names of the `Deployment Artifacts` are passed as environment variables to the script under the key `DAs`, and the path to the unzipped `CSAR` folder can be found under the key `CSAR`.
+The file names of the Deployment Artifacts are passed as environment variables to the script under the key `DAs`, and the path to the unzipped `CSAR` folder can be found under the key `CSAR`.
 The function `install_deployment_artifacts` calculates the paths to the `Deployment Artifacts`,
 checks the type, and calls the correct install functions.
 `install_plugin_runner` unpacks the passed `Deployment Artifact` and installs required Python packages, `install_plugin` unpacks the passed `Deployment Artifact` into the plugins folder.
@@ -560,8 +560,24 @@ In the end, `post_install` executes commands to configure the application and in
 ## Tips and tricks
 
 **Access input parameters of source and target Node Template:**
-In an `Implementation Artifact` of a `connectTo` interface, you can prefix environment variables with `SOURCE_` or `TARGET_` to specify whether you want the input parameter of the source or target `Node Template`, respectively.
-This helps in cases where the source and target `Node Template` have a property with the same name.
+In a `connectTo` operation, you can prefix the input parameters with `SOURCE_` or `TARGET_` to specify whether you want the input parameter of the source or target Node Template, respectively.
+This helps in cases where the source and target Node Template have a property with the same name.
+For example, an operation definition may look like this:
+
+````xml
+<Interface name="http://opentosca.org/interfaces/connections/db">
+    <Operation name="connectTo">
+        <InputParameters>
+            <InputParameter name="TARGET_DBUser" type="xsd:string" required="yes"/>
+            <InputParameter name="TARGET_DBName" type="xsd:string" required="yes"/>
+            <InputParameter name="TARGET_DBPassword" type="xsd:string" required="yes"/>
+            <InputParameter name="TARGET_DBMSPort" type="xsd:string" required="yes"/>
+            <InputParameter name="TARGET_ContainerIP" type="xsd:string" required="yes"/>
+            <InputParameter name="SOURCE_AppName" type="xsd:string" required="yes"/>
+        </InputParameters>
+    </Operation>
+</Interface>
+```
 
 **Ways to debug implementations:**
 - Enter the Docker Container or VM and execute the implementation manually
