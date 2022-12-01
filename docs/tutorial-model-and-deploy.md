@@ -245,10 +245,14 @@ Attach to the logs of `container`, `engine-ia` and `engine-plan` in two separate
 
 To verify that your deployment was actually successful open <http://localhost:9992/> (change the port if you have chosen another port for the frontend before) in your browser.
 
-### Tutorials for relations (available soon)
-
 #### Tips for connectTo
 
 + If a component is already running, restart component during the connectTo execution.
 + Save the process ID in a `${AppName}.pid` file. This ID can be used by the connectTo to end the process and start it again.
   + How to get a process ID: <https://stackoverflow.com/a/17389526/6592788>.
+
+### Additional Notes
+
+- There is also a [tutorial for create custom Node Types](tutorial-node-implementation.md).
+- It is also possible to undeploy the application using the UI.
+- It is also possible to update a deployed application using the UI.

@@ -2,6 +2,7 @@
 
 This tutorial takes you through the steps to create a new Node Type with implementation to use it in a Topology Template.
 The tutorial will lead you through recreating a Node Type from the [Tutorial: Model and Deploy an Application with OpenTOSCA](./tutorial-model-and-deploy.md).
+It is also possible to create custom Relationship Types.
 
 :information_source: Explanations of important terms can be found in the [glossary](tosca-glossary.md).
 
@@ -257,6 +258,7 @@ Here you can add a readme and license if you want.
 ### 2. Create Lifecycle implementation
 
 Go to the _Implementation Artifacts_ tab.
+We support several _Implementation Artifact Types_ including Shell Scripts, Java Services, Python and even Ansible or Chef.
 Add the `install` artifact.
 
 ![Add implementation artifact](./images/new_node_type/implementations/implementation_artifacts/add_new.png)
