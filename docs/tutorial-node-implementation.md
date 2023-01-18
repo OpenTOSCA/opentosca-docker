@@ -255,11 +255,20 @@ Here you can add a readme and license if you want.
 
 ![Implementation readme](./images/new_node_type/implementations/implementation_readme.png)
 
-### 2. Create Lifecycle implementation
+### 2. Supported Implementation Artifact Types
 
-Go to the _Implementation Artifacts_ tab.
-We support several _Implementation Artifact Types_ including Shell Scripts, Java Services, Python and even Ansible or Chef.
-Add the `install` artifact.
+We support several _Implementation Artifact Types_:
+
+- `Ansible`: Execute an Ansible playbook on the target. The playbook is automatically transferred to the target. Ansible is ensured to be installed on the target.
+- `Chef`: Execute a Chef cookbook on the target. The cookbook is automatically transferred to the target. Chef is ensured to be installed on the target.
+- `WAR`: Call the interface of an Java Web Application. The Java Web Application is automatically deployed on an Apache Tomcat.
+- `PythonArchiveArtifact`: Execute the extracted Python script on the target. The archive is automatically transferred to the target. Python and dependencies that are specified as  `requirements.txt` inside the archive are ensured to be installed on the target.
+- `PythonScriptArtifact`: Execute a Python script on the target. The script is automatically transferred to the target. Python is ensured to be installed on the target.
+- `ScriptArtifact`: Execute a script on the target, e.g., Bash or Ruby. The script is automatically transferred to the target.
+
+### 3. Create Lifecycle implementation
+
+Go to the _Implementation Artifacts_ tab and add the `install` artifact.
 
 ![Add implementation artifact](./images/new_node_type/implementations/implementation_artifacts/add_new.png)
 
@@ -284,7 +293,7 @@ Upload the script [install.sh](./images/new_node_type/implementations/implementa
 
 ![Upload artifact](./images/new_node_type/implementations/implementation_artifacts/install_upload.png)
 
-### 3. Explanation of the install script
+### 4. Explanation of the install script
 
 ```bash
 #!/bin/bash
@@ -300,7 +309,7 @@ pip install qiskit==${qiskitVersion}
 This script installs Pip, updates it, and then installs Qiskit with the specified version.
 The version can be specified with the input parameter `qiskitVersion` of the install interface and is available in the script as an environment variable.
 
-### 4. Create ConnectTo implementation
+### 5. Create ConnectTo implementation
 
 Add the `connectTo` artifact.
 Enter the following values:
@@ -328,7 +337,7 @@ Each `connectTo` should read the config file, update it and save it again to a f
 You may want to restart processes, so that they use the new config.
 To do this you can write the process IDs to a file and let the `connectTo` implementations read the process IDs from that file and restart the processes.
 
-### 5. Explanation of the ConnectTo script
+### 6. Explanation of the ConnectTo script
 
 ```bash
 #!/bin/bash
