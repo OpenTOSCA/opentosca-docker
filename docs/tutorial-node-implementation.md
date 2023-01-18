@@ -259,12 +259,12 @@ Here you can add a readme and license if you want.
 
 We support several _Implementation Artifact Types_:
 
-- Ansible Playbook: Execute an Ansible playbook on the target. The playbook is automatically transferred to the target. Ansible is ensured to be installed on the target.
-- Chef Cookbook: Execute a Chef cookbook on the target. The cookbook is automatically transferred to the target. Chef is ensured to be installed on the target.
-- Java Web Application: Call the interface of an Java Web Application. The Java Web Application is automatically deployed on an Apache Tomcat.
-- Python Archive: Execute the extracted Python script on the target. The archive is automatically transferred to the target. Python and dependencies, that are specified as  `requirements.txt` inside the archive, are ensured to be installed on the target.
-- Python Script: Execute a Python script on the target. The script is automatically transferred to the target. Python is ensured to be installed on the target.
-- Script Artifact: Execute a script on the target, e.g., Bash or Ruby. The script is automatically transferred to the target.
+- `Ansible`: Execute an Ansible playbook on the target. The playbook is automatically transferred to the target. Ansible is ensured to be installed on the target.
+- `Chef`: Execute a Chef cookbook on the target. The cookbook is automatically transferred to the target. Chef is ensured to be installed on the target.
+- `WAR`: Call the interface of an Java Web Application. The Java Web Application is automatically deployed on an Apache Tomcat.
+- `PythonArchiveArtifact`: Execute the extracted Python script on the target. The archive is automatically transferred to the target. Python and dependencies that are specified as  `requirements.txt` inside the archive are ensured to be installed on the target.
+- `PythonScriptArtifact`: Execute a Python script on the target. The script is automatically transferred to the target. Python is ensured to be installed on the target.
+- `ScriptArtifact`: Execute a script on the target, e.g., Bash or Ruby. The script is automatically transferred to the target.
 
 ### 3. Create Lifecycle implementation
 
