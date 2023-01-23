@@ -75,7 +75,7 @@ services:
     image: docker:20.10-dind
     privileged: true
     environment:
-      # Disables TLS and starts on port 23765 instead of 2376
+      # Disables TLS and starts on port 2375 instead of 2376
       - DOCKER_TLS_CERTDIR=
     networks:
       - opentosca
