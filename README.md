@@ -252,6 +252,10 @@ W: GPG error: http://ports.ubuntu.com/ubuntu-ports focal InRelease: At least one
 The problem seems to be caused by the fact that the VM hosting the Docker images had run out of disk space ([See StackOverflow](https://stackoverflow.com/a/64553153/13363767)).
 The solution is to run `docker image prune -a` or to increase the size of the virtual disk by the virtual machine that is running docker. In Docker Desktop this can be done via Preferences > Resources > Disk image size.
 
+### OpenTOSCA Container stuck at `REQ OUT`
+
+If you're connected to the network via Wifi, try to connect via LAN and replace the IP in .env with you LAN IP.
+
 ---
 
 
