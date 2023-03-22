@@ -9,6 +9,8 @@
 
 The fastest way to get started is using [Docker Compose](https://docs.docker.com/compose/):
 
+* **IMPORTANT**: Ensure that you have logged in to the GitHub Container Registry.
+  * Follow the steps described here: https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#authenticating-with-a-personal-access-token-classic
 * Create a `.env` file by coping it from `_.env`
 * Add your publicly available FQDN or IP address to the `PUBLIC_HOSTNAME` variable in the `.env` file and save it\
   (see also [I don't know my public IP](#i-don't-know-my-public-ip))
