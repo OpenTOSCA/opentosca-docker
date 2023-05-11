@@ -266,6 +266,8 @@ docker compose -p opentosca up
 ```
 or specify the project name in the environment variable `COMPOSE_PROJECT_NAME` e.g. see `_.env` file.
 
+⚠️ make sure your existing `.env` file specifies a valid project name with `COMPOSE_PROJECT_NAME`! (see error message above for the requirements)
+
 ---
 
 
