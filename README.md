@@ -243,7 +243,7 @@ This **also affects docker** as it runs as a wsl guest on modern windows install
 Check the manuals for your linux distribution on how to debug/configure ntp or how to manually configure the current time.
 
 ### `apt-get update` fails in Ubuntu container due to invalid GPG signature
-```text
+```bash
 $ sudo apt update
 …
 W: GPG error: http://ports.ubuntu.com/ubuntu-ports focal InRelease: At least one invalid signature was encountered.
@@ -255,6 +255,18 @@ The solution is to run `docker image prune -a` or to increase the size of the vi
 ### OpenTOSCA Container stuck at `REQ OUT`
 
 If you're connected to the network via Wifi, try to connect via LAN and replace the IP in .env with you LAN IP.
+
+### not a valid project name
+
+If you see an error like `"OpenTOSCA" is not a valid project name: it must contain only characters from [a-z0-9_-] and start with [a-z0-9]` you need to specify a valid project name for docker compose.
+You can do this while starting the docker compose with this command:
+```bash
+# specify project name with "-p <project name>"
+docker compose -p opentosca up
+```
+or specify the project name in the environment variable `COMPOSE_PROJECT_NAME` e.g. see `_.env` file.
+
+⚠️ make sure your existing `.env` file specifies a valid project name with `COMPOSE_PROJECT_NAME`! (see error message above for the requirements)
 
 ---
 
