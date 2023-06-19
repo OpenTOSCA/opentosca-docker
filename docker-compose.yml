@@ -47,14 +47,8 @@ services:
       - '8092:8080'
     networks:
       - opentosca
-  engine-ia-jdk8:
-    image: opentosca/engine-ia:latest-jdk8
-    ports:
-      - '8090:8080'
-    networks:
-      - opentosca
   engine-ia-jdk17:
-    image: opentosca/engine-ia:latest-jdk17
+    image: ghcr.io/opentosca/engine-ia:master
     ports:
       - '8093:8080'
     networks:
