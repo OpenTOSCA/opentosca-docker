@@ -5,20 +5,21 @@
 
 > Docker Compose file for running the entire OpenTOSCA stack.
 
-:warning: On newer docker installations `docker-compose` will be integrated into the docker cmd. If this is the case then all `docker-compose` commands must be written as `docker compose` (without the hyphen)! (See [Compose V2 and the new docker compose command](https://docs.docker.com/compose/cli-command/#compose-v2-and-the-new-docker-compose-command))
+:warning: On newer docker installations `docker-compose` will be integrated into the docker cmd. If this is the case then all `docker-compose` commands must be written as `docker compose` (without the hyphen)! (See [Compose V2 and the new docker compose command](https://docs.docker.com/compose/#compose-v2-and-the-new-docker-compose-command))
 
 The fastest way to get started is using [Docker Compose](https://docs.docker.com/compose/):
 
 * Create a `.env` file by coping it from `_.env`
 * Add your publicly available FQDN or IP address to the `PUBLIC_HOSTNAME` variable in the `.env` file and save it\
-  (see also [I don't know my public IP](#i-don't-know-my-public-ip))
+  (see also [I don't know my public IP](#i-dont-know-my-public-ip))
 * Execute the following command:
 
   ```shell
   docker-compose up
   ```
 
-Wait a few seconds, then open the [OpenTOSCA user interface](http://localhost).
+Wait a few seconds, then open the OpenTOSCA user interface which can be accessed by using your public IP address of FQDN.
+You should not access the frontend by using `http://localhost`, as there might be problems when the containers communicate with each other.
 
 More useful commands can be found in section [Useful Commands](#useful-commands).
 
@@ -54,7 +55,7 @@ A more detailed overview can be found in the [docs folder](./docs/container-over
 
 > It is recommended that your host or virtual machine has at least 4GB of memory.
 
-**NOTE:** Please check the [Docker Daemon Settings](#docker-daemon-settings)
+**NOTE:** Please check the [Docker Daemon Settings](#not-enough-ram-for-the-docker-daemon)
 
 ---
 
@@ -85,6 +86,7 @@ How-Tos explaining how to realize specific scenarios can be found in [docs/advan
 :warning: New installations of `docker-compose` are integrated into the `docker` command and must be run as `docker compose` (without the hyphen)!  (See [Compose V2 and the new docker compose command](https://docs.docker.com/compose/cli-command/#compose-v2-and-the-new-docker-compose-command))
 
 In most cases starting the containers in the background and attaching to the log of select containers in different terminals will provide the best experience.
+Remember to always run the `docker-compose` commands from within the directory containing the `docker-compose.yml` files.
 
 ```bash
 # Start services in background
@@ -142,7 +144,7 @@ For a good user experience set up your Docker environment accordingly:
 
 On some linux systems the following problem arises: https://stackoverflow.com/questions/27612209/spring-boot-application-wont-boot-at-startup-inside-docker
 
-The easiest way right now to fix it is the following: ```bash apt-get install haveged -y```
+The easiest way right now to fix it is the following: ```sudo apt-get install -y haveged```
 
 ### Some containers immediately crash after starting the environment.
 ​
@@ -175,10 +177,10 @@ To install `git lfs` follow these steps:
   2. run `git lfs install` in all git repositories used by your Winery (first `cd` into the git repository)
   3. run `git lfs pull` to download the binary files
 
-⚠️ If the lfs-files are not downloaded, the repository, and thus the modeled applications, cannot run! 
+⚠️ If the lfs-files are not downloaded, the repository, and thus the modeled applications, cannot run!
 Thus, ensure you run `git lfs pull` in every repository used by your Winery.
 
-💡 To install git lfs globally, run `git lfs install --system`. 
+💡 To install git lfs globally, run `git lfs install --system`.
 This makes git lfs automatically available for all repositories and you do not have to run git lfs pull yourself.
 This **only** works for newly cloned git repositories so make sure to check all existing repositories manually.
 

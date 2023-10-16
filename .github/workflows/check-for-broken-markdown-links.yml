@@ -1,0 +1,21 @@
+---
+name: Check for broken Markdown links
+
+on: push
+
+env:
+  DISABLE_TELEMETRY: 1
+
+jobs:
+  markdown-link-check:
+    name: Check for broken Markdown links
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@master
+      - name: Check files
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          use-quiet-mode: 'yes'
+          use-verbose-mode: 'yes'
+          config-file: 'docs/.mlc_config.json'
