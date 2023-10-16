@@ -24,7 +24,7 @@ services:
      API_ENDPOINT_HOST: ${PUBLIC_HOSTNAME}
      API_ENDPOINT_PORT: 1337
      WINERY_HOST: ${PUBLIC_HOSTNAME}
-     WINERY_PORT: 8079
+     WINERY_PORT: 8080
     ports:
       - '8088:8080'
     networks:
@@ -68,7 +68,7 @@ services:
       CONTAINER_HOSTNAME: ${PUBLIC_HOSTNAME}
       WINERY_REPOSITORY_URL: https://github.com/OpenTOSCA/tosca-definitions-example-applications
     ports:
-      - '8079:8080'
+      - '8080:8080'
     networks:
       - opentosca
   dind:
