@@ -92,6 +92,18 @@ services:
       - '80:80'
     networks:
       - opentosca
+    workflow-modeler:
+      image: workflow-modeler:local
+      networks:
+        - opentosca
+      ports:
+        -'8079:8080'
+    camunda-deployment-view-plugin:
+      image: camunda-deployment-view-plugin:local
+      networks:
+        - opentosca
+      ports:
+        -'8078:8080'
 networks:
   opentosca:
     driver: bridge
